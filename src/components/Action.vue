@@ -1,37 +1,6 @@
 <template>
   <router-link :to="navagateTo">
-      <section class="action">
-      <header class="head">
-        <img class="avator" :src="item.creator.avatar" />
-        <span class="userName">{{item.creator.username}}</span>
-        <channel :value="item.channel.name" style="flex:0 0 auto;align-self: flex-end;" />
-      </header>
-      <div class="info">
-        <div class="txt">
-          <h2 class="title">{{item.name}}</h2>
-          <div class="time">
-            <app-icon link="#icon-clock" :iconStyle="clockIconStyle" />
-            <p>{{actionTime}}</p>
-          </div>
-          <p class="content">
-            {{item.description}}
-          </p>
-        </div>
-        <div class="img" v-if="item.images && item.images.length">
-          <img :src="item.images[0]" />
-        </div>
-      </div>
-      <div class="operation">
-        <div class=" item go">
-          <app-icon link="#icon-right" :iconStyle="goIconStyle" />
-          <span>{{item.me_going?'I am going!':`${item.going_count||0} Going`}}</span>
-        </div>
-        <div class="item like">
-          <app-icon link="#icon-custom-love" :iconStyle="likeIconStyle" />
-          <span>{{item.me_likes?'I like it':`${item.likes_count||0} Likes`}}</span>
-        </div>
-      </div>
-    </section>
+    
   </router-link>
 </template>
 <script lang="ts">
@@ -67,20 +36,22 @@ export default class AppAction extends Vue {
   private get goIconStyle() {
     return {
       fontSize: px2px(24),
-      color: this.item.me_going ? '#AECB4F' : '#AC8EC9',
+      color:  '#AC8EC9',
     };
   }
   private get likeIconStyle() {
     return {
       fontSize: px2px(24),
-      color: this.item.me_likes ? '#FF5C5C' : '#AC8EC9',
+      color: '#AC8EC9',
     };
   }
   private get actionTime() {
-    return toLocalString(this.item.begin_time) + ' - ' + toLocalString(this.item.end_time);
+    return '';
+    // return toLocalString(this.item.begin_time) + ' - ' + toLocalString(this.item.end_time);
   }
   private get navagateTo() {
-    return '/home/' + this.item.id;
+    return '';
+    // return '/home/' + this.item.id;
   }
 }
 </script>

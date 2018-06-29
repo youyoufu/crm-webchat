@@ -1,4 +1,4 @@
-let { devServer } = require('./.config.js');
+let { devServer,proServer } = require('./.config.js');
 
 module.exports = {
   // Project deployment base
@@ -67,7 +67,7 @@ module.exports = {
   // configure webpack-dev-server behavior
   devServer: {
     open: process.platform === 'darwin',
-    host: '0.0.0.0',
+    host: proServer,
     port: 8080,
     https: false,
     hotOnly: false,

@@ -4,7 +4,8 @@ import Sign from '@/views/Sign.vue';
 import Home from '@/views/Home.vue';
 import Detail from '@/views/Detail.vue';
 import Me from '@/views/Me.vue';
-import { hasLogin } from '@/util/session';
+import { hasLogin,saveLogin } from '@/util/session';
+import { stringifPath } from '@/api/index';
 
 Vue.use(Router);
 
@@ -38,20 +39,22 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  // if (to.matched.some((record) => record.meta.requiredAuth)) {
-  //   // this route requires auth, check if logged in
-  //   // if not, redirect to login page.
-  //   if (!hasLogin()) {
-  //     next({
-  //       path: '/',
-  //       query: { redirect: to.fullPath },
-  //     });
-  //   } else {
-  //     next();
-  //   }
-  // } else {
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to autologin.
+    if (!hasLogin()) {
+      saveLogin('youyoufu');
+      window.location.href= stringifPath('auto');
+      // next({
+      //   path: '/',
+      //   query: { redirect: to.fullPath },
+      // });
+    } else {
+      next();
+    }
+  } else {
     next(); // 确保一定要调用 next()
-  // }
+  }
 });
 
 export default router;
