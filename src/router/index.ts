@@ -4,6 +4,7 @@ import Sign from '@/views/Sign.vue';
 import Home from '@/views/Home.vue';
 import Detail from '@/views/Detail.vue';
 import Me from '@/views/Me.vue';
+import Task from '@/views/Task.vue';
 import { hasLogin,saveLogin } from '@/util/session';
 import { stringifPath } from '@/api/index';
 
@@ -35,6 +36,12 @@ const router = new Router({
       component: Me,
       meta: { requiredAuth: true },
     },
+    {
+      path:'/task',
+      name:'task',
+      component:Task,
+      meta: { requiredAuth: true },
+    }
   ],
 });
 
@@ -44,11 +51,10 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to autologin.
     if (!hasLogin()) {
       saveLogin('youyoufu');
-      window.location.href= stringifPath('auto');
-      // next({
-      //   path: '/',
-      //   query: { redirect: to.fullPath },
-      // });
+      next({
+        path: '/',
+        query: { redirect: to.fullPath },
+      });
     } else {
       next();
     }

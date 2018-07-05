@@ -1,6 +1,6 @@
 import { ActionTree, MutationTree, ActionContext } from 'vuex';
-import { login, loginOut, LoginInfo } from '@/api/login';
-import { getUserInfo, getUserActions } from '@/api/user';
+import { login, LoginInfo } from '@/api/login';
+import { getUserInfo} from '@/api/user';
 import { User } from './user';
 import { RootState } from '../../rootstate';
 

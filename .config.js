@@ -2,6 +2,6 @@
 
 module.exports = {
   // devServer: 'http://localhost:3000',
-  devServer: 'http://api.uu.net',
-  proServer: 'm.test.net',
+  devServer: 'http://m.crm.com',
+  proServer: 'm.crm.com',
 };
