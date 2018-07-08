@@ -8,7 +8,7 @@
         <app-icon link="#icon-cat" :iconStyle="iconSize" @click.native.stop="clickCenter" />
       </li>
       <li class="item right">
-        <img :src="avatar" @click.stop="clickRight" />
+        <!-- <img :src="avatar" @click.stop="clickRight" /> -->
       </li>
     </ul>
   </div>
@@ -16,14 +16,14 @@
 
 <script lang="ts">
 import { Component, Prop, Emit , Vue } from 'vue-property-decorator';
-import AppIcon from './AppIcon.vue';
-import {PREFIX} from '@/store/modules/user/CONSTANTS';
+// import AppIcon from './AppIcon.vue';
+// import {PREFIX} from '@/store/modules/user/CONSTANTS';
 import px2px from '@/util/px2px';
 
 @Component({
-  components: {
-    AppIcon,
-  },
+  // components: {
+  //   AppIcon,
+  // },
 })
 export default class TopNav extends Vue {
   @Prop({required: true})
@@ -33,9 +33,9 @@ export default class TopNav extends Vue {
   private get iconSize() {
     return px2px(48);
   }
-  private get avatar() {
-    return this.$store.state[PREFIX].avatar;
-  }
+  // private get avatar() {
+    // return this.$store.state[PREFIX].avatar;
+  // }
   private clickLeft() {
     this.$emit('left');
   }

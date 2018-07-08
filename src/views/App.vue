@@ -5,16 +5,18 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { PREFIX, actions } from '@/store/modules/user/CONSTANTS';
+// import { PREFIX, actions } from '@/store/modules/user/CONSTANTS';
 
 @Component
 export default class App extends Vue {
   private created() {
-    let user = this.$store.state[PREFIX];
-    if (!user || !user.id) {
-      console.log(1111);
-      // this.$store.dispatch(actions.getUserInfo);
-    }
+    console.log(1111);
+
+    // let user = this.$store.state[PREFIX];
+    // if (!user || !user.id) {
+    //   console.log(1111);
+    //   // this.$store.dispatch(actions.getUserInfo);
+    // }
   }
 }
 </script>

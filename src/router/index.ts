@@ -13,29 +13,24 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/',
-      name: 'sign',
-      component: Sign,
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      meta: { requiredAuth: true },
-    },
-    {
-      path: '/home/:id',
-      name: 'detail',
-      component: Detail,
-      meta: { requiredAuth: true },
-    },
-    {
-      path: '/me',
-      name: 'me',
-      component: Me,
-      meta: { requiredAuth: true },
-    },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   component: Home,
+    //   meta: { requiredAuth: true },
+    // },
+    // {
+    //   path: '/home/:id',
+    //   name: 'detail',
+    //   component: Detail,
+    //   meta: { requiredAuth: true },
+    // },
+    // {
+    //   path: '/me',
+    //   name: 'me',
+    //   component: Me,
+    //   meta: { requiredAuth: true },
+    // },
     {
       path:'/task',
       name:'task',
@@ -52,7 +47,7 @@ router.beforeEach((to, from, next) => {
     if (!hasLogin()) {
       saveLogin('youyoufu');
       next({
-        path: '/',
+        path: '/task',
         query: { redirect: to.fullPath },
       });
     } else {

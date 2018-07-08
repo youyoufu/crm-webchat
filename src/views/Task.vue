@@ -44,11 +44,11 @@ export default class Task extends Vue {
     // });
   }
   private created() {
-    alert('init page...');
-    this.products = getTaskList();
-    console.log(123,this.products);
+    // alert('init page...');
+    // this.products = getTaskList();
+    this.$store.dispatch(actions.getAllProducts);
+    console.log(123,this.$store);
 
-    // this.$store.dispatch(actions.getAllProducts);
   }
 }
 </script>

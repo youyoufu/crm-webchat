@@ -14,7 +14,7 @@ const mutations = {
 };
 const actions = {
   getAllProducts({ commit }) {
-    shop.getProducts(products => {
+    task.getProducts(products => {
       commit('setProducts', products);
     });
   }

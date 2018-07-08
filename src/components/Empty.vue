@@ -7,13 +7,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import AppIcon from '@/components/AppIcon.vue';
+// import AppIcon from '@/components/AppIcon.vue';
 import px2px from '@/util/px2px';
 
 @Component({
-  components: {
-    AppIcon,
-  },
+  // components: {
+  //   AppIcon,
+  // },
 })
 export default class Empty extends Vue {
   @Prop({default: 'No result found'}) private tip!: string;

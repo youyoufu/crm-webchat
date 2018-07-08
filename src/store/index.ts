@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import user from './modules/user';
-import list from './modules/list';
-import filter from './modules/filter';
+// import user from './modules/user';
+// import list from './modules/list';
+import task from './modules/task';
 import { saveLogin, loginOut, TOKEN } from '@/util/session';
 import { getCookie } from '@/util/cookie';
 
@@ -22,8 +22,9 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    user,
-    list,
-    filter,
+    task
+    // user,
+    // list,
+    // filter,
   },
 });
