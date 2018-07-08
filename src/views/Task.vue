@@ -3,7 +3,7 @@
    您好,1233<div @click.stop="send">
       Click me!!!{{msg}}
     </div> 
-      <!-- <ul>
+     <ul>
     <li v-for="product in products">
       {{ product.title }} - {{ product.price | currency }}
       <br>
@@ -13,7 +13,7 @@
         Add to cart
       </button>
     </li>
-  </ul> -->
+  </ul> 
   </div>
 </template>
 <script lang="ts">
@@ -31,11 +31,13 @@ import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
 })
 export default class Task extends Vue {
   private msg: string = '';
-  private products;
+  private get products() {
+    return this.$store.state[PREFIX]['products'];
+  }
   private send() {
     console.log(isWifi());
-    this.products = getTaskList();
-    console.log(123,this.products);
+    // this.products = getTaskList();
+    // console.log(123,this.products);
     // .then(() => {
     //   this.msg = '嗡嗡嗡';
     // })
@@ -46,9 +48,15 @@ export default class Task extends Vue {
   private created() {
     // alert('init page...');
     // this.products = getTaskList();
-    this.$store.dispatch(actions.getAllProducts);
-    console.log(123,this.$store);
-
+    let dd = this.$store.dispatch(actions.getAllProducts);
+    dd
+      .then(data => {
+        this.msg = '嗡嗡嗡';
+        console.log(222, this.$store.state);
+      })
+      .catch((e: Error) => {
+        this.msg = 'err 555';
+      });
   }
 }
 </script>

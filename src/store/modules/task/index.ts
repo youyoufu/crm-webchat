@@ -6,14 +6,14 @@ import { RootState } from '../../rootstate';
 const namespaced = true;
 
 const state = () => ({
-  all: []
+  products: []
 });
 
 const getters: GetterTree<List, RootState> = {};
 const actions: ActionTree<List, RootState> = {
   getAllProducts({ commit, state }) {
     task.getProducts(({ products }: { products: List[] }) => {
-      commit('setProducts', products);
+    return  commit('setProducts', products);
     });
     // return task.getProducts().then(({ products }: { products: List[] }) => {
     //   commit('setProducts', products);
@@ -23,7 +23,7 @@ const actions: ActionTree<List, RootState> = {
 
 const mutations: MutationTree<List> = {
   setProducts(state, products) {
-    state.all = products;
+    state.products = {...products};
   }
 };
 

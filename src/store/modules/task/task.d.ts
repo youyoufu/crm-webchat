@@ -1,5 +1,5 @@
 export interface List {
-  all: Array<{  id:string;
+  products: Array<{  id:string;
     title:string;
     price:string;
     inventory:string;}>;
