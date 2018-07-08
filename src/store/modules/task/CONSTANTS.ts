@@ -1,11 +1,9 @@
-export const PREFIX = 'list';
+export const PREFIX = 'task';
 
-const getList = `${PREFIX}/getList`;
-const getMoreList = `${PREFIX}/getMoreList`;
+const getAllProducts = `${PREFIX}/getAllProducts`;
 
 const actions = {
-  getList,
-  getMoreList,
+  getAllProducts
 };
 
 export { actions };

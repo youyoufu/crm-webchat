@@ -1,59 +1,30 @@
 import { ActionTree, ActionContext, GetterTree, MutationTree } from 'vuex';
-import { getActions, getActionById, Filter } from '@/api/action';
-import { getChannels } from '@/api/channel';
-import { Action, List } from './list';
+import task from '@/api/task';
+import { List } from './task';
 import { RootState } from '../../rootstate';
 
 const namespaced = true;
 
 const state = () => ({
-  data: [],
-  has_more: true,
+  all: []
 });
 
-const getters: GetterTree<List, RootState> = {
-  getDetail(state) {
-    return (id: number) => {
-      let finds = state.data.filter((v) => v.id === id);
-      if (finds.length) {
-        return finds[0];
-      }
-      return null;
-    };
-  },
-};
-
+const getters: GetterTree<List, RootState> = {};
 const actions: ActionTree<List, RootState> = {
-  getList({ commit, state }, payload: Filter) {
-    return getActions(payload).then(
-      ({ events, hasMore }: { events: Action[]; hasMore: boolean }) => {
-        commit('updateList', events);
-        commit('updateHasMore', hasMore);
-      },
-    );
-  },
-  getMoreList({ commit, state }, payload: Filter) {
-    if (state.has_more) {
-      return getActions(payload).then(
-        ({ events, hasMore }: { events: Action[]; hasMore: boolean }) => {
-          commit('appendList', events);
-          commit('updateHasMore', hasMore);
-        },
-      );
-    }
-  },
+  getAllProducts({ commit, state }) {
+    task.getProducts(({ products }: { products: List[] }) => {
+      commit('setProducts', products);
+    });
+    // return task.getProducts().then(({ products }: { products: List[] }) => {
+    //   commit('setProducts', products);
+    // });
+  }
 };
 
 const mutations: MutationTree<List> = {
-  updateList(state, list) {
-    state.data = [...list];
-  },
-  appendList(state, list) {
-    state.data = [...state.data, ...list];
-  },
-  updateHasMore(state, hasMore) {
-    state.has_more = hasMore;
-  },
+  setProducts(state, products) {
+    state.all = products;
+  }
 };
 
 export default {
@@ -61,5 +32,5 @@ export default {
   getters,
   actions,
   mutations,
-  namespaced,
+  namespaced
 };

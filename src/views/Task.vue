@@ -1,9 +1,19 @@
 <template>
   <div class="task" >
-    您好,1233
-        <div @click.stop="send">
-          Click me!!!{{msg}}
-    </div>
+   您好,1233<div @click.stop="send">
+      Click me!!!{{msg}}
+    </div> 
+      <!-- <ul>
+    <li v-for="product in products">
+      {{ product.title }} - {{ product.price | currency }}
+      <br>
+      <button
+        :disabled="!product.inventory"
+        @click="addProductToCart(product)">
+        Add to cart
+      </button>
+    </li>
+  </ul> -->
   </div>
 </template>
 <script lang="ts">
@@ -12,6 +22,7 @@ import TopNav from '@/components/TopNav.vue';
 import { getTaskList } from '@/api/task';
 import { isWifi } from '@/util/network';
 // import Toast from '../plugins/Toast/Toast.vue';
+import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
 
 @Component({
   components: {
@@ -20,19 +31,25 @@ import { isWifi } from '@/util/network';
 })
 export default class Task extends Vue {
   private msg: string = '';
+  private products;
   private send() {
-    alert(isWifi());
-    getTaskList()
-      .then(() => {
-        this.msg = '嗡嗡嗡';
-      })
-      .catch((e: Error) => {
-        this.msg = 'err 555';
-      });
+    console.log(isWifi());
+    this.products = getTaskList();
+    console.log(123,this.products);
+    // .then(() => {
+    //   this.msg = '嗡嗡嗡';
+    // })
+    // .catch((e: Error) => {
+    //   this.msg = 'err 555';
+    // });
   }
-  // private created(){
-  //   alert(isWifi);
-  // }
+  private created() {
+    alert('init page...');
+    this.products = getTaskList();
+    console.log(123,this.products);
+
+    // this.$store.dispatch(actions.getAllProducts);
+  }
 }
 </script>
 <style lang="scss" scoped>
