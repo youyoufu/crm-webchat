@@ -1,5 +1,6 @@
 <template>
   <div class="task" >
+    <UploadImg />
    您好,1233<div @click.stop="send">
       Click me!!!{{msg}}
     </div> 
@@ -19,6 +20,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TopNav from '@/components/TopNav.vue';
+import UploadImg from '@/components/UploadImg.vue';
 import { getTaskList } from '@/api/task';
 import { isWifi } from '@/util/network';
 // import Toast from '../plugins/Toast/Toast.vue';
@@ -26,7 +28,8 @@ import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
 
 @Component({
   components: {
-    TopNav
+    TopNav,
+    UploadImg
   }
 })
 export default class Task extends Vue {

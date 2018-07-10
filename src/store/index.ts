@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import user from './modules/user';
+import user from './modules/user';
 // import list from './modules/list';
 import task from './modules/task';
 import { saveLogin, loginOut, TOKEN } from '@/util/session';
@@ -22,8 +22,8 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    task
-    // user,
+    task,
+    user
     // list,
     // filter,
   },

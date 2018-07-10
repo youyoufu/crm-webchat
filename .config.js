@@ -2,6 +2,6 @@
 
 module.exports = {
   // devServer: 'http://localhost:3000',
-  devServer: 'http://m.crm.com',
-  proServer: 'm.crm.com',
+  devServer: 'http://www.yupianzhou.com/',
+  proServer: 'www.yupianzhou.com',
 };

@@ -1,10 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Sign from '@/views/Sign.vue';
-import Home from '@/views/Home.vue';
-import Detail from '@/views/Detail.vue';
-import Me from '@/views/Me.vue';
+import Login from '@/views/Login.vue';
 import Task from '@/views/Task.vue';
+import Bind from '@/views/BindUser.vue';
+import User from '@/views/User.vue';
 import { hasLogin,saveLogin } from '@/util/session';
 import { stringifPath } from '@/api/index';
 
@@ -13,24 +12,21 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   component: Home,
-    //   meta: { requiredAuth: true },
-    // },
-    // {
-    //   path: '/home/:id',
-    //   name: 'detail',
-    //   component: Detail,
-    //   meta: { requiredAuth: true },
-    // },
-    // {
-    //   path: '/me',
-    //   name: 'me',
-    //   component: Me,
-    //   meta: { requiredAuth: true },
-    // },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/bind',
+      name: 'bind',
+      component: Bind
+    },
+    {
+      path:'/user',
+      name:'user',
+      component:User,
+    },
     {
       path:'/task',
       name:'task',
@@ -46,10 +42,10 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to autologin.
     if (!hasLogin()) {
       saveLogin('youyoufu');
-      next({
-        path: '/task',
-        query: { redirect: to.fullPath },
-      });
+      // next({
+      //   path: '/task',
+      //   query: { redirect: to.fullPath },
+      // });
     } else {
       next();
     }

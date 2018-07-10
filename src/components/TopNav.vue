@@ -2,10 +2,10 @@
   <div class="topNav">
     <ul class="list">
       <li class="item left">
-        <app-icon :link="left" :iconStyle="iconSize" @click.native.stop="clickLeft" />
+        <!-- <app-icon :link="left" :iconStyle="iconSize" @click.native.stop="clickLeft" /> -->
       </li>
       <li class="item center">
-        <app-icon link="#icon-cat" :iconStyle="iconSize" @click.native.stop="clickCenter" />
+        <!-- <app-icon link="#icon-cat" :iconStyle="iconSize" @click.native.stop="clickCenter" /> -->
       </li>
       <li class="item right">
         <!-- <img :src="avatar" @click.stop="clickRight" /> -->

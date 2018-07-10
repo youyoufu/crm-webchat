@@ -10,8 +10,6 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class App extends Vue {
   private created() {
-    console.log(1111);
-
     // let user = this.$store.state[PREFIX];
     // if (!user || !user.id) {
     //   console.log(1111);

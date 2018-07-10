@@ -1,6 +1,7 @@
 <template>
   <div class="empty" :style="emptyStyle">
-    <app-icon link="#icon-notfound" :iconStyle="iconStyle"/>
+    
+    <!-- <app-icon link="#icon-notfound" :iconStyle="iconStyle"/> -->
     <p>{{tip}}</p>
   </div>
 </template>

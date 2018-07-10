@@ -30,3 +30,11 @@ export function isWifi() {
   console.log(wifi)
   return wifi;
 }
+export function getClient() {
+  let client= 'm';
+  let ua = navigator.userAgent;
+  if (ua.indexOf('MicroMessenger') > -1) {
+    client = 'wx';
+  }
+  return client;
+}
