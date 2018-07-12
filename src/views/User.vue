@@ -87,15 +87,6 @@ export default class Login extends Vue {
     position: absolute;
     bottom: 20px;
     left: 200px;
-    color: #fff;
-    span {
-      display: inline-block;
-      line-height: 34px;
-      background: $themeMain;
-      border-radius: 4px;
-      padding: 10px 15px;
-      margin: 20px auto;
-    }
   }
 }
 </style>

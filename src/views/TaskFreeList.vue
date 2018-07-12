@@ -1,14 +1,14 @@
 <template>
   <div class="info" >
-     <div class="tips1">确认收货后，系统返款给你，就是完成任务啦，系统多奖励您一次免单任务，请从下面任务中挑选一个，当日完成。</div>
+     <div class="tips1">每天最多做10个挖宝任务，每小时最多3个。挖一个宝奖励2毛钱+1积分。30个积分可兑换一次免单任务。</div>
     <div class="task-list mtop50">
   <div class="task">
     <img class="task-img" src="../assets/imgs/demo.png"  />
- <span class="btn-gray">立即领取</span>
+ <span class="btn-gray">挖这个宝</span>
   </div>
   <div class="task"> 
     <img class="task-img" src="../assets/imgs/demo.png"  />
-    <span class="btn-gray">立即领取</span>
+    <span class="btn-gray">挖这个宝</span>
     </div>
     </div>
     </div> 

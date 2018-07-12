@@ -6,7 +6,7 @@
       任务编号：<span class="red">**</span>
     </div>
     <div class="right">
-      任务奖励：<span class="red">**</span>
+      任务赠品：<span class="red">**</span>
     </div>
     </div>
     <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>

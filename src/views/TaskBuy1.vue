@@ -1,6 +1,5 @@
 <template>
   <div class="info" >
-    <div class="my">
     <div class="base mtop50">
     <div class="left">
       任务编号：<span class="red">**</span>
@@ -28,7 +27,6 @@
     </div>
 </div>
     <div class="bottom-tips ">验证通过，将自动进入任务说明页面</div>
-    </div> 
     </div> 
 </template>
 <script lang="ts">
@@ -94,9 +92,7 @@ export default class TaskFree extends Vue {
       left: 0;
     }
   }
-  .mtop50 {
-    margin-top: 50px;
-  }
+ 
   .upload {
     margin-left: 60px;
   }

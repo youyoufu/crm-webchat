@@ -4,7 +4,7 @@
     <input v-model="user" placeholder="输入手机号"/>
     <div class="psw">
     <input v-model="otherid" placeholder="输入淘宝账户"/>
-    <div class="btn upload"><span class="hollow">上传账户截图</span></div>
+    <!-- <div class="btn upload"><span class="hollow">上传账户截图</span></div> -->
     </div>
     <div class="tips gray">如何查看淘宝账号？</div>
     <div class="btn" @click.stop.prevent="login"><span>登陆</span></div>
@@ -59,13 +59,6 @@ export default class Login extends Vue {
     color: gray;
     font-size: 28px;
   }
- 
-  
-  .hollow {
-      color: $themeMain;
-      border: 1px solid $themeMain;
-      background: none;
-    }
   .psw {
     height: 100px;
     position: relative;

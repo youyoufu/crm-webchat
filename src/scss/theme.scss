@@ -32,6 +32,15 @@ body {
   padding: 10px 15px;
   margin: 20px auto;
 }
+.btn-gray {
+  color: #333;
+  display: inline-block;
+  line-height: 34px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 20px auto;
+}
 .btn-hollow,.upload {
   color: $themeMain;
   display: inline-block;
@@ -74,4 +83,11 @@ input {
   height: 56px;
   padding-top: 20px;
   color:$themeMain;
+}
+.mtop50 {
+  margin-top: 50px;
+}
+.red {
+  color: brown;
+  font-weight: bold;
 }

@@ -90,10 +90,7 @@ textarea{
   .mtop50 {
     margin-top: 50px;
   }
-  .red {
-    color: brown;
-    font-weight: bold;
-  }
+
   .bottom {
     text-align: center;
     font-size: 32px;
