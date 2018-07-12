@@ -1,8 +1,11 @@
 <template>
   <div class="task" >
     <UploadImg />
+         <div><input value="11112222"><div v-clipboard:copy="copyInfo"
+        v-clipboard:success="onCopy">复制</div>
    您好,1233<div @click.stop="send">
       Click me!!!{{msg}}
+ </div>
     </div> 
      <ul>
     <li v-for="product in products">
@@ -19,13 +22,15 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import VueClipboard from 'vue-clipboard2';
 import TopNav from '@/components/TopNav.vue';
 import UploadImg from '@/components/UploadImg.vue';
 import { getTaskList } from '@/api/task';
 import { isWifi } from '@/util/network';
 // import Toast from '../plugins/Toast/Toast.vue';
 import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
-
+import Toast from '../plugins/Toast/Toast.vue';
+Vue.use(VueClipboard);
 @Component({
   components: {
     TopNav,
@@ -34,8 +39,12 @@ import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
 })
 export default class Task extends Vue {
   private msg: string = '';
+  private copyInfo: string = '231231231212';
   private get products() {
     return this.$store.state[PREFIX]['products'];
+  }
+  private onCopy() {
+    console.log('复制成功');
   }
   private send() {
     console.log(isWifi());
@@ -64,6 +73,8 @@ export default class Task extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .task {
   padding-top: 80px;
   position: absolute;

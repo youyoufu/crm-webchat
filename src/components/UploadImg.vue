@@ -25,5 +25,6 @@ export default class UploadImg extends Vue {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
 

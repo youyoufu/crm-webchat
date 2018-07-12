@@ -30,6 +30,8 @@ export default class BindUser extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .login {
   font-size: 28px;
   margin: 40px auto;
@@ -49,7 +51,7 @@ export default class BindUser extends Vue {
     span {
       display: inline-block;
       line-height: 34px;
-      background: rgb(18, 140, 54);
+      background: $themeMain;
       border-radius: 4px;
       padding: 10px 15px;
       margin: 20px;

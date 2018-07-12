@@ -45,6 +45,8 @@ export default class Login extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .login {
   font-size: 28px;
   margin: 80px auto 0 80px;
@@ -57,32 +59,13 @@ export default class Login extends Vue {
     color: gray;
     font-size: 28px;
   }
-  input {
-    font-size: 34px;
-    width: 350px;
-    border: 1px solid #999;
-    padding: 10px 20px;
-    margin: 20px 0;
-    &::-webkit-input-placeholder {
-      color: #bbb;
-    }
-  }
-  .btn {
-    color: #fff;
-    span {
-      display: inline-block;
-      line-height: 34px;
-      background: rgb(18, 140, 54);
-      border-radius: 4px;
-      padding: 10px 15px;
-      margin: 20px auto;
-    }
-    .hollow {
-      color: rgb(18, 140, 54);
-      border: 1px solid rgb(18, 140, 54);
+ 
+  
+  .hollow {
+      color: $themeMain;
+      border: 1px solid $themeMain;
       background: none;
     }
-  }
   .psw {
     height: 100px;
     position: relative;

@@ -40,6 +40,8 @@ export default class Login extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .info {
   font-size: 28px;
   .tips {
@@ -89,7 +91,7 @@ export default class Login extends Vue {
     span {
       display: inline-block;
       line-height: 34px;
-      background: rgb(18, 140, 54);
+      background: $themeMain;
       border-radius: 4px;
       padding: 10px 15px;
       margin: 20px auto;
