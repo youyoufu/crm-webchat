@@ -12,7 +12,8 @@
      <div class="tips1">复制下面淘口令，打开手机淘宝，按说明截图</div>
    <div class="copy-block">
     <input v-model="otherid" readonly value="taskName"/>
-    <div class="btn-hollow copy"><span class="hollow">立刻点击复制</span></div>
+    <div class="btn-hollow copy"   v-clipboard:copy="taskName"
+        v-clipboard:success="onCopy"><span class="hollow">立刻点击复制</span></div>
     </div>
 <div class="upload-block">
   <div>
@@ -32,12 +33,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UploadImg from '@/components/UploadImg.vue';
+import Toast from '../plugins/Toast/Toast.vue';
+
 @Component({
   components: { UploadImg }
 })
 export default class TaskFree extends Vue {
-  private taskName = '北极绒女士';
+  private taskName: string = '北极绒女士';
+
   private created() {}
+  private onCopy() {
+    this.$toast('复制成功');
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -92,7 +99,7 @@ export default class TaskFree extends Vue {
       left: 0;
     }
   }
- 
+
   .upload {
     margin-left: 60px;
   }

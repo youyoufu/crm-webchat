@@ -3,8 +3,8 @@
     <div class="my">
     <div class="tips">Hello,*****</div>
     <div class="text mtop50">
-      免单任务：<span class="red">**</span><span class="mright">次</span>
-      挖宝任务：<span class="red">**</span><span class="mright">次</span>
+      免单任务：<span class="red">**</span><span class="mright40">次</span>
+      挖宝任务：<span class="red">**</span><span class="mright40">次</span>
       积分：<span class="red">**</span>
     </div>
         <p class="text mtop50">
@@ -54,22 +54,12 @@ export default class Login extends Vue {
   }
   .my {
     border-radius: 8px;
-    background: #fbf8f8;
+    background: rgba(204, 204, 204, 0.1);
     padding: 20px;
     margin: 30px;
   }
   p {
     line-height: 40px;
-  }
-  .mtop50 {
-    margin-top: 50px;
-  }
-  .mright {
-    margin-right: 50px;
-  }
-  .red {
-    color: brown;
-    font-weight: bold;
   }
   .record {
     height: 70px;

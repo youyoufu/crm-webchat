@@ -27,9 +27,8 @@ import TopNav from '@/components/TopNav.vue';
 import UploadImg from '@/components/UploadImg.vue';
 import { getTaskList } from '@/api/task';
 import { isWifi } from '@/util/network';
-// import Toast from '../plugins/Toast/Toast.vue';
 import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
-import Toast from '../plugins/Toast/Toast.vue';
+// import Toast from '../plugins/Toast/Toast.vue';
 Vue.use(VueClipboard);
 @Component({
   components: {

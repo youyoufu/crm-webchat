@@ -1,9 +1,9 @@
 <template>
   <div class="login" >
     <div class="tips">先点击解绑账号，再绑定新的账号</div>
-    <div class="btn">
-      <span>解绑淘宝账户</span>
-      <span>解绑京东账户</span>
+    <div>
+      <span class="btn mright40">解绑淘宝账户</span>
+      <span class="btn">解绑京东账户</span>
     </div>
     <div class="tips">上传账户截图，绑定新账号</div>
     <div class="tips-white">进入手机淘宝，我的淘宝->设置，进行截图</div>
@@ -11,9 +11,9 @@
     <div class="demo">
       <span>示例：</span><img src="../assets/imgs/demo.png"  />
     </div>
-    <div class="btn"><span class="longbtn">上传账户截图</span></div>
+    <div><span class="btn longbtn">上传账户截图</span></div>
     <div class="tips-white">自动识别账户：</div>
-    <div class="btn mtop100"><span class="longbtn">点击绑定新账户</span></div>
+    <div class="mtop50"><span class="btn longbtn">点击绑定新账户</span></div>
     <div class="tips-white bigger">绑定结果</div>
     </div> 
 </template>
@@ -74,9 +74,7 @@ export default class BindUser extends Vue {
   .longbtn {
     width: 400px;
   }
-  .mtop100 {
-    margin-top: 100px;
-  }
+
   .bigger {
     font-size: 34px;
   }

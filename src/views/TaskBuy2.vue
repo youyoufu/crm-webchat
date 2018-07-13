@@ -14,7 +14,8 @@
 
    <div class="copy-block">
     <input v-model="otherid" readonly value="taskName"/>
-    <div class="btn-hollow copy"><span class="hollow">点击复制</span></div>
+    <div class="btn-hollow copy"  v-clipboard:copy="taskName"
+        v-clipboard:success="onCopy"><span class="hollow">点击复制</span></div>
     </div>
      <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将****加入购物车</div>
    <img class="longGoodimg" src="../assets/imgs/demo.png"  />
@@ -38,6 +39,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class TaskFree extends Vue {
   private taskName = '北极绒女士';
   private created() {}
+   private onCopy() {
+    this.$toast('复制成功');
+  }
 }
 </script>
 <style lang="scss" scoped>

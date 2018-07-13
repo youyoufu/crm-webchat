@@ -55,7 +55,7 @@ export function upLoad() {
             //res.localIds 是一个数组　保存了用户一次性选择的所有图片的信息
             // images.localId = res.localIds; //把图片的路径保存在images[localId]中--图片本地的id信息，用于上传图片到微信浏览器时使用
             //  her.upNum+=res.localIds.length;
-            ulLoadToWechat(0); //把这些图片上传到微信服务器  一张一张的上传
+            this.ulLoadToWechat(0); //把这些图片上传到微信服务器  一张一张的上传
           }
         });
       }

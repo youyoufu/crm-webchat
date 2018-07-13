@@ -17,7 +17,7 @@ export default class Toast extends Vue {
       this.msg = msg;
       this.$nextTick(function() {
         this.showTimer = window.setTimeout(() => {
-          this.showing = true;
+          this.showing = false;
         }, 5000);
       });
     }
