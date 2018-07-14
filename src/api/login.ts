@@ -2,7 +2,7 @@ import { internalFetch, deletx } from '@/util/fetch';
 import { saveLogin, loginOut as logout } from '@/util/session';
 import { stringifPath } from './index';
 
-const PATH = '/auth/token';
+const PATH = '/login/connect';
 
 export interface LoginInfo {
   username: string;
@@ -11,9 +11,9 @@ export interface LoginInfo {
 }
 
 /* 登陆 */
-export function login({ username, otherid, type }: LoginInfo) {
-  return internalFetch('POST')(true)(stringifPath(PATH), {
-    body: { username, otherid, type }
+export function login() {
+  return internalFetch('GET')(true)(stringifPath(PATH), {
+    body: { sellerId: '1' }
   });
 }
 

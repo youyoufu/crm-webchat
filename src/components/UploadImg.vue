@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-/// <reference path="../../typings/window.extend.d.ts" />
 import { Component, Prop, Vue } from 'vue-property-decorator';
 // import AppIcon from './AppIcon.vue';
 // import {PREFIX} from '@/store/modules/user/CONSTANTS';

@@ -68,11 +68,11 @@ module.exports = {
   devServer: {
     open: process.platform === 'darwin',
     host: proServer,
-    port: '8010',//8080
+    port: '8011',//8080
     https: false,
     hotOnly: false,
     // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-    proxy: devServer, // string | Object
+    // proxy: devServer, // string | Object
     before: (app) => {},
   },
 

@@ -1,6 +1,6 @@
 export function isWifi() {
-  var wifi = true;
-  var ua = window.navigator.userAgent;
+  var wifi: boolean = true;
+  var ua: string = window.navigator.userAgent || '';
   // var con = window.navigator.connection;
   // 如果是微信
   if (/MicroMessenger/.test(ua)) {
@@ -10,15 +10,16 @@ export function isWifi() {
         wifi = false;
       }
       // 如果是微信6.0以下版本，调用微信私有接口WeixinJSBridge
-    } else {
-      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-        WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
-          if (e.err_msg != 'network_type:wifi') {
-            wifi = false;
-          }
-        });
-      });
     }
+    // else {
+    //   document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    //     window.wx.WeixinJSBridge.invoke('getNetworkType', {}, function (e: { err_msg: string }) {
+    //       if (e.err_msg != 'network_type:wifi') {
+    //         wifi = false;
+    //       }
+    //     });
+    //   });
+    // }
     //   // 如果支持navigator.connection
     // } else if (con) {
     //   var network = con.type;
@@ -31,7 +32,7 @@ export function isWifi() {
   return wifi;
 }
 export function getClient() {
-  let client= 'm';
+  let client = 'm';
   let ua = navigator.userAgent;
   if (ua.indexOf('MicroMessenger') > -1) {
     client = 'wx';

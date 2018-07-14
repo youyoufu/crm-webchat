@@ -12,7 +12,8 @@ import './assets/fonticon/iconfont.js';
 import './registerServiceWorker';
 import './scss/_reset.scss';
 import './scss/global.scss';
-
+import VueClipboard from 'vue-clipboard2';
+Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 
 new Vue({

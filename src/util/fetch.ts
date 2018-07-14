@@ -12,12 +12,12 @@ interface FetchParams {
 function checkStatus(type: 'GET' | 'POST' | 'DELETE') {
   return (res: Response) => {
     const { status } = res;
-    if (status >= 200 && status < 300) {
+    if (status ===1000) {
       return res.text().then((v) => v && JSON.parse(v));
-    } else if (status === 403) {
-      // invalid token then go login
-      removeCookie(TOKEN);
-      return (window.location.href = '/');
+    // } else if (status === 403) {
+    //   // invalid token then go login
+    //   removeCookie(TOKEN);
+    //   return (window.location.href = '/');
     } else {
       throw new Error(`[${status}]:${res.statusText}`);
     }
@@ -40,7 +40,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
           stringifyBody = keys
             .map((v) => `${v}=${(body as { [key: string]: string })[v]}`)
             .join('&');
-          path = path + '?' + stringifyBody;
+          path = path + '&' + stringifyBody;
           stringifyBody = null;
         } else {
           stringifyBody = JSON.stringify(body);
@@ -50,7 +50,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
         headers,
         method: type,
         body: stringifyBody,
-        mode: 'same-origin',
+        // mode: 'same-origin',
       }).then(checkStatus(type));
     };
   };
