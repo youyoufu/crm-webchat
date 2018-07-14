@@ -7,7 +7,10 @@ function importWxJS() {
     script.src = '//res.wx.qq.com/open/js/jweixin-1.2.0.js';
     script.onload = resolve;
     script.onerror = reject;
-    document.querySelector('head').appendChild(script);
+    let doc = document.querySelector('head') || null;
+    if (doc) {
+      doc.appendChild(script);
+    }
   });
 }
 function getWxConfig() {

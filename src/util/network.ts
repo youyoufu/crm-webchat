@@ -6,7 +6,8 @@ export function isWifi() {
   if (/MicroMessenger/.test(ua)) {
     // 如果是微信6.0以上版本，用UA来判断
     if (/NetType/.test(ua)) {
-      if (ua.match(/NetType\/(\S*)$/)[1] != 'WIFI') {
+      let curUa = ua.match(/NetType\/(\S*)$/);
+      if (curUa && curUa[1] != 'WIFI') {
         wifi = false;
       }
       // 如果是微信6.0以下版本，调用微信私有接口WeixinJSBridge
