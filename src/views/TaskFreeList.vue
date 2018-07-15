@@ -4,7 +4,7 @@
     <div class="task-list mtop50">
   <div class="task">
     <img class="task-img" src="../assets/imgs/demo.png"  />
- <span class="btn-gray">挖这个宝</span>
+ <span class="btn-gray" @click="goToDeatil('1')">挖这个宝</span>
   </div>
   <div class="task"> 
     <img class="task-img" src="../assets/imgs/demo.png"  />
@@ -24,6 +24,9 @@ export default class TaskFree extends Vue {
   private taskName = '北极绒女士';
   private created() {
     // document.title="任务列表"
+  }
+  private goToDeatil(tid:string){
+    window.location.href='/taskfree?tid='+tid;
   }
 }
 </script>

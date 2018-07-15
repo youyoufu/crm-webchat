@@ -1,6 +1,6 @@
 {
-  "name": "task2",
-  "short_name": "task2",
+  "name": "myStore",
+  "short_name": "myStore",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",

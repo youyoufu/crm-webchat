@@ -28,12 +28,19 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getQuery } from '@/util/cookie';
+
 @Component({
   components: {}
 })
 export default class TaskFree extends Vue {
   private taskName = '北极绒女士111';
-  private created() {}
+  private tid = '';
+
+  private created() {
+    this.tid = getQuery('tid');
+    console.log('tid',this.tid);
+  }
   private onCopy() {
     this.$toast('复制成功');
   }

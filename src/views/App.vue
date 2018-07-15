@@ -13,14 +13,14 @@ import { login } from "@/api/login";
 export default class App extends Vue {
   private created() {
     if (!hasLogin()) {
-      login()
-        .then(res => {
-          saveLogin("youyoufu");
-          console.log(111);
-        })
-        .catch(err => {
-          console.error(111, err);
-        });
+      // login();
+        // .then(res => {
+        //   saveLogin("youyoufu");
+        //   console.log(111);
+        // })
+        // .catch(err => {
+        //   console.error(111, err);
+        // });
     }
     // let user = this.$store.state[PREFIX];
     // if (!user || !user.id) {
