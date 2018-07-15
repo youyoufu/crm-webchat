@@ -20,6 +20,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'taskfreelist',
+      component: taskfreelist,
+      meta: { title: '挖宝任务列表' }
+    },
+    {
+      path: '/login',
       name: 'login',
       component: Login,
       meta: { title: '欢迎首次登陆' }
@@ -35,18 +41,6 @@ const router = new Router({
       name: 'user',
       component: User,
       meta: { title: '个人中心' }
-    },
-    {
-      path: '/tasklist',
-      name: 'tasklist',
-      component: tasklist,
-      meta: { title: '免单任务列表' }
-    },
-    {
-      path: '/taskfreelist',
-      name: 'taskfreelist',
-      component: taskfreelist,
-      meta: { title: '挖宝任务列表' }
     },
     {
       path: '/taskfree',
