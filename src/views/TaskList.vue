@@ -1,29 +1,43 @@
 <template>
   <div class="info" >
      <div class="tips1">确认收货后，系统返款给你，就是完成任务啦，系统多奖励您一次免单任务，请从下面任务中挑选一个，当日完成。</div>
-    <div class="task-list mtop50">
-  <div class="task">
-    <img class="task-img" src="../assets/imgs/demo.png"  />
+    <ul class="task-list mtop50">
+      <li class="task"  @click="goToDeatil(item.id)"  v-for="item in taskData">
+  <img class="task-img" :src="item.url"  />
  <span class="btn-gray">立即领取</span>
+      </li>
+  <!-- <div class="task">
+  
   </div>
   <div class="task"> 
     <img class="task-img" src="../assets/imgs/demo.png"  />
     <span class="btn-gray">立即领取</span>
-    </div>
-    </div>
+    </div> -->
+    </ul>
     </div> 
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UploadImg from '@/components/UploadImg.vue';
+import { getTasksList, TasksListData } from '@/api/task';
 
 @Component({
-  components: { UploadImg }
+  components: {}
 })
-export default class TaskFree extends Vue {
-  private taskName = '北极绒女士';
+export default class TaskList extends Vue {
+  private taskData: Array<TasksListData> = [];
   private created() {
-    // document.title="任务列表"
+    getTasksList('free')
+      .then((res: [{}]) => {
+        this.taskData = res;
+        console.log('getTasksList', res);
+      })
+      .catch(err => {
+        this.taskData = [{ id: '1', url: '111' }, { id: '3', url: '333' }, { id: '2', url: '222' }];
+        console.log('getTasksList error', err);
+      });
+  }
+  private goToDeatil(tid) {
+    window.location.href = '/taskbuy1?tid=' + tid;
   }
 }
 </script>
@@ -41,8 +55,15 @@ export default class TaskFree extends Vue {
     text-align: center;
   }
   .task-list {
-    display: flex;
+    display: inline-block;
+    overflow:hidden;
     text-align: center;
+    width: 720px;
+    .task {
+      display: block;
+      width: 50%;
+      float: left;
+    }
     .task-img {
       margin: 10px 40px;
       width: 250px;

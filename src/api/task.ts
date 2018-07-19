@@ -1,8 +1,18 @@
-import { get } from '@/util/fetch';
+import { internalFetch } from '@/util/fetch';
 import { stringifPath } from './index';
 
-const PATH = '/events';
+const TaskListPath='/task/findTasksBySellerId';
+export interface TasksListData{
+  id:string;
+  url:string;
+}
+export function getTasksList(type:string) {
+  return internalFetch('GET')(true)(stringifPath(TaskListPath), {
+    body: {type }
+  });
+}
 
+const PATH = '/events';
 export interface Filter {
   after?: number;
   before?: number;
@@ -10,7 +20,6 @@ export interface Filter {
   offset?: number;
   limit?: number;
 }
-
 /* 获取活动 */
 export function getTaskList(options: Filter) {
   return _products;

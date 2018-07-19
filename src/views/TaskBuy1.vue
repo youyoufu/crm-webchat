@@ -11,22 +11,26 @@
     <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
      <div class="tips1">复制下面淘口令，打开手机淘宝，按说明截图</div>
    <div class="copy-block">
-    <input v-model="otherid" readonly value="taskName"/>
+    <input v-model="taskName" readonly  />
     <div class="btn-hollow copy"   v-clipboard:copy="taskName"
         v-clipboard:success="onCopy"><span class="hollow">立刻点击复制</span></div>
     </div>
 <div class="upload-block">
-  <div>
-    <UploadImg text="上传截图1" />
-    <UploadImg text="上传截图1" />
+    <div class="upload-img">
+    <img src="../assets/imgs/upload-icon.png" />
+    <img src="../assets/imgs/upload-icon.png" />
   </div>
+   <div class="upload-btn">
+    <UploadImg text="上传截图1" :taskOrderId="taskOrderId" sequence="TaoBaoKeyFront" />
+    <UploadImg text="上传截图2" :taskOrderId="taskOrderId" sequence="TaoBaoKeyBack" />
+  </div>
+</div>
   <div class="tips2">
     <p>提示-01:请直接截图，不要下拉再截图</p>
     <p>提示-02:两张图必须都上传</p>
     <p>提示-03:如果上传后不进入下一步，请耐心等待人工复审，或者3小时候咨询微信客服</p>
     <p>提示-04:验证不过会自动关闭任务，明天再试，持续不过就需更换淘宝账户</p>
     </div>
-</div>
     <div class="bottom-tips ">验证通过，将自动进入任务说明页面</div>
     </div> 
 </template>
@@ -38,9 +42,10 @@ import Toast from '../plugins/Toast/Toast.vue';
 @Component({
   components: { UploadImg }
 })
-export default class TaskFree extends Vue {
+export default class TaskBuy1 extends Vue {
   private taskName: string = '北极绒女士';
-
+  private taskOrderId: string;
+  private sequence: string;
   private created() {}
   private onCopy() {
     this.$toast('复制成功');
@@ -53,9 +58,6 @@ export default class TaskFree extends Vue {
 .info {
   font-size: 28px;
   padding: 0 20px;
-  .upload-block {
-    padding: 50px;
-  }
   .base {
     position: relative;
     height: 80px;
@@ -99,9 +101,25 @@ export default class TaskFree extends Vue {
       left: 0;
     }
   }
-
-  .upload {
-    margin-left: 60px;
+  .upload-block {
+    width: 100%;
+    text-align: center;
+    .upload-img {
+      display: inline-block;
+      img {
+        width: 66px;
+        height: 66px;
+        padding: 100px;
+        display: inherit;
+        border: 1px solid #999;
+      }
+      img:first-child {
+        margin-right: 80px;
+      }
+    }
+    .upload {
+      margin: 10px 80px;
+    }
   }
 }
 </style>

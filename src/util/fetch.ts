@@ -34,6 +34,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
       }
       let stringifyBody;
       if (body) {
+        console.log('body',body);
         headers.set('Content-Type', 'application/json');
         let keys = Object.keys(body);
         if (type === 'GET') {
@@ -44,6 +45,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
           stringifyBody = null;
         } else {
           stringifyBody = JSON.stringify(body);
+          console.log('post stringifyBody',stringifyBody)
         }
       }
       return fetch(path, {

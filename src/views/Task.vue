@@ -1,6 +1,7 @@
 <template>
   <div class="task" >
-    <UploadImg />
+    <img :src="img" alt="" class="info">
+    <UploadImg text="上传图片试试" @fileChange="fileChange" />
          <div><input value="11112222"><div v-clipboard:copy="copyInfo"
         v-clipboard:success="onCopy">复制</div>
    您好,1233<div @click.stop="send">
@@ -35,10 +36,24 @@ import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
   }
 })
 export default class Task extends Vue {
+  private img: string = '';
   private msg: string = '';
   private copyInfo: string = '231231231212';
   private get products() {
     return this.$store.state[PREFIX]['products'];
+  }
+  private fileChange(file) {
+    console.log('upload file:',file);
+    // 因为file是个FormData格式的对象所以可以直接通过接口开始上传，不需要做多余操作
+    // this.axios.post('/upload/thumb', file).then(
+    //   res => {
+    //     console.log(res.data.datas);
+    //     this.img = this.HTTP + res.data.datas;
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
   }
   private onCopy() {
     console.log('复制成功');

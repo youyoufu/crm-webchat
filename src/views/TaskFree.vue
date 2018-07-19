@@ -57,6 +57,7 @@ export default class TaskFree extends Vue {
     margin-top: 20px;
     width: 710px;
     height: 100px;
+    font-size: 28px;
   }
   .base {
     position: relative;

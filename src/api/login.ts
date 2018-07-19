@@ -1,5 +1,5 @@
 import { internalFetch, deletx } from '@/util/fetch';
-import { saveLogin, loginOut as logout } from '@/util/session';
+// import {loginOut as logout } from '@/util/session';
 import { stringifPath } from './index';
 let { devServer } = require('../../.config.js');
 
@@ -24,7 +24,7 @@ export function BindAccount({ account,phone, type }: LoginInfo) {
     body: { account, type, phone }
   });
 }
-/* 退出 */
-export function loginOut() {
-  return deletx(stringifPath(PATH)).then(logout);
-}
+// /* 退出 */
+// export function loginOut() {
+//   return deletx(stringifPath(PATH)).then(logout);
+// }

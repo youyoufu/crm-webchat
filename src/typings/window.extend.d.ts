@@ -48,10 +48,10 @@ declare global {
       ) => void;
     };
     readonly wx: {
-
-      config: (opt:{}) => void;
-      uploadImage: (data:{}) => void;
-      chooseImage: (data:{}) => void;
+      ready: (cb: () => void) => void;
+      config: (opt: {}) => void;
+      uploadImage: (data: {}) => void;
+      chooseImage: (data: {}) => void;
     };
     readonly webkit: {
       messageHandlers: {
