@@ -2,27 +2,29 @@
   <div class="info" >
     <div class="base mtop50">
     <div class="left">
-      任务编号：<span class="red">**</span>
+      任务编号：<span class="red">{{initData.task_no}}</span>
     </div>
     <div class="right">
-      任务赠品：<span class="red">**</span>
+      任务赠品：<span class="red">{{initData.gift}}</span>
     </div>
     </div>
-    <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
+        <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
      <div class="tips1">复制下面淘口令，打开手机淘宝，按说明截图</div>
    <div class="copy-block">
-    <input v-model="taskName" readonly  />
-    <div class="btn-hollow copy"   v-clipboard:copy="taskName"
+    <input v-model="initData.taobao_key" readonly  />
+    <div class="btn-hollow copy"   v-clipboard:copy="initData.taobao_key"
         v-clipboard:success="onCopy"><span class="hollow">立刻点击复制</span></div>
     </div>
 <div class="upload-block">
     <div class="upload-img">
-    <img src="../assets/imgs/upload-icon.png" />
-    <img src="../assets/imgs/upload-icon.png" />
+    <img v-if="initData.taobao_key_url" :src="initData.taobao_key_url" />
+    <img v-else src="../assets/imgs/upload-icon.png" />
+       <img v-if="initData.taobao_key_url1" :src="initData.taobao_key_url1" />
+    <img v-else src="../assets/imgs/upload-icon.png" />
   </div>
    <div class="upload-btn">
-    <UploadImg text="上传截图1" :taskOrderId="taskOrderId" sequence="TaoBaoKeyFront" />
-    <UploadImg text="上传截图2" :taskOrderId="taskOrderId" sequence="TaoBaoKeyBack" />
+    <UploadImg text="上传截图1" :taskOrderId="initData.task_order_id" sequence="TaoBaoKeyFront" />
+    <UploadImg text="上传截图2" :taskOrderId="initData.task_order_id" sequence="TaoBaoKeyBack" />
   </div>
 </div>
   <div class="tips2">
@@ -36,17 +38,49 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getFreeOrderDetail, freeInfo } from '@/api/taskfree';
 import UploadImg from '@/components/UploadImg.vue';
-import Toast from '../plugins/Toast/Toast.vue';
+import { getQuery } from '@/util/cookie';
 
 @Component({
-  components: { UploadImg }
+  components: {
+    UploadImg
+  }
 })
-export default class TaskBuy1 extends Vue {
-  private taskName: string = '北极绒女士';
-  private taskOrderId: string;
-  private sequence: string;
-  private created() {}
+export default class TaskLoad extends Vue {
+  private initData: freeInfo = {
+    task_order_id: '',
+    status: '',
+    task_no: '',
+    gift: '',
+    taobao_key: '',
+    taobao_key_url: '',
+    taobao_key_url1: '',
+    goods: []
+  };
+  private taskid: string = getQuery('tid') || '';
+  private created() {
+    let cancelLoading = this.$loading();
+    getFreeOrderDetail(this.taskid)
+      .then((res: freeInfo) => {
+        cancelLoading();
+        //数据逻辑处理
+      })
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
+        this.initData = {
+          task_order_id: '111',
+          status: '222',
+          task_no: '333',
+          gift: '444',
+          taobao_key: '555',
+          taobao_key_url: '666',
+          taobao_key_url1: '777',
+          goods: [{ key_word: '888', url: '999' }, { key_word: '100', url: 'aaa' }]
+        };
+        cancelLoading();
+      });
+  }
   private onCopy() {
     this.$toast('复制成功');
   }

@@ -63,11 +63,11 @@ export default class TaskBuy3 extends Vue {
   private checkTaobaoKey() {
     setCheckTBkey(this.taskOrderId, this.txtarea1, this.txtarea2)
       .then((res: {}) => {
-        this.$toast('成功');
+        this.$toast('校验成功');
         //数据逻辑处理
       })
       .catch((err: {}) => {
-        this.$toast(err);
+        // this.$toast(err);
       });
   }
 }

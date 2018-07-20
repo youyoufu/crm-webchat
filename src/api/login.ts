@@ -19,7 +19,7 @@ export function login() {
   //   body: { sellerId: '1' }
   // });
 }
-export function BindAccount({ account,phone, type }: LoginInfo) {
+export function BindAccount(account: string, phone: string, type: string) {
   return internalFetch('GET')(true)(stringifPath(BINDACCOUNTPATH), {
     body: { account, type, phone }
   });

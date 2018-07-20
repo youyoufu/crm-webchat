@@ -20,8 +20,8 @@ import { setUploadImg } from '@/api/upload';
 @Component({})
 export default class UploadImg extends Vue {
   @Prop() private text: string = '上传图片';
-  @Prop() private taskOrderId: string;
-  @Prop() private sequence: string;
+  @Prop() private taskOrderId: string='';
+  @Prop() private sequence: string='';
   // , file,
   // @Prop() private msuploadCallbackg();
   // private uploadImg() {
@@ -36,7 +36,7 @@ export default class UploadImg extends Vue {
   //       this.$toast(err);
   //     });
   // }
-  private fileChange(files) {
+  private fileChange(files:any) {
     /* 通过FormData对象可以组装一组用 XMLHttpRequest发送请求的键/值对。
 　　　　它可以更灵活方便的发送表单数据，因为可以独立于表单使用。如果你把表单
 　　　　的编码类型设置为multipart/form-data ，则通过FormData传输的数据格式
@@ -47,14 +47,14 @@ export default class UploadImg extends Vue {
     // formData.append('openid', localStorage.getItem('openid')); // 向父组件传递参数，事件为fileChange，参数为formData对象
     // console.log(11111,formData);
     setUploadImg(files)
-      .then((res: {}) => {
-        this.$toast('成功');
-        console.log(res);
-        //数据逻辑处理
-      })
-      .catch((err: {}) => {
-        this.$toast(err);
-      });
+      // .then((res: {}) => {
+      //   this.$toast('成功');
+      //   console.log(res);
+      //   //数据逻辑处理
+      // })
+      // .catch((err: {}) => {
+      //   this.$toast(err);
+      // });
   }
 }
 </script>

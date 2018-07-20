@@ -24,23 +24,23 @@ export default class Login extends Vue {
   private login() {
     if (this.user && this.phone) {
       let cancelLoading = this.$loading();
-      BindAccount({
-        account: this.user,
-        phone: this.phone,
-        type:'taobao'
-      })
-      .then((res:{}) => {
-        cancelLoading();
-        console.log('BindAccount',res);
-        let redirect = this.$route.query.redirect;
-        this.$router.push(redirect ? { path: redirect } : '/');
-      })
-      .catch((e: Error) => {
-        cancelLoading();
-        // this.$toast(e.message);
-        // let redirect = this.$route.query.redirect;
-        // this.$router.push(redirect ? { path: redirect } : '/');
-      });
+      // BindAccount({
+      //   account: this.user,
+      //   phone: this.phone,
+      //   type:'taobao'
+      // })
+      // .then((res:{}) => {
+      //   cancelLoading();
+      //   console.log('BindAccount',res);
+      //   let redirect = this.$route.query.redirect;
+      //   this.$router.push(redirect ? { path: redirect } : '/');
+      // })
+      // .catch((e: Error) => {
+      //   cancelLoading();
+      //   // this.$toast(e.message);
+      //   // let redirect = this.$route.query.redirect;
+      //   // this.$router.push(redirect ? { path: redirect } : '/');
+      // });
   }
 }
 }

@@ -13,12 +13,12 @@ export default class Toast extends Vue {
   private hideTimer: number | null = null;
   private showing: boolean = false;
   public show(msg: string) {
-    if (msg) {
+   if (msg) {
       this.msg = msg;
       this.$nextTick(function() {
         this.showTimer = window.setTimeout(() => {
-          this.showing = false;
-        }, 5000);
+          this.showing = true;
+        }, 2000);
       });
     }
   }
@@ -46,6 +46,10 @@ export default class Toast extends Vue {
   font-size: 28px;
   padding: 10px 30px;
   border-radius: 4px;
+  &.showing {
+  display: none;
 }
+}
+
 </style>
 

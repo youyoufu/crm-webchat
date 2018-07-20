@@ -66,8 +66,9 @@ input {
   line-height: 1.5;
 }
 .longGoodimg {
-  width: 710px;
+  // width:350px;
   height: 100%;
+  min-height: 100px;
 }
 .textcenter{
   text-align: center;

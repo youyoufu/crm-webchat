@@ -5,11 +5,10 @@ import Task from '@/views/Task.vue';
 import Bind from '@/views/BindUser.vue';
 import User from '@/views/User.vue';
 import tasklist from '@/views/TaskList.vue';
-import taskfree from '@/views/TaskFree.vue';
+import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy1 from '@/views/TaskBuy1.vue';
 import taskbuy2 from '@/views/TaskBuy2.vue';
 import taskbuy3 from '@/views/TaskBuy3.vue';
-import taskfreelist from '@/views/TaskFreeList.vue';
 // import { hasLogin, saveLogin } from '@/util/session';
 // import { stringifPath } from '@/api/index';
 
@@ -20,15 +19,15 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'taskfreelist',
-      component: taskfreelist,
-      meta: { title: '挖宝任务列表' }
+      name: 'task',
+      component: Task,
+      meta: { title: '任务中心' }
     },
     {
       path: '/tasklist',
       name: 'tasklist',
       component: tasklist,
-      meta: { title: '免单任务列表' }
+      meta: { title: '任务列表' }
     },
     {
       path: '/login',
@@ -49,10 +48,10 @@ const router = new Router({
       meta: { title: '个人中心' }
     },
     {
-      path: '/taskfree',
-      name: 'taskfree',
-      component: taskfree,
-      meta: { title: '免单任务' }
+      path: '/taskrefund',
+      name: 'taskrefund',
+      component: taskrefund,
+      meta: { title: '挖宝任务' }
     },
     {
       path: '/taskbuy1',
@@ -71,12 +70,6 @@ const router = new Router({
       name: 'taskbuy3',
       component: taskbuy3,
       meta: { title: '任务第3步(共3步)' }
-    },
-    {
-      path: '/task',
-      name: 'task',
-      component: Task,
-      meta: { requiredAuth: true, title: '任务测试' }
     }
   ]
 });

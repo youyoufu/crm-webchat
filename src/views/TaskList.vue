@@ -1,43 +1,44 @@
 <template>
   <div class="info" >
-     <div class="tips1">确认收货后，系统返款给你，就是完成任务啦，系统多奖励您一次免单任务，请从下面任务中挑选一个，当日完成。</div>
-    <ul class="task-list mtop50">
-      <li class="task"  @click="goToDeatil(item.id)"  v-for="item in taskData">
-  <img class="task-img" :src="item.url"  />
- <span class="btn-gray">立即领取</span>
-      </li>
-  <!-- <div class="task">
-  
-  </div>
-  <div class="task"> 
-    <img class="task-img" src="../assets/imgs/demo.png"  />
-    <span class="btn-gray">立即领取</span>
-    </div> -->
-    </ul>
+  <div v-if="isFree"  class="tips1">确认收货后，系统返款给你，就是完成任务啦，系统多奖励您一次免单任务，请从下面任务中挑选一个，当日完成。</div>
+  <div v-else class="tips1">每天最多做10个挖宝任务，每小时最多3个。挖一个宝奖励2毛钱+1积分。30个积分可兑换一次免单任务。</div>
+  <ul class="task-list mtop50">
+    <li class="task"  @click="goToDeatil(item.id)"  v-for="item in taskData">
+      <img class="task-img" :src="item.url"  />
+      <span  v-if="isFree" class="btn-gray">立即领取</span>
+      <span  v-else class="btn-gray">挖这个宝</span>
+    </li>
+  </ul>
     </div> 
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getTasksList, TasksListData } from '@/api/task';
+import { getQuery } from '@/util/cookie';
 
 @Component({
   components: {}
 })
 export default class TaskList extends Vue {
-  private taskData: Array<TasksListData> = [];
+  private taskData: Array<TasksListData>=[];
+  private listType: string = getQuery('type') || 'free';
+  private isFree: boolean = getQuery('type') === 'free';
   private created() {
-    getTasksList('free')
-      .then((res: [{}]) => {
+    getTasksList(this.listType)
+      .then((res: [TasksListData]) => {
         this.taskData = res;
-        console.log('getTasksList', res);
       })
-      .catch(err => {
+      .catch((err: { message: string }) => {
         this.taskData = [{ id: '1', url: '111' }, { id: '3', url: '333' }, { id: '2', url: '222' }];
-        console.log('getTasksList error', err);
+        this.$toast(err.message);
       });
   }
-  private goToDeatil(tid) {
-    window.location.href = '/taskbuy1?tid=' + tid;
+  private goToDeatil(tid: string) {
+    let url = '/taskbuy1?tid=' + tid;
+    if (!this.isFree) {
+      url = '/taskrefund?tid=' + tid;
+    }
+    window.location.href = url;
   }
 }
 </script>
@@ -56,7 +57,7 @@ export default class TaskList extends Vue {
   }
   .task-list {
     display: inline-block;
-    overflow:hidden;
+    overflow: hidden;
     text-align: center;
     width: 720px;
     .task {

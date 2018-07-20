@@ -41,7 +41,7 @@ import { setOrderNo } from '@/api/taskfree';
 })
 export default class TaskFree extends Vue {
   private taskName = '北极绒女士';
-  private taskOrderId: string;
+  private taskOrderId: string='';
   private oid = '';
   private created() {}
   private onCopy() {
@@ -51,11 +51,11 @@ export default class TaskFree extends Vue {
     console.log(1111, this.oid);
     setOrderNo(this.taskOrderId, this.oid)
       .then((res: {}) => {
-        this.$toast('成功');
+        this.$toast('订单提交成功');
         //数据逻辑处理
       })
-      .catch((err: {}) => {
-        this.$toast(err);
+      .catch((err: { message: string }) => {
+        // this.$toast(err.message);
       });
   }
 }
