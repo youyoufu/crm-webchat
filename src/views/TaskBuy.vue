@@ -1,0 +1,301 @@
+<template>
+  <div class="info">
+    <div class="base mtop50">
+      <div class="left">
+        任务编号：
+        <span class="red">{{initData.task_no}}</span>
+      </div>
+      <div class="right">
+        任务赠品：
+        <span class="red">{{initData.gift}}</span>
+      </div>
+    </div>
+    <div v-if="isFirst">
+      <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
+      <div class="tips1">复制下面淘口令，打开手机淘宝，按说明截图</div>
+      <div class="copy-block">
+        <input v-model="initData.taobao_key" readonly />
+        <div class="btn-hollow copy" v-clipboard:copy="initData.taobao_key" v-clipboard:success="onCopy">
+          <span class="hollow">立刻点击复制</span>
+        </div>
+      </div>
+      <div class="upload-block">
+        <div class="upload-img">
+          <img v-if="initData.taobao_key_url" :src="initData.taobao_key_url" />
+          <img v-else src="../assets/imgs/upload-icon.png" />
+          <img v-if="initData.taobao_key_url1" :src="initData.taobao_key_url1" />
+          <img v-else src="../assets/imgs/upload-icon.png" />
+        </div>
+        <div class="upload-btn">
+          <UploadImg text="上传截图1" :taskOrderId="initData.task_order_id" sequence="TaoBaoKeyFront" />
+          <UploadImg text="上传截图2" :taskOrderId="initData.task_order_id" sequence="TaoBaoKeyBack" />
+        </div>
+      </div>
+      <div class="tips2">
+        <p>提示-01:请直接截图，不要下拉再截图</p>
+        <p>提示-02:两张图必须都上传</p>
+        <p>提示-03:如果上传后不进入下一步，请耐心等待人工复审，或者3小时候咨询微信客服</p>
+        <p>提示-04:验证不过会自动关闭任务，明天再试，持续不过就需更换淘宝账户</p>
+      </div>
+      <div class="bottom-tips ">验证通过，将自动进入任务说明页面</div>
+    </div>
+    <div v-if="isSecond">
+      <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
+      <div class="tips1">任务简短说明：所有任务都是组合任务，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
+      <div v-for="item in initData.goods" :key="item.key_word">
+        <div class="copy-block">
+          <input v-model="item.key_word" readonly />
+          <div class="btn-hollow copy" v-clipboard:copy="item.key_word" v-clipboard:success="onCopy">
+            <span class="hollow">点击复制</span>
+          </div>
+        </div>
+        <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将 <span class="red">{{item.good_name}}</span> 加入购物车</div>
+        <img class="longGoodimg" :src="item.url" />
+      </div>
+      <div class="bgcolor mtop50 tips big">参照下图，核对订单产品和订单金额</div>
+      <img class="longGoodimg mtop50" :src="initData.url" />
+      <div class="bgcolor mtop50 tips big">确定后，留言{{initData.comments}}，提交订单，不要付款</div>
+      <div class="tips1">复制订单号，在下面粘贴订单号</div>
+      <div class="textcenter">
+        <div>
+          <input v-model="orderid" placeholder="订单编号" />
+        </div>
+        <div class="btn logbtn" @click="commitOrderNo">提交订单号</div>
+      </div>
+      <div class="bottom-tips">提交订单号后，进入自我校验任务</div>
+    </div>
+    <div v-if="isThird">
+      <div class="bgcolor tips big">任务自我检验宝贝是否找对</div>
+      <div>
+        <textarea v-model="txtarea1" />
+        <textarea v-model="txtarea2" />
+      </div>
+      <div class="textcenter">
+        <div class="btn-gray" @click="checkTaobaoKey">立即校验</div>
+      </div>
+      <div class="tips1">提示：自我效验通过，核对下单金额无误，针对参加淘抢购等有付款时间限制产品，可提前付款，并等待系统通知，如系统通知失败，请申请退款，放弃任务，重新接任务。</div>
+      <div class="bgcolor mtop50 tips big">请耐心等待付款通知</div>
+      <div class="tips1">系统正在核对订单，请等待系统通知付款（10-20分钟左右），休息片刻，再来刷新</div>
+      <div class="textcenter">
+        <div class="btn logbtn" v-if="isCheckSuccess">审核通过，请完成付款</div>
+        <div class="btn logbtn" v-else>系统审核中</div>
+      </div>
+      <p class="tips1">友情提示：</p>
+      <p class="tips1">1.付款后，平台会安排发货赠品，收到赠品后，文字评价，不要晒图。</p>
+      <p class="tips1">2.确认收货后，系统发红包全额返款</p>
+      <div class="bgcolor mtop50 tips big">最后一步：上传订单截图</div>
+
+      <div class="textcenter">
+        <div class="upload-block mtop50">
+          <div class="upload-img">
+            <img src="../assets/imgs/upload-icon.png" />
+            <img src="../assets/imgs/upload-icon.png" />
+          </div>
+          <div class="upload-btn">
+            <UploadImg text="订单截图" :taskOrderId="initData.task_order_id" sequence="TaoBaoOrder" />
+            <UploadImg text="微信收款码截图" :taskOrderId="initData.task_order_id" sequence="WechatCode" />
+          </div>
+        </div>
+        <div class="btn">点击确认，坐等收货赠品吧!</div>
+      </div>
+      <div class="bottom-tips">任务完成后，将看到更多其他任务</div>
+    </div>
+  </div>
+</template>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
+import UploadImg from '@/components/UploadImg.vue';
+import { getQuery } from '@/util/cookie';
+
+@Component({
+  components: {
+    UploadImg
+  }
+})
+export default class TaskLoad extends Vue {
+  private initData: freeInfo = {
+    task_order_id: '',
+    status: '',
+    task_no: '',
+    gift: '',
+    taobao_key: '',
+    taobao_key_url: '',
+    taobao_key_url1: '',
+    goods: []
+  };
+  private isFirst: boolean = false;
+  private isSecond: boolean = false;
+  private isThird: boolean = false;
+  private isCheckSuccess:boolean=false;
+  private taskid: string = getQuery('tid') || '';
+  private orderid: string = '';
+  private txtarea1: string = '';
+  private txtarea2: string = '';
+  private created() {
+    let cancelLoading = this.$loading();
+    getFreeOrderDetail(this.taskid)
+      .then((res: freeInfo) => {
+        cancelLoading();
+        //数据逻辑处理
+      })
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
+        this.initData = {
+          task_order_id: '111',
+          status: '2',
+          task_no: '333',
+          gift: '444',
+          taobao_key: '555',
+          taobao_key_url: '666',
+          taobao_key_url1: '777',
+          goods: [
+            { key_word: '888', url: '999', good_name: '商品名称1' },
+            { key_word: '100', url: 'aaa', good_name: '商品名称2' }
+          ],
+          comments: '刷单'
+        };
+        if (this.initData.status === '0') {
+          this.isFirst = true;
+          document.title='任务第二步（总共3步）'
+        } else if (this.initData.status === '1') {
+          this.isSecond = true;
+        } else if (
+          this.initData.status === '2' ||
+          this.initData.status === '3' ||
+          this.initData.status === '4' ||
+          this.initData.status === '5'
+        ) {
+          this.isThird = true;
+          if(this.initData.status === '4'){
+            this.isCheckSuccess=true;
+          }
+        }
+        cancelLoading();
+      });
+  }
+  private onCopy() {
+    this.$toast('复制成功');
+  }
+  private commitOrderNo() {
+    setOrderNo(this.initData.task_order_id, this.orderid)
+      .then((res: {}) => {
+        this.$toast('订单编号提交成功');
+        //数据逻辑处理
+      })
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
+      });
+  }
+  private checkTaobaoKey() {
+    setCheckTBkey(this.initData.task_order_id, this.txtarea1, this.txtarea2)
+      .then((res: {}) => {
+        this.$toast('校验成功');
+        //数据逻辑处理
+      })
+      .catch((err: {}) => {
+        // this.$toast(err);
+      });
+  }
+}
+</script>
+<style lang="scss" scoped>
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
+.info {
+  font-size: 28px;
+  padding: 0 20px;
+  textarea {
+    border: 1px solid #999;
+    margin: 20px 40px;
+    width: 250px;
+    height: 100px;
+    font-size: 28px;
+  }
+  .base {
+    position: relative;
+    height: 80px;
+    .left {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+    }
+    .right {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+    }
+  }
+  .tips2 {
+    line-height: 1.5;
+  }
+  .tips {
+    margin: 10px auto;
+    line-height: 38px;
+    margin: 0 -20px;
+    text-align: center;
+  }
+
+  .tips1 {
+    margin: 10px auto;
+    line-height: 38px;
+    color: #333;
+    font-size: 24px;
+  }
+  .big {
+    font-size: 34px;
+  }
+  .copy-block {
+    height: 100px;
+    position: relative;
+    input {
+      position: absolute;
+      left: 210px;
+    }
+    .copy {
+      top: 5px;
+      position: absolute;
+      left: 0;
+    }
+  }
+  .upload-block {
+    width: 100%;
+    text-align: center;
+    .upload-img {
+      display: inline-block;
+      img {
+        width: 66px;
+        height: 66px;
+        padding: 100px;
+        display: inherit;
+        border: 1px solid #999;
+      }
+      img:first-child {
+        margin-right: 80px;
+      }
+    }
+    .upload {
+      margin: 10px 80px;
+    }
+  }
+  .logbtn {
+    width: 365px;
+  }
+  .bottom {
+    text-align: center;
+    font-size: 32px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #999;
+    background-color: #f4f4f8;
+    height: 56px;
+    padding-top: 20px;
+  }
+  .orderImg {
+    width: 300px;
+    height: 240px;
+    padding: 40px 0;
+  }
+}
+</style>

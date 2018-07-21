@@ -34,7 +34,7 @@ export default class TaskList extends Vue {
       });
   }
   private goToDeatil(tid: string) {
-    let url = '/taskbuy1?tid=' + tid;
+    let url = '/taskbuy?tid=' + tid;
     if (!this.isFree) {
       url = '/taskrefund?tid=' + tid;
     }

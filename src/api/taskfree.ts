@@ -21,7 +21,8 @@ export interface freeInfo {
   taobao_key: string;
   taobao_key_url: string;
   taobao_key_url1: string;
-  goods: Array<{ key_word: string; url: string }>;
+  goods: Array<{ key_word: string; url: string; good_name: string }>;
+  comments:string;
 }
 export function setCheckTBkey(taskOrderId: string, taobaoKey1: string, taobaoKey2: string) {
   return internalFetch('GET')(true)(stringifPath(PATH), {

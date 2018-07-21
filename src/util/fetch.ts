@@ -41,7 +41,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
           stringifyBody = keys
             .map((v) => `${v}=${(body as { [key: string]: string })[v]}`)
             .join('&');
-          path = path + '&' + stringifyBody;
+          path = path + '?' + stringifyBody;
           stringifyBody = null;
         } else {
           stringifyBody = JSON.stringify(body);

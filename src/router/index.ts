@@ -6,9 +6,7 @@ import Bind from '@/views/BindUser.vue';
 import User from '@/views/User.vue';
 import tasklist from '@/views/TaskList.vue';
 import taskrefund from '@/views/TaskRefund.vue';
-import taskbuy1 from '@/views/TaskBuy1.vue';
-import taskbuy2 from '@/views/TaskBuy2.vue';
-import taskbuy3 from '@/views/TaskBuy3.vue';
+import taskbuy from '@/views/TaskBuy.vue';
 // import { hasLogin, saveLogin } from '@/util/session';
 // import { stringifPath } from '@/api/index';
 
@@ -54,22 +52,10 @@ const router = new Router({
       meta: { title: '挖宝任务' }
     },
     {
-      path: '/taskbuy1',
-      name: 'taskbuy1',
-      component: taskbuy1,
-      meta: { title: '任务第1步(共3步)' }
-    },
-    {
-      path: '/taskbuy2',
-      name: 'taskbuy2',
-      component: taskbuy2,
-      meta: { title: '任务第2步(共3步)' }
-    },
-    {
-      path: '/taskbuy3',
-      name: 'taskbuy3',
-      component: taskbuy3,
-      meta: { title: '任务第3步(共3步)' }
+      path: '/taskbuy',
+      name: 'taskbuy',
+      component: taskbuy,
+      meta: { title: '免单任务操作步骤' }
     }
   ]
 });
