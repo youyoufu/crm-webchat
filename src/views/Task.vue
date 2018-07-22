@@ -1,24 +1,23 @@
 <template>
-  <div class="task" >
+  <div class="task">
     <img :src="img" alt="" class="info">
     <UploadImg taskOrderId="111" text="上传图片试试" @fileChange="fileChange" />
-         <div><input value="11112222"><div v-clipboard:copy="copyInfo"
-        v-clipboard:success="onCopy">复制</div>
-   您好,1233<div @click.stop="send">
-      Click me!!!{{msg}}
- </div>
-    </div> 
-     <ul>
-    <li v-for="product in products">
-      {{ product.title }} - {{ product.price | currency }}
-      <br>
-      <button
-        :disabled="!product.inventory"
-        @click="addProductToCart(product)">
-        Add to cart
-      </button>
-    </li>
-  </ul> 
+    <div><input value="11112222">
+      <div v-clipboard:copy="copyInfo" v-clipboard:success="onCopy">复制</div>
+      您好,1233
+      <div @click.stop="send">
+        Click me!!!{{msg}}
+      </div>
+    </div>
+    <ul>
+      <li v-for="product in products">
+        {{ product.title }} - {{ product.price | currency }}
+        <br>
+        <button :disabled="!product.inventory" @click="addProductToCart(product)">
+          Add to cart
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 <script lang="ts">
@@ -42,19 +41,19 @@ export default class Task extends Vue {
   private get products() {
     return this.$store.state[PREFIX]['products'];
   }
-  private fileChange(file:any) {
-    console.log('upload file:',file);
-    // 因为file是个FormData格式的对象所以可以直接通过接口开始上传，不需要做多余操作
-    // this.axios.post('/upload/thumb', file).then(
-    //   res => {
-    //     console.log(res.data.datas);
-    //     this.img = this.HTTP + res.data.datas;
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
-  }
+  // private fileChange(file: any) {
+  //   console.log('upload file:', file);
+  //   // 因为file是个FormData格式的对象所以可以直接通过接口开始上传，不需要做多余操作
+  //   // this.axios.post('/upload/thumb', file).then(
+  //   //   res => {
+  //   //     console.log(res.data.datas);
+  //   //     this.img = this.HTTP + res.data.datas;
+  //   //   },
+  //   //   err => {
+  //   //     console.log(err);
+  //   //   }
+  //   // );
+  // }
   private onCopy() {
     console.log('复制成功');
   }

@@ -13,12 +13,17 @@ export default class Toast extends Vue {
   private hideTimer: number | null = null;
   private showing: boolean = false;
   public show(msg: string) {
-   if (msg) {
+    if (msg) {
       this.msg = msg;
       this.$nextTick(function() {
-        this.showTimer = window.setTimeout(() => {
-          this.showing = true;
-        }, 2000);
+        // this.showTimer = window.setTimeout(() => {
+        this.showing = false;
+        this.$nextTick(function() {
+          this.hideTimer = window.setTimeout(() => {
+            this.showing = true;
+          },3000);
+        });
+        // }, 333);
       });
     }
   }
@@ -30,6 +35,24 @@ export default class Toast extends Vue {
       window.clearTimeout(this.hideTimer);
     }
   }
+  // public show(msg: string) {
+  //  if (msg) {
+  //     this.msg = msg;
+  //     this.$nextTick(function() {
+  //       this.showTimer = window.setTimeout(() => {
+  //         this.showing = true;
+  //       }, 2000);
+  //     });
+  //   }
+  // }
+  // private destroyed() {
+  //   if (this.showTimer !== null) {
+  //     window.clearTimeout(this.showTimer);
+  //   }
+  //   if (this.hideTimer !== null) {
+  //     window.clearTimeout(this.hideTimer);
+  //   }
+  // }
 }
 </script>
 <style lang="scss" scoped>
@@ -47,9 +70,8 @@ export default class Toast extends Vue {
   padding: 10px 30px;
   border-radius: 4px;
   &.showing {
-  display: none;
+    display: none;
+  }
 }
-}
-
 </style>
 

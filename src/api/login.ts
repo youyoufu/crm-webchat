@@ -1,5 +1,4 @@
 import { internalFetch, deletx } from '@/util/fetch';
-// import {loginOut as logout } from '@/util/session';
 import { stringifPath } from './index';
 let { devServer } = require('../../.config.js');
 
@@ -15,9 +14,6 @@ export interface LoginInfo {
 /* 登陆 */
 export function login() {
   location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer);
-  // return internalFetch('GET')(true)(stringifPath(PATH), {
-  //   body: { sellerId: '1' }
-  // });
 }
 export function BindAccount(account: string, phone: string, type: string) {
   return internalFetch('GET')(true)(stringifPath(BINDACCOUNTPATH), {

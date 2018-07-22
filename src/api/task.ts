@@ -7,7 +7,7 @@ export interface TasksListData{
   url:string;
 }
 export function getTasksList(type:string) {
-  return internalFetch('GET')(true)(stringifPath(TaskListPath), {
+  return internalFetch('POST')(true)(stringifPath(TaskListPath), {
     body: {type }
   });
 }

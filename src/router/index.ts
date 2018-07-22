@@ -1,15 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/views/Login.vue';
-import Task from '@/views/Task.vue';
+// import Task from '@/views/Task.vue';
 import Bind from '@/views/BindUser.vue';
 import User from '@/views/User.vue';
 import tasklist from '@/views/TaskList.vue';
 import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy from '@/views/TaskBuy.vue';
-// import { hasLogin, saveLogin } from '@/util/session';
-// import { stringifPath } from '@/api/index';
-
+import { hasLogin } from '@/util/session';
+import { login } from '@/api/login';
 Vue.use(Router);
 
 const router = new Router({
@@ -17,45 +16,40 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'task',
-      component: Task,
-      meta: { title: '任务中心' }
+      name: 'user',
+      component: User,
+      meta: { title: '个人中心', requiredAuth: false }
     },
     {
       path: '/tasklist',
       name: 'tasklist',
       component: tasklist,
-      meta: { title: '任务列表' }
+      meta: { title: '任务列表', requiredAuth: false }
     },
     {
       path: '/login',
       name: 'login',
       component: Login,
-      meta: { title: '欢迎首次登陆' }
+      meta: { title: '欢迎首次登陆', requiredAuth: false }
     },
     {
       path: '/bind',
       name: 'bind',
       component: Bind,
-      meta: { title: '绑定商场账户' }
+      meta: { title: '绑定商场账户', requiredAuth: false }
     },
-    {
-      path: '/user',
-      name: 'user',
-      component: User,
-      meta: { title: '个人中心' }
-    },
+
     {
       path: '/taskrefund',
       name: 'taskrefund',
       component: taskrefund,
-      meta: { title: '挖宝任务' }
+      meta: { title: '挖宝任务', requiredAuth: false }
     },
     {
       path: '/taskbuy',
       name: 'taskbuy',
       component: taskbuy,
-      meta: { title: '免单任务操作步骤' }
+      meta: { title: '免单任务操作步骤', requiredAuth: false }
     }
   ]
 });
@@ -64,25 +58,17 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiredAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
-    // if (!hasLogin()) {
-    //   saveLogin('youyoufu');
-    // next({
-    //   path: '/task',
-    //   query: { redirect: to.fullPath },
-    // });
-    // } else {
-    /* 路由发生变化修改页面title */
-    if (to.meta.title) {
-      document.title = to.meta.title;
+    if (!hasLogin()) {
+      login();
+    } else {
+      next();
     }
-    next();
-    // }
   } else {
-    /* 路由发生变化修改页面title */
-    if (to.meta.title) {
-      document.title = to.meta.title;
-    }
     next(); // 确保一定要调用 next()
+  }
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title;
   }
 });
 
