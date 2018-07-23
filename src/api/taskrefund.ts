@@ -12,14 +12,14 @@ export interface RefundInfo{
   url: string;
 }
 export function setRefundTaobaoKey(taskOrderId: string, taobaoKey: string) {
-  return internalFetch('GET')(true)(stringifPath(submitRefundKeyPATH), {
+  return internalFetch('POST')(true)(stringifPath(submitRefundKeyPATH), {
     body: { taskOrderId, taobaoKey }
   });
 }
 
 
 export function getRefundInfo(taskOrderId: string) {
-  return internalFetch('GET')(true)(stringifPath(getRefundInfoPATH), {
+  return internalFetch('POST')(true)(stringifPath(getRefundInfoPATH), {
     body: { taskOrderId}
   });
 }

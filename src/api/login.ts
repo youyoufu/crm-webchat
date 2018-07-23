@@ -16,7 +16,7 @@ export function login() {
   location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer);
 }
 export function BindAccount(account: string, phone: string, type: string) {
-  return internalFetch('GET')(true)(stringifPath(BINDACCOUNTPATH), {
+  return internalFetch('POST')(true)(stringifPath(BINDACCOUNTPATH), {
     body: { account, type, phone }
   });
 }

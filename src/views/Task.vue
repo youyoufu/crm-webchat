@@ -1,7 +1,7 @@
 <template>
   <div class="task">
     <img :src="img" alt="" class="info">
-    <UploadImg taskOrderId="111" text="上传图片试试" @fileChange="fileChange" />
+    <!-- <UploadImg :taskOrderId="111" text="上传图片试试" @fileChange="fileChange" /> -->
     <div><input value="11112222">
       <div v-clipboard:copy="copyInfo" v-clipboard:success="onCopy">复制</div>
       您好,1233

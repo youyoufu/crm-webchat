@@ -1,5 +1,5 @@
 <template>
-  <div class="login" >
+  <div class="bind" >
     <div class="tips">先点击解绑账号，再绑定新的账号</div>
     <div>
       <span class="btn mright40">解绑淘宝账户</span>
@@ -32,7 +32,7 @@ export default class BindUser extends Vue {
 <style lang="scss" scoped>
 @import '../scss/theme.scss';
 @import '../scss/_px2px.scss';
-.login {
+.bind {
   font-size: 28px;
   margin: 40px auto;
   text-align: center;

@@ -1,5 +1,5 @@
 <template>
-  <div class="info">
+  <div class="taskbuy">
     <div class="base mtop50">
       <div class="left">
         任务编号：
@@ -21,14 +21,14 @@
       </div>
       <div class="upload-block">
         <div class="upload-img">
-          <img v-if="initData.taobao_key_url" :src="initData.taobao_key_url" />
+          <img v-if="initData.check_first_url" :src="initData.check_first_url" />
           <img v-else src="../assets/imgs/upload-icon.jpg" />
-          <img v-if="initData.taobao_key_url1" :src="initData.taobao_key_url1" />
+          <img v-if="initData.check_second_url" :src="initData.check_second_url" />
           <img v-else src="../assets/imgs/upload-icon.jpg" />
         </div>
         <div class="upload-btn">
-          <UploadImg text="上传截图1" keyName="taobao_key_url" :taskOrderId="initData.task_order_id" @fileChange="fileChange" sequence="TaoBaoKeyFront" />
-          <UploadImg text="上传截图2" keyName="taobao_key_url1" :taskOrderId="initData.task_order_id" @fileChange="fileChange" sequence="TaoBaoKeyBack" />
+          <UploadImg text="上传截图1" keyName="check_first_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="TaoBaoKeyFront" />
+          <UploadImg text="上传截图2" keyName="check_second_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="TaoBaoKeyBack" />
         </div>
       </div>
       <div class="tips2">
@@ -37,7 +37,7 @@
         <p>提示-03:如果上传后不进入下一步，请耐心等待人工复审，或者3小时候咨询微信客服</p>
         <p>提示-04:验证不过会自动关闭任务，明天再试，持续不过就需更换淘宝账户</p>
       </div>
-      <div class="bottom-tips ">验证通过，将自动进入任务说明页面</div>
+      <div class="bottom-tips mtop50">验证通过，将自动进入任务说明页面</div>
     </div>
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
-          <span class="red">{{item.good_name}}</span> 加入购物车</div>
+          <span class="red">{{item.sku}}</span> 加入购物车</div>
         <img class="longGoodimg" :src="item.url" />
       </div>
       <div class="bgcolor mtop50 tips big">参照下图，核对订单产品和订单金额</div>
@@ -88,14 +88,14 @@
       <div class="textcenter">
         <div class="upload-block mtop50">
           <div class="upload-img">
-            <img v-if="initData.taobaoorder_url" :src="initData.taobaoorder_url" />
+            <img v-if="initData.order_pic_url" :src="initData.order_pic_url" />
             <img v-else src="../assets/imgs/upload-icon.jpg" />
-            <img v-if="initData.webchatcode_url" :src="initData.webchatcode_url" />
+            <img v-if="initData.wechat_code_url" :src="initData.wechat_code_url" />
             <img v-else src="../assets/imgs/upload-icon.jpg" />
           </div>
           <div class="upload-btn">
-            <UploadImg text="订单截图" keyName="taobaoorder_url" :taskOrderId="initData.task_order_id" @fileChange="fileChange" sequence="TaoBaoOrder" />
-            <UploadImg text="微信收款码截图" keyName="webchatcode_url" :taskOrderId="initData.task_order_id" @fileChange="fileChange" sequence="WechatCode" />
+            <UploadImg text="订单截图" keyName="order_pic_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="TaoBaoOrder" />
+            <UploadImg text="微信收款码截图" keyName="wechat_code_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="WechatCode" />
           </div>
         </div>
         <div class="btn" @click="confirmOrder">点击确认，坐等收货赠品吧!</div>
@@ -107,6 +107,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
+import { getCreateTask } from '@/api/task';
 import UploadImg from '@/components/UploadImg.vue';
 import { getQuery } from '@/util/cookie';
 
@@ -117,16 +118,16 @@ import { getQuery } from '@/util/cookie';
 })
 export default class TaskLoad extends Vue {
   private initData: freeInfo = {
-    task_order_id: '',
+    id: '',
     status: '',
     task_no: '',
     gift: '',
     taobao_key: '',
-    taobao_key_url: '',
-    taobao_key_url1: '',
+    check_first_url: '',
+    check_second_url: '',
     goods: [],
-    webchatcode_url: '',
-    taobaoorder_url: '',
+    wechat_code_url: '',
+    order_pic_url: '',
     comments: ''
   };
   private isFirst: boolean = false;
@@ -137,69 +138,94 @@ export default class TaskLoad extends Vue {
   private orderid: string = '';
   private txtarea1: string = '';
   private txtarea2: string = '';
+  private checkStatus() {
+    if (this.initData.status === 0) {
+      this.isFirst = true;
+      document.title = '任务第1步（总共3步）';
+    } else if (this.initData.status === 1) {
+      document.title = '任务第2步（总共3步）';
+      this.isSecond = true;
+    } else if (this.initData.status >= 2 || this.initData.status <= 5) {
+      this.isThird = true;
+      document.title = '任务第3步（总共3步）';
+      if (this.initData.status === 4) {
+        this.isCheckSuccess = true;
+      }
+    }
+  }
   private created() {
     let cancelLoading = this.$loading();
-    getFreeOrderDetail(this.taskid)
+    getCreateTask('free', '8')
+      // getFreeOrderDetail(this.taskid)
       .then((res: freeInfo) => {
         cancelLoading();
         //数据逻辑处理
+        this.initData = res;
+        this.checkStatus();
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
-        this.initData = {
-          task_order_id: '111',
-          status: '0',
-          task_no: '333',
-          gift: '444',
-          taobao_key: '555',
-          taobao_key_url: '',
-          taobao_key_url1: '',
-          goods: [
-            { key_word: '888', url: '999', good_name: '商品名称1' },
-            { key_word: '100', url: 'aaa', good_name: '商品名称2' }
-          ],
-          comments: '刷单',
-          webchatcode_url: '',
-          taobaoorder_url: ''
-        };
-        if (this.initData.status === '0') {
-          this.isFirst = true;
-          document.title = '任务第二步（总共3步）';
-        } else if (this.initData.status === '1') {
-          this.isSecond = true;
-        } else if (
-          this.initData.status === '2' ||
-          this.initData.status === '3' ||
-          this.initData.status === '4' ||
-          this.initData.status === '5'
-        ) {
-          this.isThird = true;
-          if (this.initData.status === '4') {
-            this.isCheckSuccess = true;
-          }
-        }
-        cancelLoading();
+        // this.initData = {
+        //   id: '111',
+        //   status: '0',
+        //   task_no: '333',
+        //   gift: '444',
+        //   taobao_key: '555',
+        //   check_first_url: '',
+        //   check_second_url: '',
+        //   goods: [
+        //     { key_word: '888', url: '999', good_name: '商品名称1', sku: '红色 35码' },
+        //     { key_word: '100', url: 'aaa', good_name: '商品名称2', sku: '1红色 36码' }
+        //   ],
+        //   comments: '刷单',
+        //   wechat_code_url: '',
+        //   order_pic_url: ''
+        // };
+        // if (this.initData.status === 0) {
+        //   this.isFirst = true;
+        //   document.title = '任务第二步（总共3步）';
+        // } else if (this.initData.status === 1) {
+        //   this.isSecond = true;
+        // } else if (
+        //   this.initData.status === 2 ||
+        //   this.initData.status === 3 ||
+        //   this.initData.status === 4 ||
+        //   this.initData.status === 5
+        // ) {
+        //   this.isThird = true;
+        //   if (this.initData.status === 4) {
+        //     this.isCheckSuccess = true;
+        //   }
+        // }
+        // cancelLoading();
       });
   }
-  private fileChange(obj: { url: string; keyName: string }) {
+  private fileChange(obj: { url: string; keyName: string; status: string }) {
     console.log('aaaa:', obj);
-    if (obj.keyName === 'taobao_key_url') {
-      this.initData.taobao_key_url = obj.url;
-    } else if (obj.keyName === 'taobao_key_url1') {
-      this.initData.taobao_key_url1 = obj.url;
-    } else if (obj.keyName === 'webchatcode_url') {
-      this.initData.webchatcode_url = obj.url;
-    } else if (obj.keyName === 'taobaoorder_url') {
-      this.initData.taobaoorder_url = obj.url;
+    if (obj === null) {
+      this.$toast('图片上传失败');
+      return;
     }
-    console.log('bbbb:', this.initData);
+    if (obj.keyName === 'check_first_url') {
+      this.initData.check_first_url = obj.url;
+    } else if (obj.keyName === 'check_second_url') {
+      this.initData.check_second_url = obj.url;
+    } else if (obj.keyName === 'wechat_code_url') {
+      this.initData.wechat_code_url = obj.url;
+    } else if (obj.keyName === 'order_pic_url') {
+      this.initData.order_pic_url = obj.url;
+    }
+    if (obj.keyName === 'check_first_url' || obj.keyName === 'check_second_url') {
+      if (status === '1') {
+        this.checkStatus();
+      }
+    }
   }
   private onCopy() {
-    console.log('33333',2);
     this.$toast('复制成功');
   }
   private commitOrderNo() {
-    setOrderNo(this.initData.task_order_id, this.orderid)
+    setOrderNo(this.initData.id, this.orderid)
       .then((res: {}) => {
         this.$toast('订单编号提交成功');
         //数据逻辑处理
@@ -209,17 +235,17 @@ export default class TaskLoad extends Vue {
       });
   }
   private checkTaobaoKey() {
-    setCheckTBkey(this.initData.task_order_id, this.txtarea1, this.txtarea2)
+    setCheckTBkey(this.initData.id, this.txtarea1, this.txtarea2)
       .then((res: {}) => {
         this.$toast('校验成功');
         //数据逻辑处理
       })
-      .catch((err: {}) => {
-        // this.$toast(err);
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
       });
   }
   private confirmOrder() {
-    if (this.initData.webchatcode_url === '' || this.initData.taobaoorder_url === '') {
+    if (this.initData.wechat_code_url === '' || this.initData.order_pic_url === '') {
       this.$toast('请先完成任务要求');
       return;
     } else {
@@ -234,7 +260,7 @@ export default class TaskLoad extends Vue {
 <style lang="scss" scoped>
 @import '../scss/theme.scss';
 @import '../scss/_px2px.scss';
-.info {
+.taskbuy {
   font-size: 28px;
   padding: 0 20px;
   textarea {

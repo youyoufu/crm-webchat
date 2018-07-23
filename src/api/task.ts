@@ -1,14 +1,20 @@
 import { internalFetch } from '@/util/fetch';
 import { stringifPath } from './index';
 
-const TaskListPath='/task/findTasksBySellerId';
-export interface TasksListData{
-  id:string;
-  url:string;
+const TaskListPath = '/task/findTasksBySellerId';
+const createTaskPath = '/taskOrder/findTask';
+export interface TasksListData {
+  id: string;
+  url: string;
 }
-export function getTasksList(type:string) {
+export function getTasksList(type: string) {
   return internalFetch('POST')(true)(stringifPath(TaskListPath), {
-    body: {type }
+    body: { type }
+  });
+}
+export function getCreateTask(type: string, taskId: string) {
+  return internalFetch('POST')(true)(stringifPath(createTaskPath), {
+    body: { type, taskId }
   });
 }
 
