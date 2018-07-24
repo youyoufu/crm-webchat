@@ -42,16 +42,21 @@
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
       <div class="tips1">任务简短说明：所有任务都是组合任务，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
-      <div v-for="item in initData.goods" :key="item.key_word">
+      <div class="good-block" v-for="item in initData.goods" :key="item.keyword">
         <div class="copy-block">
-          <input v-model="item.key_word" readonly />
-          <div class="btn-hollow copy" v-clipboard:copy="item.key_word" v-clipboard:success="onCopy">
+          <input v-model="item.keyword" readonly />
+          <div class="btn-hollow copy" v-clipboard:copy="item.keyword" v-clipboard:success="onCopy">
             <span class="hollow">点击复制</span>
           </div>
         </div>
         <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
           <span class="red">{{item.sku}}</span> 加入购物车</div>
-        <img class="longGoodimg" :src="item.url" />
+        <div class="upload-block">
+        <div class="upload-img">
+          <img :src="item.long_url" />
+          <img :src="item.square_url" />
+        </div>
+      </div>
       </div>
       <div class="bgcolor mtop50 tips big">参照下图，核对订单产品和订单金额</div>
       <img class="longGoodimg mtop50" :src="initData.url" />
@@ -200,10 +205,9 @@ export default class TaskLoad extends Vue {
         // cancelLoading();
       });
   }
-  private fileChange(obj: { url: string; keyName: string; status: string }) {
-    console.log('aaaa:', obj);
+  private fileChange(obj: { url: string; keyName: string; status: string },msg) {
     if (obj === null) {
-      this.$toast('图片上传失败');
+      this.$toast(msg);
       return;
     }
     if (obj.keyName === 'check_first_url') {
@@ -215,6 +219,7 @@ export default class TaskLoad extends Vue {
     } else if (obj.keyName === 'order_pic_url') {
       this.initData.order_pic_url = obj.url;
     }
+    console.log(11111)
     if (obj.keyName === 'check_first_url' || obj.keyName === 'check_second_url') {
       if (status === '1') {
         this.checkStatus();
@@ -315,6 +320,10 @@ export default class TaskLoad extends Vue {
       position: absolute;
       left: 0;
     }
+  }
+  .good-block{
+    border-top:1px solid #ebebeb;
+    margin:20px auto 30px;
   }
   .upload-block {
     width: 100%;

@@ -27,13 +27,13 @@ export default class UploadImg extends Vue {
   private fileChange(files: any) {
     setUploadImg(files, this.taskOrderId.toString(), this.sequence)
       .then(result => {
-        let url = JSON.parse(result.data).url;
-        let status= JSON.parse(result.data).status;
+        let url = result.data.url;
+        let status=result.data.status;
         let keyName = this.keyName;
-        this.$emit('fileChange', { url, keyName,status });
+        this.$emit('fileChange', { url, keyName,status },'');
       })
-      .catch(() => {
-        this.$emit('fileChange', null);
+      .catch((err:{message:string}) => {
+        this.$emit('fileChange', null,err.message);
       });
   }
 }
