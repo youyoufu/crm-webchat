@@ -49,17 +49,26 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getQuery } from "@/util/cookie";
+import { login } from "@/api/login";
+import { hasLogin } from "@/util/session";
+
 @Component({
   components: {}
 })
 export default class User extends Vue {
-  private created() {}
+  private sid: string = getQuery("sellerid") || "";
+  private created() {
+    if (!hasLogin()) {
+      login(this.sid);
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .info {
   font-size: 28px;
   .tips {

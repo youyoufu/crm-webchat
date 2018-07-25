@@ -5,10 +5,12 @@ import Login from '@/views/Login.vue';
 import Bind from '@/views/BindUser.vue';
 import User from '@/views/User.vue';
 import tasklist from '@/views/TaskList.vue';
+import taskcenter from '@/views/TaskCenter.vue';
 import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy from '@/views/TaskBuy.vue';
 import { hasLogin } from '@/util/session';
 import { login } from '@/api/login';
+import { getCookie } from '@/util/cookie';
 Vue.use(Router);
 
 const router = new Router({
@@ -21,10 +23,16 @@ const router = new Router({
       meta: { title: '个人中心', requiredAuth: true }
     },
     {
+      path: '/taskcenter',
+      name: 'taskcenter',
+      component: taskcenter,
+      meta: { title: '任务中心', requiredAuth: false }
+    },
+    {
       path: '/tasklist',
       name: 'tasklist',
       component: tasklist,
-      meta: { title: '任务列表', requiredAuth: false }
+      meta: { title: '领取更多任务', requiredAuth: false }
     },
     {
       path: '/login',
@@ -59,7 +67,7 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
     if (!hasLogin()) {
-      login();
+      login(getCookie('sellerId') || '');
     } else {
       next();
     }
