@@ -20,7 +20,7 @@ const router = new Router({
       path: '/',
       name: 'user',
       component: User,
-      meta: { title: '个人中心', requiredAuth: true }
+      meta: { title: '个人中心', requiredAuth: false }
     },
     {
       path: '/taskcenter',
