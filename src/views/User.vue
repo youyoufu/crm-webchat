@@ -60,10 +60,8 @@ import { hasLogin } from "@/util/session";
 export default class User extends Vue {
   private sid: string = getQuery("sellerid") || "";
   private created() {
-console.log(11111);
-
     if (!hasLogin()) {
-      login(this.sid);
+      login(this.sid,'');
     }
   }
 }

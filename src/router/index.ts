@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
     if (!hasLogin()) {
-      login(getCookie('sellerId') || '');
+      login(getCookie('sellerId') || '','');
     } else {
       next();
     }
