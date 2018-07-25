@@ -150,6 +150,7 @@ export default class TaskLoad extends Vue {
     } else if (this.initData.status === 1) {
       document.title = '任务第2步（总共3步）';
       this.isSecond = true;
+      this.isFirst = false;
     } else if (this.initData.status >= 2 || this.initData.status <= 5) {
       this.isThird = true;
       document.title = '任务第3步（总共3步）';
