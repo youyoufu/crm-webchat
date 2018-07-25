@@ -18,7 +18,7 @@ const router = new Router({
       path: '/',
       name: 'user',
       component: User,
-      meta: { title: '个人中心', requiredAuth: false }
+      meta: { title: '个人中心', requiredAuth: true }
     },
     {
       path: '/tasklist',
@@ -30,7 +30,7 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      meta: { title: '欢迎首次登陆', requiredAuth: false }
+      meta: { title: '欢迎首次登陆', requiredAuth: true }
     },
     {
       path: '/bind',
