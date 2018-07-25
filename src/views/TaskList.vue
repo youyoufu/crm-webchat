@@ -35,9 +35,9 @@ export default class TaskList extends Vue {
   private goToDeatil(tid: string) {
     getCreateTask(this.listType, tid)
       .then((res: any) => {
-        let url = '/taskbuy?tid=' + res.id;
+        let url = '/taskbuy?tid=' + res.task_id;
         if (!this.isFree) {
-          url = '/taskrefund?tid=' + res.id;
+          url = '/taskrefund?tid=' + res.task_id;
         }
         window.location.href = url;
       })

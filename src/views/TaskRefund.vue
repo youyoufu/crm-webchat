@@ -51,7 +51,7 @@ export default class TaskFree extends Vue {
         this.initData = res;
       })
       .catch((err: { message: string }) => {
-        // this.$toast(err.message);
+        this.$toast(err.message);
         this.initData.key_word = '111';
         this.initData.task_order_id = '222';
         this.initData.status = '3';
