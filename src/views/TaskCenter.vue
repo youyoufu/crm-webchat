@@ -29,7 +29,7 @@ export default class TaskList extends Vue {
   private isFree: boolean = getQuery("type") === "free";
   private created() {
     if (!hasLogin()) {
-      login(this.sid,'tasklist');
+      login(this.sid,'taskcenter');
     } else {
       getTasksList(this.listType)
         .then((res: any) => {
