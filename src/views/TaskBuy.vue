@@ -52,14 +52,16 @@
         <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
           <span class="red">{{item.sku}}</span> 加入购物车</div>
         <div class="upload-block">
-        <div class="upload-img">
-          <img :src="item.long_url" />
-          <img :src="item.square_url" />
+          <div class="upload-img">
+            <img :src="item.long_url" />
+            <img :src="item.square_url" />
+          </div>
         </div>
       </div>
-      </div>
       <div class="bgcolor mtop50 tips big">参照下图，核对订单产品和订单金额</div>
-      <img class="longGoodimg mtop50" :src="initData.url" />
+      <div style="text-align:center">
+        <img class="longGoodimg mtop50" :src="initData.url" />
+      </div>
       <div class="bgcolor mtop50 tips big">确定后，留言{{initData.comments}}，提交订单，不要付款</div>
       <div class="tips1">复制订单号，在下面粘贴订单号</div>
       <div class="textcenter">
@@ -144,14 +146,17 @@ export default class TaskLoad extends Vue {
   private txtarea1: string = '';
   private txtarea2: string = '';
   private checkStatus() {
+    console.log(1111);
     if (this.initData.status === 0) {
       this.isFirst = true;
       document.title = '任务第1步（总共3步）';
     } else if (this.initData.status === 1) {
       document.title = '任务第2步（总共3步）';
-      this.isSecond = true;
       this.isFirst = false;
+      this.isSecond = true;
     } else if (this.initData.status >= 2 || this.initData.status <= 5) {
+      this.isFirst = false;
+      this.isSecond = false;
       this.isThird = true;
       document.title = '任务第3步（总共3步）';
       if (this.initData.status === 4) {
@@ -172,7 +177,7 @@ export default class TaskLoad extends Vue {
         this.$toast(err.message);
       });
   }
-  private fileChange(obj: { url: string; keyName: string; status: string },msg) {
+  private fileChange(obj: { url: string; keyName: string; status: string }, msg) {
     if (obj === null) {
       this.$toast(msg);
       return;
@@ -186,9 +191,8 @@ export default class TaskLoad extends Vue {
     } else if (obj.keyName === 'order_pic_url') {
       this.initData.order_pic_url = obj.url;
     }
-    console.log(11111)
     if (obj.keyName === 'check_first_url' || obj.keyName === 'check_second_url') {
-      if (status === '1') {
+      if (obj.status === '1') {
         this.checkStatus();
       }
     }
@@ -198,9 +202,11 @@ export default class TaskLoad extends Vue {
   }
   private commitOrderNo() {
     setOrderNo(this.initData.id, this.orderid)
-      .then((res: {}) => {
+      .then((res: any) => {
         this.$toast('订单编号提交成功');
         //数据逻辑处理
+        this.initData.status = 2;
+        this.checkStatus();
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
@@ -288,9 +294,9 @@ export default class TaskLoad extends Vue {
       left: 0;
     }
   }
-  .good-block{
-    border-top:1px solid #ebebeb;
-    margin:20px auto 30px;
+  .good-block {
+    border-top: 1px solid #ebebeb;
+    margin: 20px auto 30px;
   }
   .upload-block {
     width: 100%;
