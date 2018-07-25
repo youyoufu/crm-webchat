@@ -6,7 +6,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 // import { PREFIX, actions } from '@/store/modules/user/CONSTANTS';
-import { hasLogin, saveLogin } from "@/util/session";
+import { hasLogin,  } from "@/util/session";
 import { login } from "@/api/login";
 
 @Component
