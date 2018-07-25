@@ -160,8 +160,7 @@ export default class TaskLoad extends Vue {
   }
   private created() {
     let cancelLoading = this.$loading();
-    getCreateTask('free', '8')
-      // getFreeOrderDetail(this.taskid)
+    getCreateTask('free', this.taskid)
       .then((res: freeInfo) => {
         cancelLoading();
         //数据逻辑处理
@@ -170,39 +169,6 @@ export default class TaskLoad extends Vue {
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
-        // this.initData = {
-        //   id: '111',
-        //   status: '0',
-        //   task_no: '333',
-        //   gift: '444',
-        //   taobao_key: '555',
-        //   check_first_url: '',
-        //   check_second_url: '',
-        //   goods: [
-        //     { key_word: '888', url: '999', good_name: '商品名称1', sku: '红色 35码' },
-        //     { key_word: '100', url: 'aaa', good_name: '商品名称2', sku: '1红色 36码' }
-        //   ],
-        //   comments: '刷单',
-        //   wechat_code_url: '',
-        //   order_pic_url: ''
-        // };
-        // if (this.initData.status === 0) {
-        //   this.isFirst = true;
-        //   document.title = '任务第二步（总共3步）';
-        // } else if (this.initData.status === 1) {
-        //   this.isSecond = true;
-        // } else if (
-        //   this.initData.status === 2 ||
-        //   this.initData.status === 3 ||
-        //   this.initData.status === 4 ||
-        //   this.initData.status === 5
-        // ) {
-        //   this.isThird = true;
-        //   if (this.initData.status === 4) {
-        //     this.isCheckSuccess = true;
-        //   }
-        // }
-        // cancelLoading();
       });
   }
   private fileChange(obj: { url: string; keyName: string; status: string },msg) {
