@@ -3,21 +3,31 @@ import { stringifPath } from './index';
 
 const TaskListPath = '/task/findTasksBySellerId';
 const createTaskPath = '/taskOrder/findTask';
+const CenterTaskPath = '/taskOrder/findTask';
 export interface TasksListData {
   id: string;
   url: string;
 }
+/*获取对应任务*/
 export function getTasksList(type: string) {
   return internalFetch('POST')(true)(stringifPath(TaskListPath), {
     body: { type }
   });
 }
+/*领取任务*/
 export function getCreateTask(type: string, taskId: string) {
   return internalFetch('POST')(true)(stringifPath(createTaskPath), {
     body: { type, taskId }
   });
 }
-
+export interface CenterTaskData {
+  free_task: Array<{ refund_rate: string; gift: string; url: string }>;
+  refund_task: Array<{ url: string; bonus_point: string }>;
+}
+/*获取所有任务*/
+export function getCenterTask() {
+  return internalFetch('POST')(true)(stringifPath(CenterTaskPath));
+}
 const PATH = '/events';
 export interface Filter {
   after?: number;

@@ -1,51 +1,70 @@
 <template>
   <div class="tasklist">
-    <div v-if="isFree" class="tips">每小时整点发放任务，准点来抢，怕抢不到就叫上亲朋好友一起来抢，但是，谁抢到，谁来做哦。</div>
-    <div v-else class="tips">一个账户，一周只能领取一次任务哦。</div>
-      <div class="bgcolor tips big">免单返现任务</div>   
+    <div class="tips">每小时整点发放任务，准点来抢，怕抢不到就叫上亲朋好友一起来抢，但是，谁抢到，谁来做哦。</div>
+    <div class="tips">一个账户，一周只能领取一次任务哦。</div>
+    <div class="bgcolor tips1 big">免单返现任务</div>
     <ul class="task-list mtop50">
-      <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData">
+      <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.free_task">
         <img class="task-img" :src="item.url" />
-        <span v-if="isFree" class="btn-gray">立即领取</span>
-        <span v-else class="btn-gray">挖这个宝</span>
+        <span class="btn-gray">立即领取</span>
+      </li>
+    </ul>
+    <div class="bgcolor tips1 big">挖宝任务</div>
+    <ul class="task-list mtop50">
+      <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.refund_task">
+        <img class="task-img" :src="item.url" />
+        <span class="btn-gray">挖这个宝</span>
       </li>
     </ul>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { getTasksList, TasksListData, getCreateTask } from "@/api/task";
-import { getQuery } from "@/util/cookie";
-import { login } from "@/api/login";
-import { hasLogin } from "@/util/session";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getCenterTask, getCreateTask, CenterTaskData } from '@/api/task';
+import { getQuery } from '@/util/cookie';
+import { login } from '@/api/login';
+import { hasLogin } from '@/util/session';
 
 @Component({
   components: {}
 })
 export default class TaskList extends Vue {
-  private taskData: Array<TasksListData> = [];
-  private sid: string = getQuery("sellerid") || "";
-  private listType: string = getQuery("type") || "free";
-  private isFree: boolean = getQuery("type") === "free";
+  private taskData: CenterTaskData = {
+    free_task: [],
+    refund_task: []
+  };
+  private sid: string = getQuery('sellerid') || '';
+  private listType: string = getQuery('type') || 'free';
+  private isFree: boolean = getQuery('type') === 'free';
   private created() {
-    if (!hasLogin()) {
-      login(this.sid,'taskcenter');
-    } else {
-      getTasksList(this.listType)
-        .then((res: any) => {
-          this.taskData = res;
-        })
-        .catch((err: { message: string }) => {
-          this.$toast(err.message);
-        });
-    }
+    // if (!hasLogin()) {
+    //   login(this.sid, 'taskcenter');
+    // } else {
+    getCenterTask()
+      .then((res: any) => {
+        this.taskData = res;
+      })
+      .catch((err: { message: string }) => {
+        console.log(1111);
+        this.$toast(err.message);
+        this.taskData = {
+          free_task: [
+            { refund_rate: '返现比例', gift: '礼物', url: '图片' },
+            { refund_rate: '返现比例1', gift: '礼物', url: '图片' },
+            { refund_rate: '返现比例', gift: '礼物', url: '图片' },
+            { refund_rate: '返现比例1', gift: '礼物', url: '图片' }
+          ],
+          refund_task: [{ url: '图片', bonus_point: '积分' }, { url: '图片1', bonus_point: '积分' }]
+        };
+      });
+    // }
   }
   private goToDeatil(tid: string) {
     getCreateTask(this.listType, tid)
       .then((res: any) => {
-        let url = "/taskbuy?tid=" + res.task_id;
+        let url = '/taskbuy?tid=' + res.task_id;
         if (!this.isFree) {
-          url = "/taskrefund?tid=" + res.task_id;
+          url = '/taskrefund?tid=' + res.task_id;
         }
         window.location.href = url;
       })
@@ -56,8 +75,8 @@ export default class TaskList extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import "../scss/theme.scss";
-@import "../scss/_px2px.scss";
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .tasklist {
   font-size: 28px;
   padding: 20px 20px;
@@ -67,6 +86,12 @@ export default class TaskList extends Vue {
     line-height: 38px;
     margin: 0 20px;
     text-align: left;
+  }
+  .tips1 {
+    margin: 10px auto;
+    line-height: 38px;
+    margin: 0 -20px;
+    text-align: center;
   }
   .task-list {
     display: inline-block;
