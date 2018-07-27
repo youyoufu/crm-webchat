@@ -3,14 +3,16 @@
     <div class="tips">每小时整点发放任务，准点来抢，怕抢不到就叫上亲朋好友一起来抢，但是，谁抢到，谁来做哦。</div>
     <div class="tips">一个账户，一周只能领取一次任务哦。</div>
     <div class="bgcolor tips1 big">免单返现任务</div>
-    <ul class="task-list mtop50">
+    <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.free_task">
         <img class="task-img" :src="item.url" />
+        <p class="tips">返现比例：{{item.refund_rate}}</p>
+        <p class="tips">您将收货：{{item.gift}}</p>
         <span class="btn-gray">立即领取</span>
       </li>
     </ul>
     <div class="bgcolor tips1 big">挖宝任务</div>
-    <ul class="task-list mtop50">
+    <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.refund_task">
         <img class="task-img" :src="item.url" />
         <span class="btn-gray">挖这个宝</span>

@@ -69,7 +69,8 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
       return fetch(path, {
         headers,
         method: type,
-        body: stringifyBody
+        body: stringifyBody,
+        credentials:'include'
       })
         .then(checkStatus)
         .then(parseJSON)
