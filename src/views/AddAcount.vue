@@ -31,7 +31,7 @@ export default class Login extends Vue {
         // cancelLoading();
         // console.log('BindAccount',res);
 
-        let url = '/' + this.info + '?tid' + this.taskid;
+        let url = '/' + this.info + '?tid=' + this.taskid ;
         window.location.href = url;
       })
       .catch((e: Error) => {
