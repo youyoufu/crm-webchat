@@ -74,7 +74,7 @@ export default class TaskList extends Vue {
         if(res.is_exists_account === 'no'){
           window.location.href = '/addAcount?task_id=' + tid + '&url=' + info;
         }
-        // window.location.href = url;
+         window.location.href = url;
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
