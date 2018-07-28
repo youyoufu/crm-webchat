@@ -68,6 +68,7 @@ export default class User extends Vue {
   };
   private created() {
     if (!hasLogin()) {
+      console.log('sid======' + this.sid);
       login(this.sid, '');
     } else {
       getUserCenter()

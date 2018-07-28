@@ -4,7 +4,7 @@
     <div class="tips">一个账户，一周只能领取一次任务哦。</div>
     <div class="bgcolor tips1 big">免单返现任务</div>
     <ul class="task-list">
-      <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.free_task">
+      <li class="task" @click="goToDeatil(item.id, 'free')" v-for="item in taskData.free_task">
         <img class="task-img" :src="item.main_product_url" />
         <p class="tips">返现比例：{{item.refund_rate}}</p>
         <p class="tips">您将收货：{{item.gift}}</p>
@@ -13,7 +13,7 @@
     </ul>
     <div class="bgcolor tips1 big">挖宝任务</div>
     <ul class="task-list">
-      <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.refund_task">
+      <li class="task" @click="goToDeatil(item.id, 'refund')" v-for="item in taskData.refund_task">
         <img class="task-img" :src="item.url" />
         <span class="btn-gray">挖这个宝</span>
       </li>
@@ -61,19 +61,20 @@ export default class TaskList extends Vue {
       });
     // }
   }
-  private goToDeatil(tid: string) {
+  private goToDeatil(tid: string, type: string) {
     getCreateTask(this.listType, tid)
       .then((res: any) => {
         let info = 'taskbuy';
-        let url = '/taskbuy?tid=' + res.task_id;
-        if (!this.isFree) {
-          url = '/taskrefund?tid=' + res.task_id;
+        let url = '/taskbuy?tid=' + tid;
+        if (type === 'free') {
+          url = '/taskrefund?tid=' + tid;
           info ='taskrefund';
         }
+        console.log(res.is_exists_account);
         if(res.is_exists_account === 'no'){
-          window.location.href = '/addAcount?task_id=' + res.task_id + '&url=' + info;
+          window.location.href = '/addAcount?task_id=' + tid + '&url=' + info;
         }
-        window.location.href = url;
+        // window.location.href = url;
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
