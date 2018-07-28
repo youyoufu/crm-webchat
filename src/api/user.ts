@@ -2,7 +2,7 @@ import { get, internalFetch } from '@/util/fetch';
 import { stringifPath } from './index';
 import { hasLogin } from '@/util/session';
 const PATH = '/user';
-const userCenterPath = '/userCenter/getUserInfo';
+const userCenterPath = '/userInfo/getUserInfo';
 // export interface Filter {
 //   type: 'liked' | 'going' | 'past';
 //   offset?: number;

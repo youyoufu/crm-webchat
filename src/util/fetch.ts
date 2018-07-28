@@ -51,9 +51,9 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
     return (path: string, options: FetchParams = {}) => {
       let { headers, body } = options;
       headers = headers instanceof Headers ? headers : new Headers();
-      if (!isGetToken) {
+      // if (!isGetToken) {
         headers.set(TOKEN, getCookie(TOKEN));
-      }
+      // }
       let stringifyBody;
       if (body) {
         headers.set('Content-Type', 'application/json');
@@ -69,8 +69,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
       return fetch(path, {
         headers,
         method: type,
-        body: stringifyBody,
-        credentials:'include'
+        body: stringifyBody
       })
         .then(checkStatus)
         .then(parseJSON)
