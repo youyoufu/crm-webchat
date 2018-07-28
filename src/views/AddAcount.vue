@@ -1,9 +1,9 @@
 <template>
   <div class="login" >
     <div class="tips">未绑定淘宝账号,请绑定手机号和淘宝账户</div>
-    <input v-model="user" placeholder="输入手机号"/>
+    <input v-model="phone" placeholder="输入手机号"/>
     <div class="psw">
-    <input v-model="phone" placeholder="输入淘宝账户"/>
+    <input v-model="user" placeholder="输入淘宝账户"/>
     <!-- <div class="btn upload"><span class="hollow">上传账户截图</span></div> -->
     </div>
     <div class="btn" @click.stop.prevent="login"><span>保存</span></div>
