@@ -5,7 +5,7 @@
     <div class="bgcolor tips1 big">免单返现任务</div>
     <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id)" v-for="item in taskData.free_task">
-        <img class="task-img" :src="item.url" />
+        <img class="task-img" :src="item.main_product_url" />
         <p class="tips">返现比例：{{item.refund_rate}}</p>
         <p class="tips">您将收货：{{item.gift}}</p>
         <span class="btn-gray">立即领取</span>
@@ -42,7 +42,7 @@ export default class TaskList extends Vue {
     // if (!hasLogin()) {
     //   login(this.sid, 'taskcenter');
     // } else {
-    getCenterTask()
+    getCenterTask('all')
       .then((res: any) => {
         this.taskData = res;
       })
@@ -64,9 +64,14 @@ export default class TaskList extends Vue {
   private goToDeatil(tid: string) {
     getCreateTask(this.listType, tid)
       .then((res: any) => {
+        let info = 'taskbuy';
         let url = '/taskbuy?tid=' + res.task_id;
         if (!this.isFree) {
           url = '/taskrefund?tid=' + res.task_id;
+          info ='taskrefund';
+        }
+        if(res.is_exists_account === 'no'){
+          window.location.href = '/addAcount?task_id=' + res.task_id + '&url=' + info;
         }
         window.location.href = url;
       })

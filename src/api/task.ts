@@ -3,7 +3,7 @@ import { stringifPath } from './index';
 
 const TaskListPath = '/task/findTasksBySellerId';
 const createTaskPath = '/taskOrder/findTask';
-const CenterTaskPath = '/taskOrder/findTask';
+const CenterTaskPath = '/task/findTasksBySellerId';
 export interface TasksListData {
   id: string;
   url: string;
@@ -25,8 +25,10 @@ export interface CenterTaskData {
   refund_task: Array<{ url: string; bonus_point: string }>;
 }
 /*获取所有任务*/
-export function getCenterTask() {
-  return internalFetch('POST')(true)(stringifPath(CenterTaskPath));
+export function getCenterTask(type: string) {
+  return internalFetch('POST')(true)(stringifPath(CenterTaskPath),{
+    body: { type }
+  });
 }
 const PATH = '/events';
 export interface Filter {

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Login from '@/views/Login.vue';
 // import Task from '@/views/Task.vue';
 import Bind from '@/views/BindUser.vue';
+import AddAcount from '@/views/AddAcount.vue';
 import User from '@/views/User.vue';
 import tasklist from '@/views/TaskList.vue';
 import taskcenter from '@/views/TaskCenter.vue';
@@ -21,6 +22,12 @@ const router = new Router({
       name: 'user',
       component: User,
       meta: { title: '个人中心', requiredAuth: false }
+    },
+    {
+      path: '/addAcount',
+      name: 'addAcount',
+      component: AddAcount,
+      meta: { title: '新增账号', requiredAuth: false }
     },
     {
       path: '/taskcenter',
