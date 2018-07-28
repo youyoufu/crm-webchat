@@ -23,7 +23,7 @@ export default class Login extends Vue {
   private phone: string = '';
   private login() {
     if (this.user && this.phone) {
-      let cancelLoading = this.$loading();
+      // let cancelLoading = this.$loading();
       // BindAccount({
       //   account: this.user,
       //   phone: this.phone,

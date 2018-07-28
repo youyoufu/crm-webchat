@@ -165,10 +165,10 @@ export default class TaskLoad extends Vue {
     }
   }
   private created() {
-    let cancelLoading = this.$loading();
+    // let cancelLoading = this.$loading();
     getCreateTask('free', this.taskid)
       .then((res: freeInfo) => {
-        cancelLoading();
+        // cancelLoading();
         //数据逻辑处理
         this.initData = res;
         this.checkStatus();
