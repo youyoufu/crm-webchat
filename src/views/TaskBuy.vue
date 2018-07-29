@@ -150,6 +150,7 @@ export default class TaskLoad extends Vue {
   private txtarea1: string = '';
   private txtarea2: string = '';
   private checkStatus() {
+    console.log(333);
     let status=parseInt(this.initData.status);
     if (status === 0) {
       this.isFirst = true;
