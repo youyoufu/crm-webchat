@@ -22,7 +22,7 @@ export interface freeInfo {
   check_first_url: string;
   check_second_url: string;
   goods: Array<{ keyword: string; url: string; good_name: string; sku: string; long_url: string; square_url: string }>;
-  comments: string;
+  content: string;
   order_pic_url: string;
   wechat_code_url: string;
 }

@@ -11,7 +11,7 @@
       </p>
         <p>
         任务说明：
-        <span class="red">{{initData.comments}}</span>
+        <span class="red">{{initData.content}}</span>
       </p>
     </div>
     <div v-if="isFirst">
@@ -147,7 +147,7 @@ export default class TaskLoad extends Vue {
     goods: [],
     wechat_code_url: "",
     order_pic_url: "",
-    comments: ""
+    content: ""
   };
   private isFirst: boolean = true;
   private isSecond: boolean = false;
