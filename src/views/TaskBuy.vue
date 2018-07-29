@@ -1,18 +1,18 @@
 <template>
   <div class="taskbuy">
-    <div class="base mtop50">
-      <div>
+    <div class="base">
+      <p>
         任务编号：
         <span class="red">{{initData.task_no}}</span>
-      </div>
-      <div>
+      </p>
+      <p>
         任务赠品：
         <span class="red">{{initData.gift}}</span>
-      </div>
-        <div>
+      </p>
+        <p>
         任务说明：
         <span class="red">{{initData.comments}}</span>
-      </div>
+      </p>
     </div>
     <div v-if="isFirst">
       <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
@@ -141,7 +141,7 @@ export default class TaskLoad extends Vue {
     order_pic_url: '',
     comments: ''
   };
-  private isFirst: boolean = false;
+  private isFirst: boolean = true;
   private isSecond: boolean = false;
   private isThird: boolean = false;
   private isCheckSuccess: boolean = false;
@@ -253,17 +253,11 @@ export default class TaskLoad extends Vue {
     font-size: 28px;
   }
   .base {
-    position: relative;
-    height: 80px;
-    .left {
-      display: inline-block;
-      position: absolute;
-      left: 0;
-    }
-    .right {
-      display: inline-block;
-      position: absolute;
-      right: 0;
+    padding: 20px 0  30px;
+    line-height: 1.5;
+    .red{
+      width: 500px;
+
     }
   }
   .tips2 {

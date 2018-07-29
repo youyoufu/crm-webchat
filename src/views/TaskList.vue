@@ -81,6 +81,8 @@ export default class TaskList extends Vue {
     }
   }
   .btn-block {
+    padding-top: 30px;
+    border-top: 1px solid #ebebeb;
     text-align: center;
     .btn {
       text-decoration: none;
