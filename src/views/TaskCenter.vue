@@ -118,7 +118,7 @@ export default class TaskList extends Vue {
     .task-img {
       margin: 10px 40px;
       width: 250px;
-      height: 100px;
+      height:250px;
     }
   }
 }
