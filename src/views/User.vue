@@ -76,29 +76,30 @@ export default class User extends Vue {
           this.userCenter = res;
         })
         .catch((res: { message: string }) => {
-          this.userCenter = {
-            name: '哈呦',
-            free_task_time: '12',
-            refund_task_time: '13',
-            bonus_point: '14',
-            taobao_account: '333ed',
-            jd_account: 'eqwe',
-            phone: '15899992222',
-            refund_list: [
-              {
-                execute_time: '2018-07-27',
-                id: '2',
-                refund: '3',
-                status: '4'
-              },
-              {
-                execute_time: '2018-07-28',
-                id: '22',
-                refund: '32',
-                status: '3'
-              }
-            ]
-          };
+          this.$toast(res.message);
+          // this.userCenter = {
+          //   name: '哈呦',
+          //   free_task_time: '12',
+          //   refund_task_time: '13',
+          //   bonus_point: '14',
+          //   taobao_account: '333ed',
+          //   jd_account: 'eqwe',
+          //   phone: '15899992222',
+          //   refund_list: [
+          //     {
+          //       execute_time: '2018-07-27',
+          //       id: '2',
+          //       refund: '3',
+          //       status: '4'
+          //     },
+          //     {
+          //       execute_time: '2018-07-28',
+          //       id: '22',
+          //       refund: '32',
+          //       status: '3'
+          //     }
+          //   ]
+          // };
         });
     }
   }

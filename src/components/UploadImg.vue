@@ -25,7 +25,6 @@ export default class UploadImg extends Vue {
   @Prop() private keyName!: string;
 
   private fileChange(files: any) {
-    console.log(333);
     setUploadImg(files, this.taskOrderId.toString(), this.sequence)
       .then(result => {
         let url = result.data.url;

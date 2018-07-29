@@ -1,13 +1,17 @@
 <template>
   <div class="taskbuy">
     <div class="base mtop50">
-      <div class="left">
+      <div>
         任务编号：
         <span class="red">{{initData.task_no}}</span>
       </div>
-      <div class="right">
+      <div>
         任务赠品：
         <span class="red">{{initData.gift}}</span>
+      </div>
+        <div>
+        任务说明：
+        <span class="red">{{initData.comments}}</span>
       </div>
     </div>
     <div v-if="isFirst">
@@ -146,20 +150,20 @@ export default class TaskLoad extends Vue {
   private txtarea1: string = '';
   private txtarea2: string = '';
   private checkStatus() {
-    console.log(1111);
-    if (this.initData.status === 0) {
+    let status=parseInt(this.initData.status);
+    if (status === 0) {
       this.isFirst = true;
       document.title = '任务第1步（总共3步）';
-    } else if (this.initData.status === 1) {
+    } else if (status === 1) {
       document.title = '任务第2步（总共3步）';
       this.isFirst = false;
       this.isSecond = true;
-    } else if (this.initData.status >= 2 || this.initData.status <= 5) {
+    } else if (status >= 2 || status <= 5) {
       this.isFirst = false;
       this.isSecond = false;
       this.isThird = true;
       document.title = '任务第3步（总共3步）';
-      if (this.initData.status === 4) {
+      if (status === 4) {
         this.isCheckSuccess = true;
       }
     }

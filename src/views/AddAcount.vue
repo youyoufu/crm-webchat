@@ -1,12 +1,12 @@
 <template>
-  <div class="login" >
+  <div class="addcount" >
     <div class="tips">未绑定淘宝账号,请绑定手机号和淘宝账户</div>
     <input v-model="phone" placeholder="输入手机号"/>
     <div class="psw">
     <input v-model="user" placeholder="输入淘宝账户"/>
     <!-- <div class="btn upload"><span class="hollow">上传账户截图</span></div> -->
     </div>
-    <div class="btn" @click.stop.prevent="login"><span>保存</span></div>
+    <div class="btn" @click.stop.prevent="login">保存</div>
     </div> 
 </template>
 <script lang="ts">
@@ -50,7 +50,7 @@ export default class Login extends Vue {
 <style lang="scss" scoped>
 @import '../scss/theme.scss';
 @import '../scss/_px2px.scss';
-.bind {
+.addcount {
   font-size: 20px;
   margin: 40px auto;
   text-align: center;
@@ -66,14 +66,8 @@ export default class Login extends Vue {
   }
   .btn {
     color: #fff;
-    span {
-      display: inline-block;
-      line-height: 34px;
-      background: $themeMain;
-      border-radius: 4px;
-      padding: 10px 15px;
-      margin: 20px;
-    }
+    padding:10px 50px;
+   
   }
   .demo {
     margin-top: 50px;

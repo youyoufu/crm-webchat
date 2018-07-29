@@ -21,11 +21,11 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getCenterTask, getCreateTask, CenterTaskData } from '@/api/task';
-import { getQuery } from '@/util/cookie';
-import { login } from '@/api/login';
-import { hasLogin } from '@/util/session';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getTasksList, getCreateTask, CenterTaskData } from "@/api/task";
+import { getQuery } from "@/util/cookie";
+import { login } from "@/api/login";
+import { hasLogin } from "@/util/session";
 
 @Component({
   components: {}
@@ -35,14 +35,14 @@ export default class TaskList extends Vue {
     free_task: [],
     refund_task: []
   };
-  private sid: string = getQuery('sellerid') || '';
-  private listType: string = getQuery('type') || 'free';
-  private isFree: boolean = getQuery('type') === 'free';
+  private sid: string = getQuery("sellerid") || "";
+  private listType: string = getQuery("type") || "free";
+  private isFree: boolean = getQuery("type") === "free";
   private created() {
     // if (!hasLogin()) {
     //   login(this.sid, 'taskcenter');
     // } else {
-    getCenterTask('all')
+    getTasksList('all')
       .then((res: any) => {
         this.taskData = res;
       })
@@ -51,12 +51,15 @@ export default class TaskList extends Vue {
         this.$toast(err.message);
         this.taskData = {
           free_task: [
-            { refund_rate: '返现比例', gift: '礼物', url: '图片' },
-            { refund_rate: '返现比例1', gift: '礼物', url: '图片' },
-            { refund_rate: '返现比例', gift: '礼物', url: '图片' },
-            { refund_rate: '返现比例1', gift: '礼物', url: '图片' }
+            { refund_rate: "返现比例", gift: "礼物", url: "图片" },
+            { refund_rate: "返现比例1", gift: "礼物", url: "图片" },
+            { refund_rate: "返现比例", gift: "礼物", url: "图片" },
+            { refund_rate: "返现比例1", gift: "礼物", url: "图片" }
           ],
-          refund_task: [{ url: '图片', bonus_point: '积分' }, { url: '图片1', bonus_point: '积分' }]
+          refund_task: [
+            { url: "图片", bonus_point: "积分" },
+            { url: "图片1", bonus_point: "积分" }
+          ]
         };
       });
     // }
@@ -84,8 +87,8 @@ export default class TaskList extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .tasklist {
   font-size: 28px;
   padding: 20px 20px;

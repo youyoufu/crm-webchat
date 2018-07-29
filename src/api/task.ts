@@ -3,7 +3,6 @@ import { stringifPath } from './index';
 
 const TaskListPath = '/task/findTasksBySellerId';
 const createTaskPath = '/taskOrder/findTask';
-const CenterTaskPath = '/task/findTasksBySellerId';
 export interface TasksListData {
   id: string;
   url: string;
@@ -23,12 +22,6 @@ export function getCreateTask(type: string, taskId: string) {
 export interface CenterTaskData {
   free_task: Array<{ refund_rate: string; gift: string; url: string }>;
   refund_task: Array<{ url: string; bonus_point: string }>;
-}
-/*获取所有任务*/
-export function getCenterTask(type: string) {
-  return internalFetch('POST')(true)(stringifPath(CenterTaskPath),{
-    body: { type }
-  });
 }
 const PATH = '/events';
 export interface Filter {
