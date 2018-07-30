@@ -85,7 +85,7 @@
       <div class="textcenter">
         <div class="btn logbtn" v-if="initData.status=='4'">审核通过，请完成付款</div>
         <div class="btn logbtn" v-else-if="initData.status=='5'">已返款</div>
-        <div class="btn logbtn" v-if="initData.status=='3'">审核失败</div>
+        <div class="btn logbtn" v-else-if="initData.status=='3'">审核失败</div>
         <div class="btn logbtn" v-else>系统审核中</div>
       </div>
       <p class="tips1">友情提示：</p>
