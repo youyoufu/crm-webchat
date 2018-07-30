@@ -27,13 +27,13 @@ const router = new Router({
       path: '/addAcount',
       name: 'addAcount',
       component: AddAcount,
-      meta: { title: '新增账号', requiredAuth: false }
+      meta: { title: '请绑定账号后进入活动', requiredAuth: false }
     },
     {
       path: '/taskcenter',
       name: 'taskcenter',
       component: taskcenter,
-      meta: { title: '任务中心', requiredAuth: false }
+      meta: { title: '会员专享活动', requiredAuth: false }
     },
     {
       path: '/tasklist',

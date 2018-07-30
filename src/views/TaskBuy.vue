@@ -2,21 +2,21 @@
   <div class="taskbuy">
     <div class="base">
       <p>
-        任务编号：
+        活动编号：
         <span class="red">{{initData.task_no}}</span>
       </p>
       <p>
-        任务赠品：
+        活动赠品：
         <span class="red">{{initData.gift}}</span>
       </p>
       <p>
-        任务说明：
+        活动特别说明：
         <span class="red">{{initData.content}}</span>
       </p>
     </div>
     <div v-if="isFirst">
       <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
-      <div class="tips1">复制下面淘口令，打开手机淘宝，按说明截图</div>
+      <div class="tips1 green">复制下面淘口令，打开手机淘宝，按说明截图</div>
       <div class="copy-block">
         <input v-model="initData.taobao_key" readonly />
         <div class="btn-hollow copy" v-clipboard:copy="initData.taobao_key" v-clipboard:success="onCopy">
@@ -41,14 +41,14 @@
       <div class="tips2">
         <p>提示-01:请直接截图，不要下拉再截图</p>
         <p>提示-02:两张图必须都上传</p>
-        <p>提示-03:如果上传后不进入下一步，请耐心等待人工复审，或者3小时候咨询微信客服</p>
-        <p>提示-04:验证不过会自动关闭任务，明天再试，持续不过就需更换淘宝账户</p>
+        <p>提示-03:如果上传后不进入下一步，请重新上传</p>
+        <p>提示-04：验证不过会自动关闭任务，明天再试，持续不过就更换淘宝账户。</p>
       </div>
-      <div class="bottom-tips mtop50">验证通过，将自动进入任务说明页面</div>
+      <div class="bottom-tips mtop100">验证通过，将自动进入任务说明页面</div>
     </div>
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
-      <div class="tips1">任务简短说明：所有任务都是组合任务，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
+      <div class="tips1 green">任务简短说明：所有任务都是组合任务，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
       <div class="good-block" v-for="item in initData.goods" :key="item.keyword">
         <div class="copy-block">
           <input v-model="item.keyword" readonly />
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
-          <span class="red">{{item.sku}}</span> 加入购物车</div>
+          <span class="red downline">{{item.sku}}</span> 加入购物车</div>
         <div class="upload-block">
           <div class="upload-img">
             <img :src="item.long_url" />
@@ -80,17 +80,8 @@
       <div class="bottom-tips">提交订单号后，进入自我校验任务</div>
     </div>
     <div v-if="isThird">
-      <div class="bgcolor tips big">任务自我检验宝贝是否找对</div>
-      <div>
-        <textarea placeholder="此处粘贴宝贝1的微信分享淘口令" v-model="txtarea1" />
-        <textarea placeholder="此处粘贴宝贝2的微信分享淘口令" v-model="txtarea2" />
-      </div>
-      <div class="textcenter">
-        <div class="btn-gray" @click="checkTaobaoKey">立即校验</div>
-      </div>
-      <div class="tips1">提示：自我效验通过，核对下单金额无误，针对参加淘抢购等有付款时间限制产品，可提前付款，并等待系统通知，如系统通知失败，请申请退款，放弃任务，重新接任务。</div>
-      <div class="bgcolor mtop50 tips big">请耐心等待付款通知</div>
-      <div class="tips1">系统正在核对订单，请等待系统通知付款（10-20分钟左右），休息片刻，再来刷新</div>
+    <div class="bgcolor mtop50 tips big">请稍等，订单审核通过会通知付款</div>
+      <div class="tips1 green">系统正在核对订单，请等待系统付款通知（10-20分钟左右），休息片刻，再来查看，感谢您的支持。</div>
       <div class="textcenter">
         <div class="btn logbtn" v-if="initData.status=='4'">审核通过，请完成付款</div>
         <div class="btn logbtn" v-else-if="initData.status=='5'">已返款</div>
@@ -98,9 +89,17 @@
         <div class="btn logbtn" v-else>系统审核中</div>
       </div>
       <p class="tips1">友情提示：</p>
-      <p class="tips1">1.付款后，平台会安排发货赠品，收到赠品后，文字评价，不要晒图。</p>
-      <p class="tips1">2.确认收货后，系统发红包全额返款</p>
-      <div class="bgcolor mtop50 tips big">最后一步：上传订单截图</div>
+      <p class="tips1">付款后，平台会安排发货，收到货后，文字评价，不要晒图。</p>
+        <div class="bgcolor tips big">等不及？自我校验宝贝是否找对！</div>
+      <div>
+        <textarea placeholder="此处粘贴宝贝1的微信分享淘口令" v-model="txtarea1" />
+        <textarea placeholder="此处粘贴宝贝2的微信分享淘口令" v-model="txtarea2" />
+      </div>
+      <div class="textcenter">
+        <div class="btn-gray" @click="checkTaobaoKey">立即校验</div>
+      </div>
+      <div class="tips1">提示：针对正参加淘抢购聚划算等有付款时间限制产品，需要15分钟内完成付款，遇到这种情况，可进行自我效验宝贝是否找对，并核对下单金额无误，可提前付款，然后等待系统审核通知，如系统通知审核失败，请申请退款，放弃活动，重新接活动。</div>
+      <div class="bgcolor mtop50 tips big">付款后：上传订单截图，微信收款码截图</div>
       <div class="textcenter">
         <div class="upload-block mtop50">
           <div class="upload-img">
@@ -110,16 +109,16 @@
             <img v-else src="../assets/imgs/upload-icon.jpg" />
           </div>
           <div class="upload-btn">
-            <UploadImg text="订单截图" keyName="order_pic_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="TaoBaoOrder" />
-            <UploadImg text="微信收款码截图" keyName="wechat_code_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="WechatCode" />
+            <UploadImg text="上传-订单截图" keyName="order_pic_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="TaoBaoOrder" />
+            <UploadImg text="上传-微信收款码截图" keyName="wechat_code_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="WechatCode" />
           </div>
         </div>
         <div class="btn" @click="confirmOrder">点击确认，坐等收货赠品吧!</div>
       </div>
-      <div class="bottom-tips">任务完成后，将看到更多其他任务</div>
+      <div class="bottom-tips">确认后，将返回个人中心</div>
     </div>
     <div class="textcenter" v-if="initData.status!=='5'">
-      <div class="btn" @click="closeTask">关闭订单</div>
+      <div class="btn" @click="closeTask">放弃任务</div>
     </div>
   </div>
 </template>
@@ -149,8 +148,8 @@ export default class TaskLoad extends Vue {
     order_pic_url: '',
     content: ''
   };
-  private isFirst: boolean = true;
-  private isSecond: boolean = false;
+  private isFirst: boolean = false;
+  private isSecond: boolean = true;
   private isThird: boolean = false;
   private isCheckSuccess: boolean = false;
   private taskid: string = getQuery('tid') || '';
@@ -161,16 +160,16 @@ export default class TaskLoad extends Vue {
     let status = parseInt(this.initData.status);
     if (status === 0) {
       this.isFirst = true;
-      document.title = '任务第1步（总共3步）';
+      document.title = '活动进行中：第1步，共3步';
     } else if (status === 1) {
-      document.title = '任务第2步（总共3步）';
+      document.title = '活动进行中：第2步，共3步';
       this.isFirst = false;
       this.isSecond = true;
     } else if (status >= 2 || status <= 5) {
       this.isFirst = false;
       this.isSecond = false;
       this.isThird = true;
-      document.title = '任务第3步（总共3步）';
+      document.title = '活动进行中：第3步，共3步';
     }
   }
   private closeTask() {
@@ -277,8 +276,12 @@ export default class TaskLoad extends Vue {
       width: 500px;
     }
   }
+  .downline{
+    text-decoration:#333;
+  }
   .tips2 {
     line-height: 1.5;
+    font-size: 28px;
   }
   .tips {
     margin: 10px auto;
@@ -290,11 +293,13 @@ export default class TaskLoad extends Vue {
   .tips1 {
     margin: 10px auto;
     line-height: 38px;
-    color: #333;
-    font-size: 24px;
+    // color: #333;
+    font-size: 30px;
   }
   .big {
     font-size: 34px;
+    font-weight: bold;
+    color:$themeMain;
   }
   .copy-block {
     height: 100px;
@@ -320,7 +325,7 @@ export default class TaskLoad extends Vue {
       display: inline-block;
       img {
         width: 266px;
-        height: 266px;
+        // height: 266px;
         // padding: 100px;
         display: inherit;
         border: 1px solid #999;
@@ -339,6 +344,9 @@ export default class TaskLoad extends Vue {
   }
   .logbtn {
     width: 365px;
+  }
+  .mtop100{
+    margin-top: 100px;
   }
   .bottom {
     text-align: center;
