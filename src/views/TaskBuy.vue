@@ -1,15 +1,15 @@
 <template>
   <div class="taskbuy">
     <div class="base">
-      <p>
+      <p class="tips1">
         活动编号：
         <span class="red">{{initData.task_no}}</span>
       </p>
-      <p>
+      <p class="tips1">
         活动赠品：
         <span class="red">{{initData.gift}}</span>
       </p>
-      <p>
+      <p class="tips1">
         活动特别说明：
         <span class="red">{{initData.content}}</span>
       </p>
@@ -44,7 +44,7 @@
         <p>提示-03:如果上传后不进入下一步，请重新上传</p>
         <p>提示-04：验证不过会自动关闭任务，明天再试，持续不过就更换淘宝账户。</p>
       </div>
-      <div class="bottom-tips mtop100">验证通过，将自动进入任务说明页面</div>
+      <div class="bottom-tips mtop200">验证通过，将自动进入任务说明页面</div>
     </div>
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
@@ -77,7 +77,7 @@
         </div>
         <div class="btn logbtn" @click="commitOrderNo">提交订单号</div>
       </div>
-      <div class="bottom-tips">提交订单号后，进入自我校验任务</div>
+      <div class="bottom-tips mtop200">提交订单号后，进入自我校验任务</div>
     </div>
     <div v-if="isThird">
     <div class="bgcolor mtop50 tips big">请稍等，订单审核通过会通知付款</div>
@@ -100,8 +100,7 @@
       </div>
       <div class="tips1">提示：针对正参加淘抢购聚划算等有付款时间限制产品，需要15分钟内完成付款，遇到这种情况，可进行自我效验宝贝是否找对，并核对下单金额无误，可提前付款，然后等待系统审核通知，如系统通知审核失败，请申请退款，放弃活动，重新接活动。</div>
       <div class="bgcolor mtop50 tips big">付款后：上传订单截图，微信收款码截图</div>
-      <div class="textcenter">
-        <div class="upload-block mtop50">
+        <div class="upload-block">
           <div class="upload-img">
             <img v-if="initData.order_pic_url" :src="initData.order_pic_url" />
             <img v-else src="../assets/imgs/upload-icon.jpg" />
@@ -113,21 +112,27 @@
             <UploadImg text="上传-微信收款码截图" keyName="wechat_code_url" :taskOrderId="initData.id" @fileChange="fileChange" sequence="WechatCode" />
           </div>
         </div>
+      <div class="textcenter">
         <div class="btn" @click="confirmOrder">点击确认，坐等收货赠品吧!</div>
       </div>
-      <div class="bottom-tips">确认后，将返回个人中心</div>
+      <div class="bottom-tips mtop100">确认后，将返回个人中心</div>
     </div>
-    <div class="textcenter" v-if="initData.status!=='5'">
+    <div class="btn-center" v-if="initData.status!=='5'">
       <div class="btn" @click="closeTask">放弃任务</div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
-import { getCreateTask, setCloseTask } from '@/api/task';
-import UploadImg from '@/components/UploadImg.vue';
-import { getQuery } from '@/util/cookie';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import {
+  getFreeOrderDetail,
+  freeInfo,
+  setOrderNo,
+  setCheckTBkey
+} from "@/api/taskfree";
+import { getCreateTask, setCloseTask } from "@/api/task";
+import UploadImg from "@/components/UploadImg.vue";
+import { getQuery } from "@/util/cookie";
 
 @Component({
   components: {
@@ -136,48 +141,48 @@ import { getQuery } from '@/util/cookie';
 })
 export default class TaskLoad extends Vue {
   private initData: freeInfo = {
-    id: '',
-    status: '',
-    task_no: '',
-    gift: '',
-    taobao_key: '',
-    check_first_url: '',
-    check_second_url: '',
+    id: "",
+    status: "",
+    task_no: "",
+    gift: "",
+    taobao_key: "",
+    check_first_url: "",
+    check_second_url: "",
     goods: [],
-    wechat_code_url: '',
-    order_pic_url: '',
-    content: ''
+    wechat_code_url: "",
+    order_pic_url: "",
+    content: ""
   };
-  private isFirst: boolean = false;
-  private isSecond: boolean = true;
+  private isFirst: boolean = true;
+  private isSecond: boolean = false;
   private isThird: boolean = false;
   private isCheckSuccess: boolean = false;
-  private taskid: string = getQuery('tid') || '';
-  private orderid: string = '';
-  private txtarea1: string = '';
-  private txtarea2: string = '';
+  private taskid: string = getQuery("tid") || "";
+  private orderid: string = "";
+  private txtarea1: string = "";
+  private txtarea2: string = "";
   private checkStatus() {
     let status = parseInt(this.initData.status);
     if (status === 0) {
       this.isFirst = true;
-      document.title = '活动进行中：第1步，共3步';
+      document.title = "活动进行中：第1步，共3步";
     } else if (status === 1) {
-      document.title = '活动进行中：第2步，共3步';
+      document.title = "活动进行中：第2步，共3步";
       this.isFirst = false;
       this.isSecond = true;
     } else if (status >= 2 || status <= 5) {
       this.isFirst = false;
       this.isSecond = false;
       this.isThird = true;
-      document.title = '活动进行中：第3步，共3步';
+      document.title = "活动进行中：第3步，共3步";
     }
   }
   private closeTask() {
-    setCloseTask('9', this.taskid)
+    setCloseTask("9", this.taskid)
       .then((res: freeInfo) => {
-        this.$toast('订单已关闭');
+        this.$toast("订单已关闭");
         setTimeout(() => {
-          window.location.href = '/taskcenter';
+          window.location.href = "/taskcenter";
         }, 3000);
       })
       .catch((err: { message: string }) => {
@@ -186,7 +191,7 @@ export default class TaskLoad extends Vue {
   }
   private created() {
     // let cancelLoading = this.$loading();
-    getCreateTask('free', this.taskid)
+    getCreateTask("free", this.taskid)
       .then((res: freeInfo) => {
         // cancelLoading();
         //数据逻辑处理
@@ -197,34 +202,44 @@ export default class TaskLoad extends Vue {
         this.$toast(err.message);
       });
   }
-  private fileChange(obj: { url: string; keyName: string; status: string }, msg) {
+  private fileChange(
+    obj: { url: string; keyName: string; status: string },
+    msg
+  ) {
     if (obj === null) {
       this.$toast(msg);
       return;
     }
-    if (obj.keyName === 'check_first_url') {
+    if (obj.keyName === "check_first_url") {
       this.initData.check_first_url = obj.url;
-    } else if (obj.keyName === 'check_second_url') {
+    } else if (obj.keyName === "check_second_url") {
       this.initData.check_second_url = obj.url;
-    } else if (obj.keyName === 'wechat_code_url') {
+    } else if (obj.keyName === "wechat_code_url") {
       this.initData.wechat_code_url = obj.url;
-    } else if (obj.keyName === 'order_pic_url') {
+    } else if (obj.keyName === "order_pic_url") {
       this.initData.order_pic_url = obj.url;
     }
   }
   private confirmCheck() {
-    if (this.initData.check_first_url !== '' && this.initData.check_second_url !== '') {
-      this.initData.status = '1';
+    if (
+      this.initData.check_first_url !== "" &&
+      this.initData.check_second_url !== ""
+    ) {
+      this.initData.status = "1";
       this.checkStatus();
     }
   }
   private onCopy() {
-    this.$toast('复制成功');
+    this.$toast("复制成功");
   }
   private commitOrderNo() {
+    if (this.orderid === "") {
+      this.$toast("请先粘贴订单编号");
+      return;
+    }
     setOrderNo(this.initData.id, this.orderid)
       .then((res: any) => {
-        this.$toast('订单编号提交成功');
+        this.$toast("订单编号提交成功");
         //数据逻辑处理
         this.initData.status = 2;
         this.checkStatus();
@@ -234,9 +249,13 @@ export default class TaskLoad extends Vue {
       });
   }
   private checkTaobaoKey() {
+    if (this.txtarea1 === "" || this.txtarea2 === "") {
+      this.$toast("请先粘贴淘口令");
+      return;
+    }
     setCheckTBkey(this.initData.id, this.txtarea1, this.txtarea2)
       .then((res: {}) => {
-        this.$toast('校验成功');
+        this.$toast("校验成功");
         //数据逻辑处理
       })
       .catch((err: { message: string }) => {
@@ -244,21 +263,24 @@ export default class TaskLoad extends Vue {
       });
   }
   private confirmOrder() {
-    if (this.initData.wechat_code_url === '' || this.initData.order_pic_url === '') {
-      this.$toast('请先完成任务要求');
+    if (
+      this.initData.wechat_code_url === "" ||
+      this.initData.order_pic_url === ""
+    ) {
+      this.$toast("请先完成任务要求");
       return;
     } else {
-      this.$toast('您的该任务已经完成～');
+      this.$toast("您的该任务已经完成～");
       setTimeout(() => {
-        window.location.href = '/tasklist?type=free';
+        window.location.href = "/tasklist?type=free";
       }, 3000);
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .taskbuy {
   font-size: 28px;
   padding: 0 20px;
@@ -276,30 +298,33 @@ export default class TaskLoad extends Vue {
       width: 500px;
     }
   }
-  .downline{
-    text-decoration:#333;
+  .downline {
+    text-decoration: #333;
   }
   .tips2 {
     line-height: 1.5;
     font-size: 28px;
   }
+  .textcenter{
+    padding: 50px 0;
+  }
   .tips {
     margin: 10px auto;
     line-height: 38px;
-    margin: 0 -20px;
+    margin: 30px -20px;
     text-align: center;
   }
 
   .tips1 {
     margin: 10px auto;
-    line-height: 38px;
+    line-height: 1.8;
     // color: #333;
     font-size: 30px;
   }
   .big {
     font-size: 34px;
     font-weight: bold;
-    color:$themeMain;
+    color: $themeMain;
   }
   .copy-block {
     height: 100px;
@@ -320,11 +345,12 @@ export default class TaskLoad extends Vue {
   }
   .upload-block {
     width: 100%;
+    padding: 50px 0;
     text-align: center;
     .upload-img {
       display: inline-block;
       img {
-        width: 266px;
+        width: 300px;
         // height: 266px;
         // padding: 100px;
         display: inherit;
@@ -345,7 +371,10 @@ export default class TaskLoad extends Vue {
   .logbtn {
     width: 365px;
   }
-  .mtop100{
+  .mtop200 {
+    margin-top: 200px;
+  }
+   .mtop100 {
     margin-top: 100px;
   }
   .bottom {
@@ -363,6 +392,9 @@ export default class TaskLoad extends Vue {
     width: 300px;
     height: 240px;
     padding: 40px 0;
+  }
+  .btn-center{
+    text-align: center;
   }
 }
 </style>
