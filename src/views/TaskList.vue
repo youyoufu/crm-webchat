@@ -12,7 +12,7 @@
         <span v-else class="btn-gray">挖这个宝</span>
       </li>
     </ul>
-    <div class="btn-block"><a  class="btn" href="/taskcenter">前往个人中心</a> </div>
+    <div class="btn-block"><a  class="btn-hollow" href="/">前往个人中心</a> </div>
   </div>
 </template>
 <script lang="ts">
@@ -84,7 +84,7 @@ export default class TaskList extends Vue {
     padding-top: 30px;
     border-top: 1px solid #ebebeb;
     text-align: center;
-    .btn {
+    .btn-hollow {
       text-decoration: none;
     }
 
