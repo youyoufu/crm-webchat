@@ -6,7 +6,7 @@
     <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id, 'free')" v-for="item in taskData.free_task">
         <img class="task-img" :src="item.main_product_url" />
-        <p class="tips">返现比例：{{item.refund_rate}}</p>
+        <p class="tips">返现比例：{{item.refund_rate}}%</p>
         <p class="tips">您将收货：{{item.gift}}</p>
         <span class="btn-gray">立即领取</span>
       </li>
@@ -21,11 +21,11 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { getTasksList, getCreateTask, CenterTaskData } from "@/api/task";
-import { getQuery } from "@/util/cookie";
-import { login } from "@/api/login";
-import { hasLogin } from "@/util/session";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getTasksList, getCreateTask, CenterTaskData } from '@/api/task';
+import { getQuery } from '@/util/cookie';
+import { login } from '@/api/login';
+import { hasLogin } from '@/util/session';
 
 @Component({
   components: {}
@@ -35,34 +35,33 @@ export default class TaskList extends Vue {
     free_task: [],
     refund_task: []
   };
-  private sid: string = getQuery("sellerid") || "";
-  private listType: string = getQuery("type") || "free";
-  private isFree: boolean = getQuery("type") === "free";
+  private sid: string = getQuery('sellerid') || '';
+  private listType: string = getQuery('type') || 'free';
+  private isFree: boolean = getQuery('type') === 'free';
   private created() {
-    // if (!hasLogin()) {
-    //   login(this.sid, 'taskcenter');
-    // } else {
+    if (!hasLogin()) {
+      login(this.sid, 'taskcenter');
+    } else {
     getTasksList('all')
       .then((res: any) => {
         this.taskData = res;
       })
       .catch((err: { message: string }) => {
-        console.log(1111);
         this.$toast(err.message);
-        this.taskData = {
-          free_task: [
-            { refund_rate: "返现比例", gift: "礼物", url: "图片" },
-            { refund_rate: "返现比例1", gift: "礼物", url: "图片" },
-            { refund_rate: "返现比例", gift: "礼物", url: "图片" },
-            { refund_rate: "返现比例1", gift: "礼物", url: "图片" }
-          ],
-          refund_task: [
-            { url: "图片", bonus_point: "积分" },
-            { url: "图片1", bonus_point: "积分" }
-          ]
-        };
+        // this.taskData = {
+        //   free_task: [
+        //     { refund_rate: "返现比例", gift: "礼物", url: "图片" },
+        //     { refund_rate: "返现比例1", gift: "礼物", url: "图片" },
+        //     { refund_rate: "返现比例", gift: "礼物", url: "图片" },
+        //     { refund_rate: "返现比例1", gift: "礼物", url: "图片" }
+        //   ],
+        //   refund_task: [
+        //     { url: "图片", bonus_point: "积分" },
+        //     { url: "图片1", bonus_point: "积分" }
+        //   ]
+        // };
       });
-    // }
+    }
   }
   private goToDeatil(tid: string, type: string) {
     getCreateTask(this.listType, tid)
@@ -71,10 +70,10 @@ export default class TaskList extends Vue {
         let url = '/taskbuy?tid=' + tid;
         if (type === 'refund') {
           url = '/taskrefund?tid=' + tid;
-          info ='taskrefund';
+          info = 'taskrefund';
         }
         console.log(res.is_exists_account);
-        if(res.is_exists_account === 'no'){
+        if (res.is_exists_account === 'no') {
           window.location.href = '/addAcount?task_id=' + tid + '&url=' + info + '&type=' + type;
         } else {
           window.location.href = url;
@@ -87,8 +86,8 @@ export default class TaskList extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import "../scss/theme.scss";
-@import "../scss/_px2px.scss";
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .tasklist {
   font-size: 28px;
   padding: 20px 20px;
@@ -118,7 +117,7 @@ export default class TaskList extends Vue {
     .task-img {
       margin: 10px 40px;
       width: 250px;
-      height:250px;
+      height: 250px;
     }
   }
 }
