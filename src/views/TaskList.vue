@@ -2,7 +2,7 @@
   <div class="tasklist">
     <div v-if="isFree" class="tips">
       <p>每小时整点发放任务，准点来抢，怕抢不到就叫上亲朋好友一起来抢，但是，谁抢到，谁来做哦。</p>
-      <p>一个账户，7天-10天内只能领取一次任务哦。</p>
+      <p>一个账户，10天内只能领取一次任务哦。</p>
     </div>
     <div v-else class="tips">每天最多做10个挖宝任务，每小时最多3个。挖一个宝奖励2毛钱+1积分。30个积分可兑换一次免单任务。</div>
     <ul class="task-list mtop50">

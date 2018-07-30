@@ -82,8 +82,8 @@
     <div v-if="isThird">
       <div class="bgcolor tips big">任务自我检验宝贝是否找对</div>
       <div>
-        <textarea v-model="txtarea1" />
-        <textarea v-model="txtarea2" />
+        <textarea placeholder="此处粘贴宝贝1的微信分享淘口令" v-model="txtarea1" />
+        <textarea placeholder="此处粘贴宝贝2的微信分享淘口令" v-model="txtarea2" />
       </div>
       <div class="textcenter">
         <div class="btn-gray" @click="checkTaobaoKey">立即校验</div>
@@ -92,7 +92,9 @@
       <div class="bgcolor mtop50 tips big">请耐心等待付款通知</div>
       <div class="tips1">系统正在核对订单，请等待系统通知付款（10-20分钟左右），休息片刻，再来刷新</div>
       <div class="textcenter">
-        <div class="btn logbtn" v-if="isCheckSuccess">审核通过，请完成付款</div>
+        <div class="btn logbtn" v-if="initData.status=='4'">审核通过，请完成付款</div>
+        <div class="btn logbtn" v-else-if="initData.status=='5'">已返款</div>
+        <div class="btn logbtn" v-if="initData.status=='3'">审核失败</div>
         <div class="btn logbtn" v-else>系统审核中</div>
       </div>
       <p class="tips1">友情提示：</p>
@@ -171,9 +173,6 @@ export default class TaskLoad extends Vue {
       this.isSecond = false;
       this.isThird = true;
       document.title = "任务第3步（总共3步）";
-      if (status === 4) {
-        this.isCheckSuccess = true;
-      }
     }
   }
   private created() {
