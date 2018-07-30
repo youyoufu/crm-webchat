@@ -3,6 +3,7 @@ import { stringifPath } from './index';
 
 const TaskListPath = '/task/findTasksBySellerId';
 const createTaskPath = '/taskOrder/findTask';
+const closeTaskPath='taskOrder/updateFreeTaskOrderStatus'
 export interface TasksListData {
   id: string;
   url: string;
@@ -22,6 +23,12 @@ export function getCreateTask(type: string, taskId: string) {
 export interface CenterTaskData {
   free_task: Array<{ refund_rate: string; gift: string; url: string }>;
   refund_task: Array<{ url: string; bonus_point: string }>;
+}
+/*关闭任务*/
+export function setCloseTask(status: string, taskId: string) {
+  return internalFetch('POST')(true)(stringifPath(closeTaskPath), {
+    body: { status, taskId }
+  });
 }
 const PATH = '/events';
 export interface Filter {

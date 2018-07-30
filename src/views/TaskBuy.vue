@@ -9,7 +9,7 @@
         任务赠品：
         <span class="red">{{initData.gift}}</span>
       </p>
-        <p>
+      <p>
         任务说明：
         <span class="red">{{initData.content}}</span>
       </p>
@@ -118,19 +118,17 @@
       </div>
       <div class="bottom-tips">任务完成后，将看到更多其他任务</div>
     </div>
+    <div class="textcenter" v-if="initData.status!=='5'">
+      <div class="btn" @click="closeTask">关闭订单</div>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  getFreeOrderDetail,
-  freeInfo,
-  setOrderNo,
-  setCheckTBkey
-} from "@/api/taskfree";
-import { getCreateTask } from "@/api/task";
-import UploadImg from "@/components/UploadImg.vue";
-import { getQuery } from "@/util/cookie";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
+import { getCreateTask, setCloseTask } from '@/api/task';
+import UploadImg from '@/components/UploadImg.vue';
+import { getQuery } from '@/util/cookie';
 
 @Component({
   components: {
@@ -139,45 +137,57 @@ import { getQuery } from "@/util/cookie";
 })
 export default class TaskLoad extends Vue {
   private initData: freeInfo = {
-    id: "",
-    status: "",
-    task_no: "",
-    gift: "",
-    taobao_key: "",
-    check_first_url: "",
-    check_second_url: "",
+    id: '',
+    status: '',
+    task_no: '',
+    gift: '',
+    taobao_key: '',
+    check_first_url: '',
+    check_second_url: '',
     goods: [],
-    wechat_code_url: "",
-    order_pic_url: "",
-    content: ""
+    wechat_code_url: '',
+    order_pic_url: '',
+    content: ''
   };
   private isFirst: boolean = true;
   private isSecond: boolean = false;
   private isThird: boolean = false;
   private isCheckSuccess: boolean = false;
-  private taskid: string = getQuery("tid") || "";
-  private orderid: string = "";
-  private txtarea1: string = "";
-  private txtarea2: string = "";
+  private taskid: string = getQuery('tid') || '';
+  private orderid: string = '';
+  private txtarea1: string = '';
+  private txtarea2: string = '';
   private checkStatus() {
     let status = parseInt(this.initData.status);
     if (status === 0) {
       this.isFirst = true;
-      document.title = "任务第1步（总共3步）";
+      document.title = '任务第1步（总共3步）';
     } else if (status === 1) {
-      document.title = "任务第2步（总共3步）";
+      document.title = '任务第2步（总共3步）';
       this.isFirst = false;
       this.isSecond = true;
     } else if (status >= 2 || status <= 5) {
       this.isFirst = false;
       this.isSecond = false;
       this.isThird = true;
-      document.title = "任务第3步（总共3步）";
+      document.title = '任务第3步（总共3步）';
     }
+  }
+  private closeTask() {
+    setCloseTask('9', this.taskid)
+      .then((res: freeInfo) => {
+        this.$toast('订单已关闭');
+        setTimeout(() => {
+          window.location.href = '/taskcenter';
+        }, 3000);
+      })
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
+      });
   }
   private created() {
     // let cancelLoading = this.$loading();
-    getCreateTask("free", this.taskid)
+    getCreateTask('free', this.taskid)
       .then((res: freeInfo) => {
         // cancelLoading();
         //数据逻辑处理
@@ -188,40 +198,34 @@ export default class TaskLoad extends Vue {
         this.$toast(err.message);
       });
   }
-  private fileChange(
-    obj: { url: string; keyName: string; status: string },
-    msg
-  ) {
+  private fileChange(obj: { url: string; keyName: string; status: string }, msg) {
     if (obj === null) {
       this.$toast(msg);
       return;
     }
-    if (obj.keyName === "check_first_url") {
+    if (obj.keyName === 'check_first_url') {
       this.initData.check_first_url = obj.url;
-    } else if (obj.keyName === "check_second_url") {
+    } else if (obj.keyName === 'check_second_url') {
       this.initData.check_second_url = obj.url;
-    } else if (obj.keyName === "wechat_code_url") {
+    } else if (obj.keyName === 'wechat_code_url') {
       this.initData.wechat_code_url = obj.url;
-    } else if (obj.keyName === "order_pic_url") {
+    } else if (obj.keyName === 'order_pic_url') {
       this.initData.order_pic_url = obj.url;
     }
   }
   private confirmCheck() {
-    if (
-      this.initData.check_first_url !== "" &&
-      this.initData.check_second_url !== ""
-    ) {
-      this.initData.status = "1";
+    if (this.initData.check_first_url !== '' && this.initData.check_second_url !== '') {
+      this.initData.status = '1';
       this.checkStatus();
     }
   }
   private onCopy() {
-    this.$toast("复制成功");
+    this.$toast('复制成功');
   }
   private commitOrderNo() {
     setOrderNo(this.initData.id, this.orderid)
       .then((res: any) => {
-        this.$toast("订单编号提交成功");
+        this.$toast('订单编号提交成功');
         //数据逻辑处理
         this.initData.status = 2;
         this.checkStatus();
@@ -233,7 +237,7 @@ export default class TaskLoad extends Vue {
   private checkTaobaoKey() {
     setCheckTBkey(this.initData.id, this.txtarea1, this.txtarea2)
       .then((res: {}) => {
-        this.$toast("校验成功");
+        this.$toast('校验成功');
         //数据逻辑处理
       })
       .catch((err: { message: string }) => {
@@ -241,24 +245,21 @@ export default class TaskLoad extends Vue {
       });
   }
   private confirmOrder() {
-    if (
-      this.initData.wechat_code_url === "" ||
-      this.initData.order_pic_url === ""
-    ) {
-      this.$toast("请先完成任务要求");
+    if (this.initData.wechat_code_url === '' || this.initData.order_pic_url === '') {
+      this.$toast('请先完成任务要求');
       return;
     } else {
-      this.$toast("您的该任务已经完成～");
+      this.$toast('您的该任务已经完成～');
       setTimeout(() => {
-        window.location.href = "/tasklist?type=free";
+        window.location.href = '/tasklist?type=free';
       }, 3000);
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import "../scss/theme.scss";
-@import "../scss/_px2px.scss";
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .taskbuy {
   font-size: 28px;
   padding: 0 20px;

@@ -1,7 +1,7 @@
 <template>
   <div class="tasklist">
     <div class="tips">每小时整点发放任务，准点来抢，怕抢不到就叫上亲朋好友一起来抢，但是，谁抢到，谁来做哦。</div>
-    <div class="tips">一个账户，一周只能领取一次任务哦。</div>
+    <div class="tips">一个账户，10天内只能领取一次任务哦。</div>
     <div class="bgcolor tips1 big">免单返现任务</div>
     <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id, 'free')" v-for="item in taskData.free_task">
