@@ -26,16 +26,18 @@ body {
 .btn {
   color: #fff;
   display: inline-block;
-  line-height: 34px;
+  line-height: 1.8;
+  font-size: 30px;
   background: $themeMain;
   border-radius: 4px;
   padding: 10px 15px;
-  margin: 20px auto;
+  margin: 40px auto;
 }
 .btn-gray {
   color: #333;
   display: inline-block;
   line-height: 34px;
+  font-size: 30px;
   border: 1px solid #333;
   border-radius: 4px;
   padding: 10px 15px;

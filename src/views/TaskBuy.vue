@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="textcenter">
-        <div class="btn" @click="confirmCheck">提交验证</div>
+        <div class="btn logbtn" @click="confirmCheck">提交验证</div>
       </div>
       <div class="tips2">
         <p>提示-01:请直接截图，不要下拉再截图</p>
@@ -118,7 +118,7 @@
       <div class="bottom-tips mtop100">确认后，将返回个人中心</div>
     </div>
     <div class="btn-center" v-if="initData.status!=='5'">
-      <div class="btn" @click="closeTask">放弃任务</div>
+      <div class="btn-gray" @click="closeTask">放弃任务</div>
     </div>
   </div>
 </template>
@@ -153,10 +153,9 @@ export default class TaskLoad extends Vue {
     order_pic_url: "",
     content: ""
   };
-  private isFirst: boolean = true;
-  private isSecond: boolean = false;
-  private isThird: boolean = false;
-  private isCheckSuccess: boolean = false;
+  private isFirst: boolean =true ;
+  private isSecond: boolean =false ;
+  private isThird: boolean =false;
   private taskid: string = getQuery("tid") || "";
   private orderid: string = "";
   private txtarea1: string = "";
@@ -286,9 +285,9 @@ export default class TaskLoad extends Vue {
   padding: 0 20px;
   textarea {
     border: 1px solid #999;
-    margin: 20px 40px;
-    width: 250px;
-    height: 100px;
+    margin: 20px;
+    width: 300px;
+    height: 200px;
     font-size: 28px;
   }
   .base {
@@ -350,7 +349,7 @@ export default class TaskLoad extends Vue {
     .upload-img {
       display: inline-block;
       img {
-        width: 300px;
+        width: 295px;
         // height: 266px;
         // padding: 100px;
         display: inherit;
@@ -372,7 +371,7 @@ export default class TaskLoad extends Vue {
     width: 365px;
   }
   .mtop200 {
-    margin-top: 200px;
+    margin-top: 150px;
   }
    .mtop100 {
     margin-top: 100px;
