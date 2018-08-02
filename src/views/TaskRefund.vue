@@ -21,11 +21,12 @@
       <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，浏览图和详情</div>
       <img class="longGoodimg" :src="initData.url" />
       <div class="bgcolor mtop50 tips big">分享宝贝，将淘口令粘贴至下面方框</div>
-      <textarea v-model="key" />
+      <textarea v-model="key"  />
       <div class="textcenter">
         <div class="btn" @click="commitTaoBaoKey">点击提交</div>
       </div>
     </div>
+      <div class="tips1">提示：提交后，系统会返款结果，提示挖宝成功是否。挖宝失败，请认真再找宝贝，重新分享并提交。</div>
     <div class="bottom-tips">挖宝成功，系统将奖励一次挖宝活动</div>
   </div>
 </template>
