@@ -39,7 +39,7 @@ const router = new Router({
       path: '/tasklist',
       name: 'tasklist',
       component: tasklist,
-      meta: { title: '领取更多任务', requiredAuth: false }
+      meta: { title: '领取更多活动', requiredAuth: false }
     },
     {
       path: '/login',
@@ -58,13 +58,13 @@ const router = new Router({
       path: '/taskrefund',
       name: 'taskrefund',
       component: taskrefund,
-      meta: { title: '挖宝任务', requiredAuth: false }
+      meta: { title: '挖宝活动', requiredAuth: false }
     },
     {
       path: '/taskbuy',
       name: 'taskbuy',
       component: taskbuy,
-      meta: { title: '免单任务操作步骤', requiredAuth: false }
+      meta: { title: '免单活动操作步骤', requiredAuth: false }
     }
   ]
 });

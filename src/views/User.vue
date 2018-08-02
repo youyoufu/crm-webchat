@@ -3,10 +3,10 @@
     <div class="my">
       <div class="tips">Hello,{{userCenter.name}}</div>
       <div class="text mtop50">
-        免单任务：
+        免单活动：
         <span class="red">{{userCenter.free_task_time}}</span>
         <span class="mright40">次</span>
-        挖宝任务：
+        挖宝活动：
         <span class="red">{{userCenter.refund_task_time}}</span>
         <span class="mright40">次</span>
         积分：
@@ -16,7 +16,7 @@
         您绑定的淘宝账户为：
         <span class="red">{{userCenter.taobao_account}}</span>， 京东账户为：
         <span class="red">{{userCenter.jd_account}}</span>， 手机号为：
-        <span class="red">{{userCenter.phone}}</span>，做任务时，请注意使用对应的淘宝京东账户。
+        <span class="red">{{userCenter.phone}}</span>，做活动时，请注意使用对应的淘宝京东账户。
       </p>
       <p class="text mtop50">
         您的邀请码为：
@@ -28,7 +28,7 @@
     <div class="my">
       <div class="record head">
         <span class="time">时间</span>
-        <span class="order">任务订单ID</span>
+        <span class="order">活动订单ID</span>
         <span class="money">返现金额</span>
         <span class="status">返现状态</span>
       </div>

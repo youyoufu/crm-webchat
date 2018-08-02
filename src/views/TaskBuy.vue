@@ -15,7 +15,7 @@
       </p>
     </div>
     <div v-if="isFirst">
-      <div class="bgcolor tips big">完成账户验证后进入任务介绍</div>
+      <div class="bgcolor tips big">完成账户验证后进入活动介绍</div>
       <div class="tips1 green">复制下面淘口令，打开手机淘宝，按说明截图</div>
       <div class="copy-block">
         <input v-model="initData.taobao_key" readonly />
@@ -42,13 +42,13 @@
         <p>提示-01:请直接截图，不要下拉再截图</p>
         <p>提示-02:两张图必须都上传</p>
         <p>提示-03:如果上传后不进入下一步，请重新上传</p>
-        <p>提示-04：验证不过会自动关闭任务，明天再试，持续不过就更换淘宝账户。</p>
+        <p>提示-04：验证不过会自动关闭活动，明天再试，持续不过就更换淘宝账户。</p>
       </div>
-      <div class="bottom-tips mtop200">验证通过，将自动进入任务说明页面</div>
+      <div class="bottom-tips mtop200">验证通过，将自动进入活动说明页面</div>
     </div>
     <div v-if="isSecond">
-      <div class="bgcolor tips big">已完成验证，下面是任务介绍</div>
-      <div class="tips1 green">任务简短说明：所有任务都是组合任务，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
+      <div class="bgcolor tips big">已完成验证，下面是活动介绍</div>
+      <div class="tips1 green">活动简短说明：所有活动都是组合活动，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
       <div class="good-block" v-for="item in initData.goods" :key="item.keyword">
         <div class="copy-block">
           <input v-model="item.keyword" readonly />
@@ -77,7 +77,7 @@
         </div>
         <div class="btn logbtn" @click="commitOrderNo">提交订单号</div>
       </div>
-      <div class="bottom-tips mtop200">提交订单号后，进入自我校验任务</div>
+      <div class="bottom-tips mtop200">提交订单号后，进入自我校验活动</div>
     </div>
     <div v-if="isThird">
     <div class="bgcolor mtop50 tips big">请稍等，订单审核通过会通知付款</div>
@@ -118,7 +118,7 @@
       <div class="bottom-tips mtop100">确认后，将返回个人中心</div>
     </div>
     <div class="btn-center" v-if="initData.status!=='5'">
-      <div class="btn-gray" @click="closeTask">放弃任务</div>
+      <div class="btn-gray" @click="closeTask">放弃活动</div>
     </div>
   </div>
 </template>
@@ -266,10 +266,10 @@ export default class TaskLoad extends Vue {
       this.initData.wechat_code_url === "" ||
       this.initData.order_pic_url === ""
     ) {
-      this.$toast("请先完成任务要求");
+      this.$toast("请先完成活动要求");
       return;
     } else {
-      this.$toast("您的该任务已经完成～");
+      this.$toast("您的该活动已经完成～");
       setTimeout(() => {
         window.location.href = "/tasklist?type=free";
       }, 3000);

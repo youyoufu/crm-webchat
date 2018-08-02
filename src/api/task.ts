@@ -8,13 +8,13 @@ export interface TasksListData {
   id: string;
   url: string;
 }
-/*获取对应任务*/
+/*获取对应活动*/
 export function getTasksList(type: string) {
   return internalFetch('POST')(true)(stringifPath(TaskListPath), {
     body: { type }
   });
 }
-/*领取任务*/
+/*领取活动*/
 export function getCreateTask(type: string, taskId: string) {
   return internalFetch('POST')(true)(stringifPath(createTaskPath), {
     body: { type, taskId }
@@ -24,7 +24,7 @@ export interface CenterTaskData {
   free_task: Array<{ refund_rate: string; gift: string; url: string }>;
   refund_task: Array<{ url: string; bonus_point: string }>;
 }
-/*关闭任务*/
+/*关闭活动*/
 export function setCloseTask(status: string, taskId: string) {
   return internalFetch('POST')(true)(stringifPath(closeTaskPath), {
     body: { status, taskId }

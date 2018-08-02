@@ -1,7 +1,7 @@
 <template>
   <div class="tasklist">
     <div class="tips">活动每小时整点开启，准点来抢，一个人抢不到就叫上亲朋好友一起来抢，全天24小时，每小时都有活动哦。</div>
-    <div class="bgcolor tips1 big">免单返现任务</div>
+    <div class="bgcolor tips1 big">免单返现活动</div>
     <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id, 'free')" v-for="item in taskData.free_task">
         <img class="task-img" :src="item.main_product_url" />
@@ -10,7 +10,7 @@
         <span class="btn-gray">立即领取</span>
       </li>
     </ul>
-    <div class="bgcolor tips1 big">挖宝任务</div>
+    <div class="bgcolor tips1 big">挖宝活动</div>
     <ul class="task-list">
       <li class="task" @click="goToDeatil(item.id, 'refund')" v-for="item in taskData.refund_task">
         <img class="task-img" :src="item.url" />
@@ -35,8 +35,6 @@ export default class TaskList extends Vue {
     refund_task: []
   };
   private sid: string = getQuery('sellerid') || '';
-  private listType: string = getQuery('type') || 'free';
-  private isFree: boolean = getQuery('type') === 'free';
   private created() {
     if (!hasLogin()) {
       login(this.sid, 'taskcenter');
@@ -47,23 +45,11 @@ export default class TaskList extends Vue {
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
-        // this.taskData = {
-        //   free_task: [
-        //     { refund_rate: "返现比例", gift: "礼物", url: "图片" },
-        //     { refund_rate: "返现比例1", gift: "礼物", url: "图片" },
-        //     { refund_rate: "返现比例", gift: "礼物", url: "图片" },
-        //     { refund_rate: "返现比例1", gift: "礼物", url: "图片" }
-        //   ],
-        //   refund_task: [
-        //     { url: "图片", bonus_point: "积分" },
-        //     { url: "图片1", bonus_point: "积分" }
-        //   ]
-        // };
       });
     }
   }
   private goToDeatil(tid: string, type: string) {
-    getCreateTask(this.listType, tid)
+    getCreateTask(type, tid)
       .then((res: any) => {
         let info = 'taskbuy';
         let url = '/taskbuy?tid=' + tid;

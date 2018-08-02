@@ -1,7 +1,7 @@
 import { internalFetch } from '@/util/fetch';
 import { stringifPath } from './index';
 const submitRefundKeyPATH = '/taskOrder/refundOrderCommitKey';
-const getRefundInfoPATH = '/taskOrder/refundOrderCommitKey';
+// const getRefundInfoPATH = '/taskOrder/refundOrderCommitKey';
 
 export interface RefundInfo{
   key_word: string;
@@ -16,11 +16,9 @@ export function setRefundTaobaoKey(taskOrderId: string, taobaoKey: string) {
     body: { taskOrderId, taobaoKey }
   });
 }
-
-
-export function getRefundInfo(taskOrderId: string) {
-  return internalFetch('POST')(true)(stringifPath(getRefundInfoPATH), {
-    body: { taskOrderId}
-  });
-}
+// export function getRefundInfo(taskOrderId: string) {
+//   return internalFetch('POST')(true)(stringifPath(getRefundInfoPATH), {
+//     body: { taskOrderId}
+//   });
+// }
 
