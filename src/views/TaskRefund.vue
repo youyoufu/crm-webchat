@@ -31,57 +31,50 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getQuery } from '@/util/cookie';
-import { setRefundTaobaoKey, getRefundInfo, RefundInfo } from '@/api/taskrefund';
-import { getCreateTask } from '@/api/task';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getQuery } from "@/util/cookie";
+import {
+  setRefundTaobaoKey,
+  getRefundInfo,
+  RefundInfo
+} from "@/api/taskrefund";
+import { getCreateTask } from "@/api/task";
 
 @Component({
   components: {}
 })
 export default class TaskFree extends Vue {
-  private tid = '';
+  private tid = "";
   private initData: RefundInfo = {
-    key_word: '',
-    task_order_id: '',
-    status: '',
-    task_no: '',
-    gift: '',
-    url: ''
+    key_word: "",
+    task_order_id: "",
+    status: "",
+    task_no: "",
+    gift: "",
+    url: ""
   };
-  private key = '';
+  private key = "";
   private created() {
-    getCreateTask('refund', getQuery('tid'))
+    getCreateTask("refund", getQuery("tid"))
       .then((res: any) => {
-        // cancelLoading();
         //数据逻辑处理
         this.initData = res;
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
       });
-    // getRefundInfo(this.tid)
-    //   .then((res:RefundInfo) => {
-    //     this.initData = res;
-    //   })
-    //   .catch((err: { message: string }) => {
-    //     this.$toast(err.message);
-    //     this.initData.key_word = '111';
-    //     this.initData.task_order_id = '222';
-    //     this.initData.status = '3';
-    //     this.initData.task_no = '444';
-    //     this.initData.gift = '555';
-    //     this.initData.url = '666';
-    //   });
   }
   private onCopy() {
-    this.$toast('复制成功');
+    this.$toast("复制成功");
   }
   private commitTaoBaoKey() {
     setRefundTaobaoKey(this.initData.task_order_id, this.key)
       .then((res: {}) => {
-        this.$toast('淘口令提交成功');
+        this.$toast("淘口令提交成功");
         //数据逻辑处理
+        setTimeout(() => {
+          window.location.href = "/tasklist?type=refund";
+        }, 3000);
       })
       .catch((err: { message: string }) => {
         this.$toast(err.message);
@@ -90,8 +83,8 @@ export default class TaskFree extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .refund {
   font-size: 28px;
   padding: 0 20px;
