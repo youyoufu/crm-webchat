@@ -19,7 +19,13 @@
         </div>
       </div>
       <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，浏览图和详情</div>
-      <img class="longGoodimg" :src="initData.url" />
+     <div class="upload-block">
+     <div class="upload-img">
+          <img :src="initData.url" />
+          <img :src="initData.square_url" />
+        </div>
+        </div>
+      <!-- <img class="longGoodimg" :src="initData.url" /> -->
       <div class="bgcolor mtop50 tips big">分享宝贝，将淘口令粘贴至下面方框</div>
       <textarea v-model="key"  />
       <div class="textcenter">
@@ -51,7 +57,8 @@ export default class TaskFree extends Vue {
     status: "",
     task_no: "",
     gift: "",
-    url: ""
+    url: "",
+    square_url: ""
   };
   private key = "";
   private created() {
@@ -142,6 +149,24 @@ export default class TaskFree extends Vue {
     background-color: #f4f4f8;
     height: 56px;
     padding-top: 20px;
+  }
+  .upload-block {
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    .upload-img {
+      display: inline-block;
+      img {
+        width: 295px;
+        // height: 266px;
+        // padding: 100px;
+        display: inherit;
+        border: 1px solid #999;
+      }
+      img:first-child {
+        margin-right: 80px;
+      }
+    }
   }
 }
 </style>
