@@ -10,6 +10,7 @@ export interface RefundInfo{
   task_no: string;
   gift: string;
   url: string;
+  square_url:string;
 }
 export function setRefundTaobaoKey(taskOrderId: string, taobaoKey: string) {
   return internalFetch('POST')(true)(stringifPath(submitRefundKeyPATH), {
