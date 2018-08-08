@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/views/Login.vue';
-// import Task from '@/views/Task.vue';
+import task from '@/views/Task.vue';
 import Bind from '@/views/BindUser.vue';
 import AddAcount from '@/views/AddAcount.vue';
 import User from '@/views/User.vue';
@@ -9,7 +9,7 @@ import tasklist from '@/views/TaskList.vue';
 import taskcenter from '@/views/TaskCenter.vue';
 import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy from '@/views/TaskBuy.vue';
-import { hasLogin } from '@/util/session';
+import { hasLogin,TOKEN } from '@/util/session';
 import { login } from '@/api/login';
 import { getCookie } from '@/util/cookie';
 Vue.use(Router);
@@ -65,6 +65,12 @@ const router = new Router({
       name: 'taskbuy',
       component: taskbuy,
       meta: { title: '免单活动操作步骤', requiredAuth: false }
+    },
+    {
+      path: '/task',
+      name: 'task',
+      component: task,
+      meta: { title: 'test', requiredAuth: false }
     }
   ]
 });
@@ -74,7 +80,7 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
     if (!hasLogin()) {
-      login(getCookie('sellerId') || '','');
+      login(getCookie(TOKEN) || '','');
     } else {
       next();
     }

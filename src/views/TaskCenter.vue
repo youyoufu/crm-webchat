@@ -25,6 +25,7 @@ import { getTasksList, getCreateTask, CenterTaskData } from '@/api/task';
 import { getQuery } from '@/util/cookie';
 import { login } from '@/api/login';
 import { hasLogin } from '@/util/session';
+import { isWifi } from '@/util/network';
 
 @Component({
   components: {}
@@ -39,34 +40,39 @@ export default class TaskList extends Vue {
     if (!hasLogin()) {
       login(this.account, 'taskcenter');
     } else {
-    getTasksList('all')
-      .then((res: any) => {
-        this.taskData = res;
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
+      getTasksList('all')
+        .then((res: any) => {
+          this.taskData = res;
+        })
+        .catch((err: { message: string }) => {
+          this.$toast(err.message);
+        });
     }
   }
   private goToDeatil(tid: string, type: string) {
-    getCreateTask(type, tid)
-      .then((res: any) => {
-        let info = 'taskbuy';
-        let url = '/taskbuy?tid=' + tid;
-        if (type === 'refund') {
-          url = '/taskrefund?tid=' + tid;
-          info = 'taskrefund';
-        }
-        console.log(res.is_exists_account);
-        if (res.is_exists_account === 'no') {
-          window.location.href = '/addAcount?task_id=' + tid + '&url=' + info + '&type=' + type;
-        } else {
-          window.location.href = url;
-        }
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
+    if (isWifi()) {
+      this.$toast('请关闭wifi，再领取');
+      return;
+    } else {
+      getCreateTask(type, tid)
+        .then((res: any) => {
+          let info = 'taskbuy';
+          let url = '/taskbuy?tid=' + tid;
+          if (type === 'refund') {
+            url = '/taskrefund?tid=' + tid;
+            info = 'taskrefund';
+          }
+          console.log(res.is_exists_account);
+          if (res.is_exists_account === 'no') {
+            window.location.href = '/addAcount?task_id=' + tid + '&url=' + info + '&type=' + type;
+          } else {
+            window.location.href = url;
+          }
+        })
+        .catch((err: { message: string }) => {
+          this.$toast(err.message);
+        });
+    }
   }
 }
 </script>

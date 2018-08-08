@@ -35,7 +35,7 @@ export default class Login extends Vue {
     if (this.user && this.phone) {
       //   let cancelLoading = this.$loading();
       BindAccount(this.user, this.phone, "taobao")
-        .then((res: {}) => {
+        .then((res:any) => {
           // cancelLoading();
           // console.log('BindAccount',res);
 

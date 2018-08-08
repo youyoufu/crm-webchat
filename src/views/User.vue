@@ -28,8 +28,8 @@
     <div class="my">
       <div class="record head">
         <span class="time">时间</span>
-        <span class="order">活动订单ID</span>
-        <span class="money">返现金额</span>
+        <span class="order">活动ID</span>
+        <span class="money">应返现金额</span>
         <span class="status">返现状态</span>
       </div>
       <div class="record body" v-for="item in userCenter.refund_list">
