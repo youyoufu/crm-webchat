@@ -12,8 +12,8 @@ export interface LoginInfo {
 }
 
 /* 登陆 */
-export function login(sid:string,url:string) {
-  location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer+url)+'&sellerId='+sid;
+export function login(account:string,url:string) {
+  location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer+url)+'&account='+account;
 }
 export function BindAccount(account: string, phone: string, type: string) {
   return internalFetch('POST')(true)(stringifPath(BINDACCOUNTPATH), {

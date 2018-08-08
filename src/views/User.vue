@@ -55,7 +55,7 @@ import { hasLogin } from '@/util/session';
   components: {}
 })
 export default class User extends Vue {
-  private sid: string = getQuery('sellerid') || '';
+  private account: string = getQuery('account') || '';
   private userCenter: userCenterInfo = {
     name: '',
     free_task_time: '',
@@ -68,8 +68,8 @@ export default class User extends Vue {
   };
   private created() {
     if (!hasLogin()) {
-      console.log('sid======' + this.sid);
-      login(this.sid, '');
+      console.log('sid======' + this.account);
+      login(this.account, '');
     } else {
       getUserCenter()
         .then((res: any) => {

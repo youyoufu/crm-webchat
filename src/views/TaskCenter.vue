@@ -34,10 +34,10 @@ export default class TaskList extends Vue {
     free_task: [],
     refund_task: []
   };
-  private sid: string = getQuery('sellerid') || '';
+  private account: string = getQuery('account') || '';
   private created() {
     if (!hasLogin()) {
-      login(this.sid, 'taskcenter');
+      login(this.account, 'taskcenter');
     } else {
     getTasksList('all')
       .then((res: any) => {
