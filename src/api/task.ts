@@ -25,9 +25,9 @@ export interface CenterTaskData {
   refund_task: Array<{ url: string; bonus_point: string }>;
 }
 /*关闭活动*/
-export function setCloseTask(status: string, taskId: string) {
+export function setCloseTask(status: string, taskOrderId: string) {
   return internalFetch('POST')(true)(stringifPath(closeTaskPath), {
-    body: { status, taskId }
+    body: { status, taskOrderId }
   });
 }
 const PATH = '/events';

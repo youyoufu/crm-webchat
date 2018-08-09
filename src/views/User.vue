@@ -36,7 +36,7 @@
         <span class="time">{{item.execute_time}}</span>
         <span class="order">{{item.id}}</span>
         <span class="money">{{item.refund}}</span>
-        <span class="status">{{item.status==='5'?'返款成功':'未返款'}}</span>
+        <span class="status">{{item.status===5?'返款成功':'未返款'}}</span>
       </div>
     </div>
     <!-- <div class="btn">
