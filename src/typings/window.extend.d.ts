@@ -39,14 +39,14 @@ declare global {
     readonly WeixinJSBridge: {
       invoke: (
         type: string,
-        // config: {
-        //   appId: string;
-        //   timeStamp: string;
-        //   nonceStr: string;
-        //   package: string;
-        //   signType: string;
-        //   paySign: string;
-        // },
+        config: {
+          appId: string;
+          timeStamp: string;
+          nonceStr: string;
+          package: string;
+          signType: string;
+          paySign: string;
+        },
         success: (res: { err_msg?: string }) => void
       ) => void;
     };
@@ -55,6 +55,7 @@ declare global {
       config: (opt: {}) => void;
       uploadImage: (data: {}) => void;
       chooseImage: (data: {}) => void;
+      getNetworkType: (data: {}) => void;
     };
     readonly webkit: {
       messageHandlers: {

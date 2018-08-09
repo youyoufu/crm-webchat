@@ -1,7 +1,6 @@
 <template>
   <div class="loading" :class="{showing}">
-    <!-- <img src="../assets/" -->
-    <!-- <app-icon link="#icon-loading" :iconStyle="iconStyle" /> -->
+    <img src="../assets/imgs/loading.gif" />
   </div>
 </template>
 

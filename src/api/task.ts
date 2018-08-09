@@ -3,7 +3,7 @@ import { stringifPath } from './index';
 
 const TaskListPath = '/task/findTasksBySellerId';
 const createTaskPath = '/taskOrder/findTask';
-const closeTaskPath='taskOrder/updateFreeTaskOrderStatus'
+const closeTaskPath='/taskOrder/updateFreeTaskOrderStatus'
 export interface TasksListData {
   id: string;
   url: string;

@@ -9,7 +9,7 @@
         Click me!!!{{msg}}
       </div>
     </div>
-    <ul>
+    <!-- <ul>
       <li v-for="product in products">
         {{ product.title }} - {{ product.price | currency }}
         <br>
@@ -17,7 +17,7 @@
           Add to cart
         </button>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 <script lang="ts">
@@ -58,7 +58,7 @@ export default class Task extends Vue {
     console.log('复制成功');
   }
   private send() {
-    console.log(isWifi());
+    this.$toast(isWifi().toString());
     // this.products = getTaskList();
     // console.log(123,this.products);
     // .then(() => {

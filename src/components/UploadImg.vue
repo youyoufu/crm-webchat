@@ -20,7 +20,7 @@ import { setUploadImg } from '@/api/upload';
 @Component({})
 export default class UploadImg extends Vue {
   @Prop() private text!: string;
-  @Prop() private taskOrderId!: number;
+  @Prop() private taskOrderId!: string;
   @Prop() private sequence!: string;
   @Prop() private keyName!: string;
 

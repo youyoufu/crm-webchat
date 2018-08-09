@@ -9,7 +9,8 @@
     <div class="tips-white">进入手机淘宝，我的淘宝->设置，进行截图</div>
     <div class="tips-white">进入手机京东， 我 的 -> 设 置 ， 进行截图</div>
     <div class="demo">
-      <span>示例：</span><img src="../assets/imgs/demo.png"  />
+      <span>示例：</span>
+      <!-- <img src="../assets/imgs/demo.png"  /> -->
     </div>
     <div><span class="btn longbtn">上传账户截图</span></div>
     <div class="tips-white">自动识别账户：</div>

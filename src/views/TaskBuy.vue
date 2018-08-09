@@ -177,7 +177,7 @@ export default class TaskLoad extends Vue {
     }
   }
   private closeTask() {
-    setCloseTask("9", this.orderid)
+    setCloseTask("9", this.initData.id)
       .then((res: freeInfo) => {
         this.$toast("订单已关闭");
         setTimeout(() => {
@@ -198,6 +198,7 @@ export default class TaskLoad extends Vue {
         this.checkStatus();
       })
       .catch((err: { message: string }) => {
+        cancelLoading();
         this.$toast(err.message);
       });
   }
