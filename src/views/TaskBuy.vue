@@ -117,7 +117,7 @@
       </div>
       <div class="bottom-tips mtop100">确认后，将返回个人中心</div>
     </div>
-    <div class="btn-center" v-if="initData.status!=='5'">
+    <div class="btn-center" v-if="initData.status!='5'">
       <div class="btn-gray" @click="closeTask">放弃活动</div>
     </div>
   </div>
@@ -162,10 +162,10 @@ export default class TaskLoad extends Vue {
   private txtarea2: string = "";
   private checkStatus() {
     let status = parseInt(this.initData.status);
-    if (status === 0) {
+    if (status == 0) {
       this.isFirst = true;
       document.title = "活动进行中：第1步，共3步";
-    } else if (status === 1) {
+    } else if (status == 1) {
       document.title = "活动进行中：第2步，共3步";
       this.isFirst = false;
       this.isSecond = true;
