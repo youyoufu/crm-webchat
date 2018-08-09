@@ -30,20 +30,23 @@ declare global {
       setJsContent: (funName: string, funParam?: string) => void;
       jsAppPayCheck: (param: string) => void;
     };
+    readonly Navigator: {
+      connection: string;
+    };
     readonly Image: () => void;
     onHGAction: (eventName: string, data: any) => void;
     jsAppPayCheckCallback: (res: boolean) => any;
     readonly WeixinJSBridge: {
       invoke: (
         type: string,
-        config: {
-          appId: string;
-          timeStamp: string;
-          nonceStr: string;
-          package: string;
-          signType: string;
-          paySign: string;
-        },
+        // config: {
+        //   appId: string;
+        //   timeStamp: string;
+        //   nonceStr: string;
+        //   package: string;
+        //   signType: string;
+        //   paySign: string;
+        // },
         success: (res: { err_msg?: string }) => void
       ) => void;
     };

@@ -7,7 +7,7 @@
     <div class="upload"><span class="hollow">上传账户截图</span></div>
     </div>
     <div class="tips1">如何查看淘宝账号？</div>
-    <div class="btn" @click.stop.prevent="login">保存</div>
+    <div class="btn" @click="login">保存</div>
     <div>
       <p class="tips1"> 提示：</p>
  <p class="tips1">1.手机号一定要是自己的，涉及到返现。</p>
@@ -33,6 +33,7 @@ export default class Login extends Vue {
   private info: string = getQuery("url") || "";
   private login() {
     if (this.user && this.phone) {
+      console.log(1111);
       //   let cancelLoading = this.$loading();
       BindAccount(this.user, this.phone, "taobao")
         .then((res:any) => {

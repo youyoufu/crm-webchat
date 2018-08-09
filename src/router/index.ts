@@ -80,6 +80,7 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
     if (!hasLogin()) {
+      console.log(1111);
       login(getCookie(TOKEN) || '','');
     } else {
       next();

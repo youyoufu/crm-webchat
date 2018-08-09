@@ -50,10 +50,10 @@ export default class TaskList extends Vue {
     }
   }
   private goToDeatil(tid: string, type: string) {
-    if (isWifi()) {
-      this.$toast('请关闭wifi，再领取');
-      return;
-    } else {
+    // if (isWifi()) {
+    //   this.$toast('请关闭wifi，再领取');
+    //   return;
+    // } else {
       getCreateTask(type, tid)
         .then((res: any) => {
           let info = 'taskbuy';
@@ -72,7 +72,7 @@ export default class TaskList extends Vue {
         .catch((err: { message: string }) => {
           this.$toast(err.message);
         });
-    }
+    // }
   }
 }
 </script>

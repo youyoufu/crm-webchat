@@ -36,7 +36,7 @@
         <span class="time">{{item.execute_time}}</span>
         <span class="order">{{item.id}}</span>
         <span class="money">{{item.refund}}</span>
-        <span class="status">{{item.status==5?'返款成功':'未返款'}}</span>
+        <span class="status">{{item.status==5?'已返款':'未返款'}}</span>
       </div>
     </div>
     <!-- <div class="btn">
@@ -77,29 +77,6 @@ export default class User extends Vue {
         })
         .catch((res: { message: string }) => {
           this.$toast(res.message);
-          // this.userCenter = {
-          //   name: '哈呦',
-          //   free_task_time: '12',
-          //   refund_task_time: '13',
-          //   bonus_point: '14',
-          //   taobao_account: '333ed',
-          //   jd_account: 'eqwe',
-          //   phone: '15899992222',
-          //   refund_list: [
-          //     {
-          //       execute_time: '2018-07-27',
-          //       id: '2',
-          //       refund: '3',
-          //       status: '4'
-          //     },
-          //     {
-          //       execute_time: '2018-07-28',
-          //       id: '22',
-          //       refund: '32',
-          //       status: '3'
-          //     }
-          //   ]
-          // };
         });
     }
   }
@@ -131,21 +108,20 @@ export default class User extends Vue {
     text-align: center;
     height: 70px;
     position: relative;
+    span {
+      float: left;
+    }
     .time {
-      position: absolute;
-      left: 0;
+      width: 180px;
     }
     .order {
-      position: absolute;
-      left: 200px;
+      width: 180px;
     }
     .money {
-      position: absolute;
-      left: 400px;
+      width: 140px;
     }
     .status {
-      position: absolute;
-      right: 0;
+      width: 140px;
     }
   }
   .record.head {

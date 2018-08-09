@@ -1,7 +1,7 @@
 export function isWifi() {
   var wifi: boolean = true;
   var ua: string = window.navigator.userAgent || '';
-  // var con = window.navigator.connection;
+  // var con = window.Navigator.connection;
   // 如果是微信
   if (/MicroMessenger/.test(ua)) {
     // 如果是微信6.0以上版本，用UA来判断
@@ -14,7 +14,7 @@ export function isWifi() {
     }
     // else {
     //   document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-    //     window.wx.WeixinJSBridge.invoke('getNetworkType', {}, function (e: { err_msg: string }) {
+    //     window.WeixinJSBridge.invoke('getNetworkType',(e)=> {
     //       if (e.err_msg != 'network_type:wifi') {
     //         wifi = false;
     //       }
@@ -29,7 +29,6 @@ export function isWifi() {
     //     wifi = false;
     //   }
   }
-  console.log(wifi)
   return wifi;
 }
 export function getClient() {
