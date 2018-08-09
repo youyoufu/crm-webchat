@@ -25,16 +25,19 @@ export default class UploadImg extends Vue {
   @Prop() private keyName!: string;
 
   private fileChange(files: any) {
-    setUploadImg(files, this.taskOrderId.toString(), this.sequence)
-      .then(result => {
-        let url = result.data.url;
-        let status=result.data.status;
-        let keyName = this.keyName;
-        this.$emit('fileChange', { url, keyName,status },'');
-      })
-      .catch((err:{message:string}) => {
-        this.$emit('fileChange', null,err.message);
-      });
+    this.$loading(true);
+    // setUploadImg(files, this.taskOrderId.toString(), this.sequence)
+    //   .then(result => {
+    //     let url = result.data.url;
+    //     let status = result.data.status;
+    //     let keyName = this.keyName;
+    //     this.$emit('fileChange', { url, keyName, status }, '');
+    //     this.$loading(false);
+    //   })
+    //   .catch((err: { message: string }) => {
+    //     this.$emit('fileChange', null, err.message);
+    //     this.$loading(false);
+    //   });
   }
 }
 </script>

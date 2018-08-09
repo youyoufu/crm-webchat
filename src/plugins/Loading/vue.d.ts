@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 interface LoadingFunc {
-  (): () => void;
+  (state: boolean): () => void;
 }
 
 declare module 'vue/types/vue' {

@@ -31,7 +31,7 @@ interface ShareConfig {
 // }
 /* 获取微信配置信息 */
 function getWXconfig(url: string): Promise<ShareConfig> {
-  return internalFetch('POST')(true)('/oauth/getsignpackage', {
+  return internalFetch('POST')(true)(stringifPath('/oauth/getsignpackage'), {
     body: { url }
   }).then((data: any) => data);
 }

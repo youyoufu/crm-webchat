@@ -33,7 +33,7 @@
       </div>
     </div>
       <div class="tips1">提示：提交后，系统会返款结果，提示挖宝成功是否。挖宝失败，请认真再找宝贝，重新分享并提交。</div>
-    <div class="bottom-tips">挖宝成功，系统将奖励一次挖宝活动</div>
+    <div class="bottom-tips">挖宝成功，将进入活动中心</div>
   </div>
 </template>
 <script lang="ts">

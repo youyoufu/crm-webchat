@@ -1,16 +1,14 @@
 <template>
-  <div class="loading" :class="{showing}">
-    <img src="../assets/imgs/loading.gif" />
+  <div v-if="showing" class="loading">
+    <img src="@/assets/imgs/loading.gif" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-// import AppIcon from '@/components/AppIcon.vue';
 
 @Component({
   components: {
-    // AppIcon,
   },
 })
 export default class Loading extends Vue {
@@ -25,11 +23,8 @@ export default class Loading extends Vue {
         : 'none',
     };
   }
-  public show() {
-    this.showing = true;
-    return () => {
-      this.showing = false;
-    };
+  public show(state:boolean) {
+    this.showing = state;
   }
 }
 </script>
