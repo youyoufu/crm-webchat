@@ -1,88 +1,44 @@
-/// <reference path="../typings/window.extend.d.ts" />
-// import { getWXconfig } from '@/api/upload';
-import { internalFetch } from '@/util/fetch';
-import { stringifPath } from '@/api/index';
+import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
 
-/* 引入微信JSSDK */
-function importWxJS() {
-  return new Promise((resolve, reject) => {
-    let script = document.createElement('script');
-    script.src = '//res.wx.qq.com/open/js/jweixin-1.2.0.js';
-    script.onload = resolve;
-    script.onerror = reject;
-    let doc = document.querySelector('head') || null;
-    if (doc) {
-      doc.appendChild(script);
-    }
-  });
-}
-const PATH = '/uploadImage/getSignPackage';
-interface ShareConfig {
-  debug: boolean;
-  app_id?: string;
-  timestamp?: number;
-  noncestr?: string;
-  signature?: string;
-}
-// export function getWXconfig(url: string) {
-//   return internalFetch('POST')(true)(stringifPath(PATH), {
-//     body: { url }
-//   });
-// }
-/* 获取微信配置信息 */
-function getWXconfig(url: string): Promise<ShareConfig> {
-  return internalFetch('POST')(true)(stringifPath('/oauth/getsignpackage'), {
-    body: { url }
-  }).then((data: any) => data);
-}
-
-export interface WxConfig {
-  debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-  appId: string; // 必填，企业号的唯一标识，此处填写企业号corpid
-  timestamp: number; // 必填，生成签名的时间戳
-  nonceStr: string; // 必填，生成签名的随机串
-  signature: string; // 必填，签名，见附录1
-  jsApiList?: Array<string>; // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-}
 export function isWifi() {
   let wifi: boolean = true;
-  let client = getClient();
-  if (client === 'wx') {
-    Promise.all([getWXconfig(window.location.href), importWxJS()])
-      .then(([data]: [ShareConfig, {}]) => {
-        let shareConfig = {
-          debug: true,
-          appId: data.app_id,
-          timestamp: data.timestamp,
-          nonceStr: data.noncestr,
-          signature: data.signature
-        };
+  // let client = getClient();
+  // if (client === 'wx') {
+  Promise.all([getWXconfig(window.location.href), importWxJS()])
+    .then(([data]: [ShareConfig, {}]) => {
+      let shareConfig = {
+        debug: true,
+        appId: data.app_id,
+        timestamp: data.timestamp,
+        nonceStr: data.noncestr,
+        signature: data.signature
+      };
 
-        if (window.wx && window.wx.config) {
-          window.wx.config({
-            ...shareConfig,
-            jsApiList: ['getNetworkType'],
-            fail(err: string) {
-              console.log('config error:' + err);
-            },
-            success(res: {}) {
-              console.log('config success:' + res);
-              window.wx.ready(() => {
-                window.wx.getNetworkType({
-                  success: function(res: any) {
-                    return res.networkType !== 'wifi' ? false : true; // 返回网络类型2g，3g，4g，wifi
-                  }
-                });
+      if (window.wx && window.wx.config) {
+        window.wx.config({
+          ...shareConfig,
+          jsApiList: ['getNetworkType'],
+          fail(err: string) {
+            console.log('config error:' + err);
+          },
+          success(res: {}) {
+            console.log('config success:' + res);
+            window.wx.ready(() => {
+              window.wx.getNetworkType({
+                success: function(res: any) {
+                  return res.networkType !== 'wifi' ? false : true; // 返回网络类型2g，3g，4g，wifi
+                }
               });
-            }
-          });
-        }
-      })
-      .catch(e => {
-        console.error('get config error:', e);
-        return true;
-      });
-  }
+            });
+          }
+        });
+      }
+    })
+    .catch(e => {
+      console.error('get config error:', e);
+      return true;
+    });
+  // }
   return wifi;
 }
 
@@ -170,11 +126,3 @@ export function isWifi() {
 //   }
 //   return wifi;
 // }
-export function getClient() {
-  let client = 'm';
-  let ua = navigator.userAgent;
-  if (ua.indexOf('MicroMessenger') > -1) {
-    client = 'wx';
-  }
-  return client;
-}

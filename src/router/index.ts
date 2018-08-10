@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/views/Login.vue';
 import task from '@/views/Task.vue';
+import invite from '@/views/Inviter.vue';
+import share from '@/views/Share.vue';
 import Bind from '@/views/BindUser.vue';
 import AddAcount from '@/views/AddAcount.vue';
 import User from '@/views/User.vue';
@@ -9,7 +11,7 @@ import tasklist from '@/views/TaskList.vue';
 import taskcenter from '@/views/TaskCenter.vue';
 import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy from '@/views/TaskBuy.vue';
-import { hasLogin,TOKEN } from '@/util/session';
+import { hasLogin, TOKEN } from '@/util/session';
 import { login } from '@/api/login';
 import { getCookie } from '@/util/cookie';
 Vue.use(Router);
@@ -67,6 +69,18 @@ const router = new Router({
       meta: { title: '免单活动操作步骤', requiredAuth: false }
     },
     {
+      path: '/invite',
+      name: 'invite',
+      component: invite,
+      meta: { title: '邀请好友得现金红包', requiredAuth: false }
+    },
+    {
+      path: '/share',
+      name: 'share',
+      component: share,
+      meta: { title: '先关注后注册', requiredAuth: false }
+    },
+    {
       path: '/task',
       name: 'task',
       component: task,
@@ -81,7 +95,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to autologin.
     if (!hasLogin()) {
       console.log(1111);
-      login(getCookie(TOKEN) || '','');
+      login(getCookie(TOKEN) || '', '');
     } else {
       next();
     }

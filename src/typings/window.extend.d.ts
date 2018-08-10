@@ -1,3 +1,15 @@
+/* 微信分享数据 */
+export interface WxShareData {
+  title: string; // 分享标题
+  link: string; // 分享链接，该链接域名必须与当前企业的可信域名一致
+  imgUrl: string; // 分享图标
+  desc?: string; // 分享描述,分享给朋友需传递
+  share_platform?: string; //兼容app分享数据
+  wxshare_type?: string; //兼容app分享数据
+  share_sub_title?: string; //兼容app分享数据
+  success?: () => void; // 用户确认分享后执行的回调函数
+  cancel?: () => void; // 用户取消分享后执行的回调函数
+}
 declare global {
   interface Document {
     readonly attachEvent: (e: string, cb: () => void) => void;
@@ -56,6 +68,10 @@ declare global {
       uploadImage: (data: {}) => void;
       chooseImage: (data: {}) => void;
       getNetworkType: (data: {}) => void;
+      hideMenuItems: (opt: { menuList: Array<string> }) => void;
+      onMenuShareAppMessage: (data: WxShareData) => void;
+      onMenuShareTimeline: (data: WxShareData) => void;
+      hideOptionMenu: () => void;
     };
     readonly webkit: {
       messageHandlers: {
