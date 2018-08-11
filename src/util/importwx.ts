@@ -23,7 +23,7 @@ export function importWxJS() {
     }
   });
 }
-const PATH = '/uploadImage/getSignPackage';
+const PATH = '/userInfo/getSignPackage';
 export interface ShareConfig {
   debug: boolean;
   app_id?: string;

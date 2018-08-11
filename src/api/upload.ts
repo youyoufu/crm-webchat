@@ -6,6 +6,7 @@ const UPLOADPATH = '/taskOrder/uploadImage';
 export function setUploadImg(files: any, taskOrderId: string, sequence: string) {
   let headers = new Headers();
   headers.set(TOKEN, getCookie(TOKEN));
+  headers.set('account', getCookie('account'));
   let formData = new FormData();
   formData.append('files', files[0]);
   formData.append('taskOrderId', taskOrderId);

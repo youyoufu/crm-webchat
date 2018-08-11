@@ -83,7 +83,7 @@ export default class TaskFree extends Vue {
   }
   private commitTaoBaoKey() {
     setRefundTaobaoKey(this.initData.task_order_id, this.key)
-      .then((res: {}) => {
+      .then((res:any) => {
         this.$toast('淘口令提交成功');
         //数据逻辑处理
         setTimeout(() => {

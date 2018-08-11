@@ -45,30 +45,32 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getQuery } from '@/util/cookie';
-import { getUserCenter, userCenterInfo } from '@/api/user';
-import { login } from '@/api/login';
-import { hasLogin } from '@/util/session';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getQuery } from "@/util/cookie";
+import { getUserCenter, userCenterInfo } from "@/api/user";
+import { login } from "@/api/login";
+import { hasLogin } from "@/util/session";
+import { setCookie } from "@/util/cookie";
 
 @Component({
   components: {}
 })
 export default class User extends Vue {
-  private account: string = getQuery('account') || '';
+  private account: string = getQuery("account") || "";
   private userCenter: userCenterInfo = {
-    name: '',
-    free_task_time: '',
-    refund_task_time: '',
-    bonus_point: '',
-    taobao_account: '',
-    jd_account: '',
-    phone: '',
+    name: "",
+    free_task_time: "",
+    refund_task_time: "",
+    bonus_point: "",
+    taobao_account: "",
+    jd_account: "",
+    phone: "",
     refund_list: []
   };
   private created() {
+    setCookie("account", this.account);
     if (!hasLogin()) {
-      login(this.account, '');
+      login(this.account, "");
     } else {
       getUserCenter()
         .then((res: any) => {
@@ -82,8 +84,8 @@ export default class User extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .info {
   font-size: 28px;
   .tips {

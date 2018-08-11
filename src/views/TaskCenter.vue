@@ -26,6 +26,7 @@ import { getQuery } from '@/util/cookie';
 import { login } from '@/api/login';
 import { hasLogin } from '@/util/session';
 import { isWifi } from '@/util/network';
+import { setCookie } from '@/util/cookie';
 
 @Component({
   components: {}
@@ -37,6 +38,8 @@ export default class TaskList extends Vue {
   };
   private account: string = getQuery('account') || '';
   private created() {
+  setCookie('account',this.account);
+
     if (!hasLogin()) {
       login(this.account, 'taskcenter');
     } else {

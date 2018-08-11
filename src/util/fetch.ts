@@ -1,7 +1,8 @@
 /* fetch api  */
 
-import { getCookie, removeCookie } from '@/util/cookie';
+import { getCookie } from '@/util/cookie';
 import { TOKEN } from '@/util/session';
+import { login } from '@/api/login';
 
 interface FetchParams {
   body?: { [key: string]: any };
@@ -33,7 +34,7 @@ const checkCode = (res: ResData) => {
     return res.data;
   } else if (res.status === '3001') {
     // removeCookie(TOKEN);
-    return (window.location.href = '／');
+    login(getCookie('account'), '/');// window.location.href
   } else {
     throw res;
   }
@@ -52,7 +53,8 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
       let { headers, body } = options;
       headers = headers instanceof Headers ? headers : new Headers();
       // if (!isGetToken) {
-        headers.set(TOKEN, getCookie(TOKEN));
+      headers.set(TOKEN, getCookie(TOKEN));
+      headers.set('account', getCookie('account'));
       // }
       let stringifyBody;
       if (body) {
