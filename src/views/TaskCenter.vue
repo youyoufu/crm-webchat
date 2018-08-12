@@ -38,7 +38,6 @@ export default class TaskList extends Vue {
   };
   private account: string = getQuery("account") || "";
   private created() {
-    setCookie(accountToken, this.account);
     if (!hasLogin()) {
       login(this.account, "taskcenter");
     } else {

@@ -16,7 +16,6 @@ export interface LoginInfo {
 /* 登陆 */
 export function login(account: string, url: string) {
   if (account) {
-
     setCookie(accountToken, account);
     location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url) + '&account=' + account;
   }

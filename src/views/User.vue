@@ -68,7 +68,6 @@ export default class User extends Vue {
     refund_list: []
   };
   private created() {
-    setCookie(accountToken, this.account);
     if (!hasLogin()) {
       login(this.account, "");
     } else {
