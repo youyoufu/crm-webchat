@@ -36,6 +36,7 @@ export default class UploadImg extends Vue {
       })
       .catch((err: { message: string }) => {
         this.$emit("fileChange", null, err.message);
+        this.$toast("验证不通过");
         this.$loading(false);
       });
   }

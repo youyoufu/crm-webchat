@@ -67,7 +67,7 @@
       </div>
       <div class="bgcolor mtop50 tips big">参照下图，核对订单产品和订单金额</div>
       <div style="text-align:center">
-        <img class="longGoodimg mtop50" :src="initData.url" />
+        <img class="longGoodimg" :src="initData.url" />
       </div>
       <div class="bgcolor mtop50 tips big">确定后，留言{{initData.comments}}，提交订单，不要付款</div>
       <div class="tips1">复制订单号，在下面粘贴订单号</div>
@@ -363,6 +363,7 @@ export default class TaskLoad extends Vue {
     .upload-img1 img {
       width: 295px;
       height: 295px;
+      padding: 0 10px;
     }
     .upload {
       margin: 10px 80px;
