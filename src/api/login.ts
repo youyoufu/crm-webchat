@@ -1,5 +1,6 @@
 import { internalFetch } from '@/util/fetch';
-import {setCookie} from '@/util/cookie';
+import { setCookie } from '@/util/cookie';
+import { accountToken } from '@/util/session';
 import { stringifPath } from './index';
 let { devServer } = require('../../.config.js');
 
@@ -13,9 +14,9 @@ export interface LoginInfo {
 }
 
 /* 登陆 */
-export function login(account:string,url:string) {
-  // setCookie('account',account);
-  location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer+url)+'&account='+account;
+export function login(account: string, url: string) {
+  setCookie(accountToken, account);
+  location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url) + '&account=' + account;
 }
 export function BindAccount(account: string, phone: string, type: string) {
   return internalFetch('POST')(true)(stringifPath(BINDACCOUNTPATH), {
