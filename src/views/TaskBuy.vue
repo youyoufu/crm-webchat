@@ -59,7 +59,7 @@
         <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
           <span class="red downline">{{item.sku}}</span> 加入购物车</div>
         <div class="upload-block">
-          <div class="upload-img">
+          <div class="upload-img1">
             <img :src="item.long_url" />
             <img :src="item.square_url" />
           </div>
@@ -123,11 +123,16 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
-import { getCreateTask, setCloseTask } from '@/api/task';
-import UploadImg from '@/components/UploadImg.vue';
-import { getQuery } from '@/util/cookie';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import {
+  getFreeOrderDetail,
+  freeInfo,
+  setOrderNo,
+  setCheckTBkey
+} from "@/api/taskfree";
+import { getCreateTask, setCloseTask } from "@/api/task";
+import UploadImg from "@/components/UploadImg.vue";
+import { getQuery } from "@/util/cookie";
 
 @Component({
   components: {
@@ -136,47 +141,47 @@ import { getQuery } from '@/util/cookie';
 })
 export default class TaskLoad extends Vue {
   private initData: freeInfo = {
-    id: '',
-    status: '',
-    task_no: '',
-    gift: '',
-    taobao_key: '',
-    check_first_url: '',
-    check_second_url: '',
+    id: "",
+    status: "",
+    task_no: "",
+    gift: "",
+    taobao_key: "",
+    check_first_url: "",
+    check_second_url: "",
     goods: [],
-    wechat_code_url: '',
-    order_pic_url: '',
-    content: ''
+    wechat_code_url: "",
+    order_pic_url: "",
+    content: ""
   };
   private isFirst: boolean = true;
   private isSecond: boolean = false;
   private isThird: boolean = false;
-  private taskid: string = getQuery('tid') || '';
-  private orderid: string = '';
-  private txtarea1: string = '';
-  private txtarea2: string = '';
+  private taskid: string = getQuery("tid") || "";
+  private orderid: string = "";
+  private txtarea1: string = "";
+  private txtarea2: string = "";
   private checkStatus() {
     let status = parseInt(this.initData.status);
     if (status == 0) {
       this.isFirst = true;
-      document.title = '活动进行中：第1步，共3步';
+      document.title = "活动进行中：第1步，共3步";
     } else if (status == 1) {
-      document.title = '活动进行中：第2步，共3步';
+      document.title = "活动进行中：第2步，共3步";
       this.isFirst = false;
       this.isSecond = true;
     } else if (status >= 2 || status <= 5) {
       this.isFirst = false;
       this.isSecond = false;
       this.isThird = true;
-      document.title = '活动进行中：第3步，共3步';
+      document.title = "活动进行中：第3步，共3步";
     }
   }
   private closeTask() {
-    setCloseTask('9', this.initData.id)
+    setCloseTask("9", this.initData.id)
       .then((res: freeInfo) => {
-        this.$toast('订单已关闭');
+        this.$toast("订单已关闭");
         setTimeout(() => {
-          window.location.href = '/taskcenter';
+          window.location.href = "/taskcenter";
         }, 3000);
       })
       .catch((err: { message: string }) => {
@@ -185,7 +190,7 @@ export default class TaskLoad extends Vue {
   }
   private created() {
     this.$loading(true);
-    getCreateTask('free', this.taskid)
+    getCreateTask("free", this.taskid)
       .then((res: freeInfo) => {
         this.$loading(false);
         this.initData = res;
@@ -196,39 +201,45 @@ export default class TaskLoad extends Vue {
         this.$toast(err.message);
       });
   }
-  private fileChange(obj: { url: string; keyName: string; status: string }, msg) {
+  private fileChange(
+    obj: { url: string; keyName: string; status: string },
+    msg
+  ) {
     if (obj === null) {
       this.$toast(msg);
       return;
     }
-    if (obj.keyName === 'check_first_url') {
+    if (obj.keyName === "check_first_url") {
       this.initData.check_first_url = obj.url;
-    } else if (obj.keyName === 'check_second_url') {
+    } else if (obj.keyName === "check_second_url") {
       this.initData.check_second_url = obj.url;
-    } else if (obj.keyName === 'wechat_code_url') {
+    } else if (obj.keyName === "wechat_code_url") {
       this.initData.wechat_code_url = obj.url;
-    } else if (obj.keyName === 'order_pic_url') {
+    } else if (obj.keyName === "order_pic_url") {
       this.initData.order_pic_url = obj.url;
     }
   }
 
   private confirmCheck() {
-    if (this.initData.check_first_url !== '' && this.initData.check_second_url !== '') {
-      this.initData.status = '1';
+    if (
+      this.initData.check_first_url !== "" &&
+      this.initData.check_second_url !== ""
+    ) {
+      this.initData.status = "1";
       this.checkStatus();
     }
   }
   private onCopy() {
-    this.$toast('复制成功');
+    this.$toast("复制成功");
   }
   private commitOrderNo() {
-    if (this.orderid === '') {
-      this.$toast('请先粘贴订单编号');
+    if (this.orderid === "") {
+      this.$toast("请先粘贴订单编号");
       return;
     }
     setOrderNo(this.initData.id, this.orderid)
       .then((res: any) => {
-        this.$toast('订单编号提交成功');
+        this.$toast("订单编号提交成功");
         //数据逻辑处理
         this.initData.status = 2;
         this.checkStatus();
@@ -238,13 +249,13 @@ export default class TaskLoad extends Vue {
       });
   }
   private checkTaobaoKey() {
-    if (this.txtarea1 === '' || this.txtarea2 === '') {
-      this.$toast('请先粘贴淘口令');
+    if (this.txtarea1 === "" || this.txtarea2 === "") {
+      this.$toast("请先粘贴淘口令");
       return;
     }
     setCheckTBkey(this.initData.id, this.txtarea1, this.txtarea2)
       .then((res: {}) => {
-        this.$toast('校验成功');
+        this.$toast("校验成功");
         //数据逻辑处理
       })
       .catch((err: { message: string }) => {
@@ -252,21 +263,24 @@ export default class TaskLoad extends Vue {
       });
   }
   private confirmOrder() {
-    if (this.initData.wechat_code_url === '' || this.initData.order_pic_url === '') {
-      this.$toast('请先完成活动要求');
+    if (
+      this.initData.wechat_code_url === "" ||
+      this.initData.order_pic_url === ""
+    ) {
+      this.$toast("请先完成活动要求");
       return;
     } else {
-      this.$toast('您的该活动已经完成～');
+      this.$toast("您的该活动已经完成～");
       setTimeout(() => {
-        window.location.href = '/tasklist?type=free';
+        window.location.href = "/tasklist?type=free";
       }, 3000);
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .taskbuy {
   font-size: 28px;
   padding: 0 20px;
@@ -345,6 +359,10 @@ export default class TaskLoad extends Vue {
       img:first-child {
         margin-right: 80px;
       }
+    }
+    .upload-img1 img {
+      width: 295px;
+      height: 295px;
     }
     .upload {
       margin: 10px 80px;
