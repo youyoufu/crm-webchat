@@ -11,7 +11,7 @@ import tasklist from '@/views/TaskList.vue';
 import taskcenter from '@/views/TaskCenter.vue';
 import taskrefund from '@/views/TaskRefund.vue';
 import taskbuy from '@/views/TaskBuy.vue';
-import { hasLogin, TOKEN } from '@/util/session';
+import { hasLogin, TOKEN, accountToken } from '@/util/session';
 import { login } from '@/api/login';
 import { getCookie } from '@/util/cookie';
 Vue.use(Router);
@@ -95,7 +95,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to autologin.
     if (!hasLogin()) {
       console.log(1111);
-      login(getCookie(TOKEN) || '','');
+      login(getCookie(accountToken) || '','');
     } else {
       next();
     }
