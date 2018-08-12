@@ -34,7 +34,7 @@ const checkCode = (res: ResData) => {
     return res.data;
   } else if (res.status === '3001') {
     // removeCookie(TOKEN);
-    login(getCookie('account'), '/');// window.location.href
+    login(getCookie('account'), '');// window.location.href
   } else {
     throw res;
   }
