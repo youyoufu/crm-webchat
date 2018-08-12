@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { setUploadImg } from '@/api/upload';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { setUploadImg } from "@/api/upload";
 @Component({})
 export default class UploadImg extends Vue {
   @Prop() private text!: string;
@@ -31,17 +31,17 @@ export default class UploadImg extends Vue {
         let url = result.data.url;
         let status = result.data.status;
         let keyName = this.keyName;
-        this.$emit('fileChange', { url, keyName, status }, '');
+        this.$emit("fileChange", { url, keyName, status }, "");
         this.$loading(false);
       })
       .catch((err: { message: string }) => {
-        this.$emit('fileChange', null, err.message);
+        this.$emit("fileChange", null, err.message);
         this.$loading(false);
       });
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
+@import "../scss/theme.scss";
 </style>
 

@@ -205,8 +205,8 @@ export default class TaskLoad extends Vue {
     obj: { url: string; keyName: string; status: string },
     msg
   ) {
-    if (obj === null) {
-      this.$toast(msg);
+    if (msg !== "") {
+      this.$toast("验证不通过");
       return;
     }
     if (obj.keyName === "check_first_url") {
@@ -399,6 +399,9 @@ export default class TaskLoad extends Vue {
   }
   .btn-center {
     text-align: center;
+  }
+  .longGoodimg {
+    width: 700px;
   }
 }
 </style>
