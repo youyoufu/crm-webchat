@@ -17,7 +17,7 @@ export interface LoginInfo {
 export function login(account: string, url: string) {
   if (account) {
     setCookie(accountToken, account);
-    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url )+ '&account=' + account;
+    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account)+ '&account=' + account;
   }
   else {
     return;
