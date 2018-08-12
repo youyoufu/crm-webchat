@@ -15,8 +15,14 @@ export interface LoginInfo {
 
 /* 登陆 */
 export function login(account: string, url: string) {
-  setCookie(accountToken, account);
-  location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url) + '&account=' + account;
+  if (account) {
+
+    setCookie(accountToken, account);
+    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url) + '&account=' + account;
+  }
+  else {
+    return;
+  }
 }
 export function BindAccount(account: string, phone: string, type: string) {
   return internalFetch('POST')(true)(stringifPath(BINDACCOUNTPATH), {
