@@ -49,7 +49,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { getQuery } from "@/util/cookie";
 import { getUserCenter, userCenterInfo } from "@/api/user";
 import { login } from "@/api/login";
-import { hasLogin } from "@/util/session";
+import { hasLogin, accountToken } from "@/util/session";
 import { setCookie } from "@/util/cookie";
 
 @Component({
@@ -68,7 +68,7 @@ export default class User extends Vue {
     refund_list: []
   };
   private created() {
-    setCookie("account", this.account);
+    setCookie(accountToken, this.account);
     if (!hasLogin()) {
       login(this.account, "");
     } else {

@@ -33,7 +33,6 @@ export default class Login extends Vue {
   private info: string = getQuery("url") || "";
   private login() {
     if (this.user && this.phone) {
-      console.log(1111);
       //   let cancelLoading = this.$loading();
       BindAccount(this.user, this.phone, "taobao")
         .then((res:any) => {

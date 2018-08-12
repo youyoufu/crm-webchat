@@ -95,7 +95,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to autologin.
     if (!hasLogin()) {
       console.log(1111);
-      login(getCookie(TOKEN) || '', '');
+      login(getCookie(TOKEN) || '','');
     } else {
       next();
     }

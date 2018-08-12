@@ -1,7 +1,7 @@
 /* fetch api  */
 
 import { getCookie } from '@/util/cookie';
-import { TOKEN } from '@/util/session';
+import { TOKEN, accountToken } from '@/util/session';
 import { login } from '@/api/login';
 
 interface FetchParams {
@@ -54,7 +54,7 @@ export function internalFetch(type: 'GET' | 'POST' | 'DELETE') {
       headers = headers instanceof Headers ? headers : new Headers();
       // if (!isGetToken) {
       headers.set(TOKEN, getCookie(TOKEN));
-      headers.set('account', getCookie('account'));
+      headers.set(accountToken, getCookie(accountToken));
       // }
       let stringifyBody;
       if (body) {
