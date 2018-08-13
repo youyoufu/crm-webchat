@@ -239,7 +239,7 @@ export default class TaskLoad extends Vue {
       });
   }
   private checkTaobaoKey() {
-    if (this.txtarea1 === '' || this.txtarea2 === '') {
+    if (this.txtarea1 === '') {
       this.$toast('请先粘贴淘口令');
       return;
     }
