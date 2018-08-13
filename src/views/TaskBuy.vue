@@ -48,9 +48,9 @@
     </div>
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是活动介绍</div>
-      <div class="tips1 green">活动简短说明：所有活动都是组合活动，就是要一起拍{{initData.goods.length}}个产品，搜索关键词，找到产品，收藏宝贝，并放入购物车，拍下后不要付款，复制订单号进行提交</div>
+      <div class="tips1 green">{{content}}</div>
       <div class="good-block" v-for="item in initData.goods" :key="item.keyword">
-        <div class="copy-block">
+        <div class="copy-block" v-if="item.keyword!==''&&item.long_url!==''&&item.square_url!==''">
           <input v-model="item.keyword" readonly />
           <div class="btn-hollow copy" v-clipboard:copy="item.keyword" v-clipboard:success="onCopy">
             <span class="hollow">点击复制</span>
