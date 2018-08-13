@@ -48,20 +48,22 @@
     </div>
     <div v-if="isSecond">
       <div class="bgcolor tips big">已完成验证，下面是活动介绍</div>
-      <div class="tips1 green">{{content}}</div>
+      <div class="tips1 green">活动简要说明: 活动很简单，就是复制下面的关键词，打开手机淘宝，搜索关键词，按照图片，找到宝贝，浏览宝贝，收藏宝贝，并放入购物车。然后下单，拍下后不要付款，复制订单号，提交订单号。</div>
       <div class="good-block" v-for="item in initData.goods" :key="item.keyword">
-        <div class="copy-block" v-if="item.keyword!==''&&item.long_url!==''&&item.square_url!==''">
-          <input v-model="item.keyword" readonly />
-          <div class="btn-hollow copy" v-clipboard:copy="item.keyword" v-clipboard:success="onCopy">
-            <span class="hollow">点击复制</span>
+        <div v-if="item.keyword!==''&&item.long_url!==''&&item.square_url!==''">
+          <div class="copy-block">
+            <input v-model="item.keyword" readonly />
+            <div class="btn-hollow copy" v-clipboard:copy="item.keyword" v-clipboard:success="onCopy">
+              <span class="hollow">点击复制</span>
+            </div>
           </div>
-        </div>
-        <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
-          <span class="red downline">{{item.sku}}</span> 加入购物车</div>
-        <div class="upload-block">
-          <div class="upload-img1">
-            <img :src="item.long_url" />
-            <img :src="item.square_url" />
+          <div class="tips1">复制关键词后，打开手机淘宝搜索关键词，找到下图宝贝，关注宝贝，并将
+            <span class="red downline">{{item.sku}}</span> 加入购物车</div>
+          <div class="upload-block">
+            <div class="upload-img1">
+              <img :src="item.long_url" />
+              <img :src="item.square_url" />
+            </div>
           </div>
         </div>
       </div>
