@@ -13,8 +13,8 @@
       </div>
       <div class="bgcolor tips big">完成如下活动</div>
       <div class="copy-block">
-        <input v-model="initData.key_word" readonly />
-        <div class="btn-hollow copy" v-clipboard:copy="initData.key_word" v-clipboard:success="onCopy">
+        <input v-model="keyword" readonly />
+        <div class="btn-hollow copy" v-clipboard:copy="keyword" v-clipboard:success="onCopy">
           <span class="hollow">点击复制</span>
         </div>
       </div>
@@ -50,7 +50,8 @@ import { getCreateTask } from "@/api/task";
   components: {}
 })
 export default class TaskFree extends Vue {
-  private tid = "";
+  private tid:string = "";
+  private keyword:string='€RORXbceOGYJ€'
   private initData: RefundInfo = {
     key_word: "",
     task_order_id: "",
