@@ -23,6 +23,8 @@
           <span class="hollow">点击复制</span>
         </div>
       </div>
+      <div class="tips1">特别提示：手机淘宝一定要用绑定多淘宝账户登陆</div>
+
       <div class="upload-block">
         <div class="upload-img">
           <img v-if="initData.check_first_url" :src="initData.check_first_url" />
@@ -75,7 +77,7 @@
       <div class="tips1">复制订单号，在下面粘贴订单号</div>
       <div class="textcenter">
         <div>
-          <input v-model="orderid" placeholder="订单编号" />
+          <input v-model="orderid" type="number" placeholder="订单编号" />
         </div>
         <div class="btn logbtn" @click="commitOrderNo">提交订单号</div>
       </div>
