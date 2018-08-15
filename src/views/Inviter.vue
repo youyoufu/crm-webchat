@@ -60,8 +60,8 @@ export default class TaskFree extends Vue {
   private created() {
     let config = {
       title: '111',
-      link: '222',
-      imgUrl: '333',
+      link: 'http://wx.niurouzhou.com',
+      imgUrl: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
       desc: '444',
       success: function() {
         alert('share!!!');
