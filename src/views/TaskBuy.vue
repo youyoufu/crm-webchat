@@ -23,6 +23,12 @@
           <span class="hollow">点击复制</span>
         </div>
       </div>
+            <div class="copy-block" v-if="initData.taobao_key_backup">
+        <input v-model="initData.taobao_key_backup" readonly />
+        <div class="btn-hollow copy" v-clipboard:copy="initData.taobao_key_backup" v-clipboard:success="onCopy">
+          <span class="hollow">点击复制</span>
+        </div>
+      </div>
       <div class="tips1">特别提示：手机淘宝一定要用绑定多淘宝账户登陆</div>
 
       <div class="upload-block">
@@ -145,6 +151,7 @@ export default class TaskLoad extends Vue {
     task_no: '',
     gift: '',
     taobao_key: '',
+    taobao_key_backup:'',
     check_first_url: '',
     check_second_url: '',
     goods: [],
