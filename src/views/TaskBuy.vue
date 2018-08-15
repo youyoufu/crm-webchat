@@ -29,7 +29,7 @@
           <span class="hollow">点击复制</span>
         </div>
       </div>
-      <div class="tips1">特别提示：手机淘宝一定要用绑定多淘宝账户登陆</div>
+      <div class="tips1">特别提示：手机淘宝一定要用绑定淘宝账户登陆</div>
 
       <div class="upload-block">
         <div class="upload-img">
