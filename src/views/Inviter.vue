@@ -59,15 +59,14 @@ export default class TaskFree extends Vue {
   private key = '';
   private created() {
     let config = {
-      title: '111',
-      link: 'http://wx.niurouzhou.com',
-      imgUrl: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
-      desc: '444',
-      success: function() {
+      shareTitle: '111',
+      shareUrl: 'http://wx.niurouzhou.com',
+      shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
+      shareContent: '444555666777888',
+      successCallback: function() {
         alert('share!!!');
       }
     };
-    console.log(111111)
     sharePage(config);
     getCreateTask('refund', getQuery('tid'))
       .then((res: any) => {
