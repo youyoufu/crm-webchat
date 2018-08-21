@@ -6,7 +6,7 @@ export function sharePage(config: any) {
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
       let shareConfig = {
-        debug: true,
+        debug: false,
         appId: data.app_id,
         timestamp: data.timestamp,
         nonceStr: data.noncestr,
