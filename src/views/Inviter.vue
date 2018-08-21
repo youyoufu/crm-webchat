@@ -41,7 +41,8 @@ import { getQuery } from '@/util/cookie';
 import { sharePage } from '@/util/share';
 import { setRefundTaobaoKey, RefundInfo } from '@/api/taskrefund';
 import { getCreateTask } from '@/api/task';
-
+import { login } from '@/api/login';
+import { hasLogin, accountToken } from '@/util/session';
 @Component({
   components: {}
 })
@@ -57,34 +58,37 @@ export default class TaskFree extends Vue {
     square_url: ''
   };
   private key = '';
+  private account: string = getQuery('account') || '';
   private created() {
-        alert('222!!!');
-
-    let config = {
-      shareTitle: '111sssssss',
-      shareUrl: 'http://wx.niurouzhou.com/share?mobile=13844442222',
-      shareImg: 'http://m.huiguo.net/static/media/bg0815.f6a70ac1.png',
-      shareContent: '444555666777888',
-      successCallback: function() {
-        alert('分享成功！');
-      }
-    };
-    sharePage(config);
-    getCreateTask('refund', getQuery('tid'))
-      .then((res: any) => {
-        //数据逻辑处理
-        this.initData = res;
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
+    if (!hasLogin()) {
+      login(this.account, 'invite');
+    } else {
+      let config = {
+        shareTitle: '111sssssss',
+        shareUrl: 'http://wx.niurouzhou.com/share?mobile=13844442222',
+        shareImg: 'http://m.huiguo.net/static/media/bg0815.f6a70ac1.png',
+        shareContent: '444555666777888',
+        successCallback: function() {
+          alert('分享成功！');
+        }
+      };
+      sharePage(config);
+      getCreateTask('refund', getQuery('tid'))
+        .then((res: any) => {
+          //数据逻辑处理
+          this.initData = res;
+        })
+        .catch((err: { message: string }) => {
+          this.$toast(err.message);
+        });
+    }
   }
   private onCopy() {
     this.$toast('复制成功');
   }
   private commitTaoBaoKey() {
     setRefundTaobaoKey(this.initData.task_order_id, this.key)
-      .then((res:any) => {
+      .then((res: any) => {
         this.$toast('淘口令提交成功');
         //数据逻辑处理
         setTimeout(() => {

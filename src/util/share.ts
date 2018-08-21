@@ -5,7 +5,6 @@ export function sharePage(config: any) {
   let { shareUrl, shareTitle, shareContent, shareImg, successCallback } = config;
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
-      alert('333!!!');
       let shareConfig = {
         debug: false,
         appId: data.app_id,
@@ -13,71 +12,71 @@ export function sharePage(config: any) {
         nonceStr: data.noncestr,
         signature: data.signature
       };
-      if (window.wx && window.wx.config) {
-      alert('444!!!');
-
-        window.wx.config({
-          ...shareConfig,
-          jsApiList: [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'hideMenuItems',
-            'showMenuItems'
-          ]
-        });
-        window.wx.ready(function() {
-          // 分享给好友
-          window.wx.onMenuShareAppMessage({
-            title: shareTitle, // 分享标题
-            desc: shareContent, // 分享描述
-            link: shareUrl, // 分享链接
-            imgUrl: shareImg, // 分享图标
-            // type: 'link',
-            // dataUrl: '',
-            success: function() {
-              // 用户确认分享后执行的回调函数
-              if (typeof successCallback === 'function') {
-                successCallback()
-              }
-            },
-            cancel: function() {
-              // 用户取消分享后执行的回调函数
+      alert(window.wx);
+      alert(window.wx.config);
+      // if (window.wx && window.wx.config) {
+      window.wx.config({
+        ...shareConfig,
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'hideOptionMenu',
+          'showOptionMenu',
+          'hideMenuItems',
+          'showMenuItems'
+        ]
+      });
+      window.wx.ready(function() {
+        // 分享给好友
+        window.wx.onMenuShareAppMessage({
+          title: shareTitle, // 分享标题
+          desc: shareContent, // 分享描述
+          link: shareUrl, // 分享链接
+          imgUrl: shareImg, // 分享图标
+          // type: 'link',
+          // dataUrl: '',
+          success: function() {
+            // 用户确认分享后执行的回调函数
+            if (typeof successCallback === 'function') {
+              successCallback();
             }
-          });
-          // 分享朋友圈
-          window.wx.onMenuShareTimeline({
-            title: shareContent, // 分享到朋友圈时取描述
-            link: shareUrl, // 分享链接
-            imgUrl: shareImg, // 分享图标
-            success: function() {
-              // 用户确认分享后执行的回调函数
-              if (typeof successCallback === 'function') {
-                successCallback();
-              }
-            },
-            cancel: function() {
-              // 用户取消分享后执行的回调函数
-            }
-          });
+          },
+          cancel: function() {
+            // 用户取消分享后执行的回调函数
+          }
         });
-        // window.wx.config({
-        //   ...shareConfig,
-        //   jsApiList: [
-        //     'onMenuShareTimeline',
-        //     'onMenuShareAppMessage',
-        //     'hideOptionMenu',
-        //     'showOptionMenu',
-        //     'hideMenuItems',
-        //     'showMenuItems'
-        //   ]
-        // });
-        // window.wx.ready(() => {
-        //   window.wx.onMenuShareAppMessage(config);
-        //   window.wx.onMenuShareTimeline(config);
-        // });
-      }
+        // 分享朋友圈
+        window.wx.onMenuShareTimeline({
+          title: shareContent, // 分享到朋友圈时取描述
+          link: shareUrl, // 分享链接
+          imgUrl: shareImg, // 分享图标
+          success: function() {
+            // 用户确认分享后执行的回调函数
+            if (typeof successCallback === 'function') {
+              successCallback();
+            }
+          },
+          cancel: function() {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+      });
+      // window.wx.config({
+      //   ...shareConfig,
+      //   jsApiList: [
+      //     'onMenuShareTimeline',
+      //     'onMenuShareAppMessage',
+      //     'hideOptionMenu',
+      //     'showOptionMenu',
+      //     'hideMenuItems',
+      //     'showMenuItems'
+      //   ]
+      // });
+      // window.wx.ready(() => {
+      //   window.wx.onMenuShareAppMessage(config);
+      //   window.wx.onMenuShareTimeline(config);
+      // });
+      // }
     })
     .catch(e => {
       console.error('get config error:', e);
