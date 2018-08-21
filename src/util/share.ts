@@ -5,6 +5,7 @@ export function sharePage(config: any) {
   let { shareUrl, shareTitle, shareContent, shareImg, successCallback } = config;
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
+      alert('333!!!');
       let shareConfig = {
         debug: false,
         appId: data.app_id,
@@ -12,8 +13,9 @@ export function sharePage(config: any) {
         nonceStr: data.noncestr,
         signature: data.signature
       };
-      console.log(444);
       if (window.wx && window.wx.config) {
+      alert('444!!!');
+
         window.wx.config({
           ...shareConfig,
           jsApiList: [
