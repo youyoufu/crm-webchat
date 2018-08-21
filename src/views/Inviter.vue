@@ -63,7 +63,7 @@ export default class TaskFree extends Vue {
     let config = {
       shareTitle: '111sssssss',
       shareUrl: 'http://wx.niurouzhou.com/share?mobile=13844442222',
-      shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
+      shareImg: 'http://m.huiguo.net/static/media/bg0815.f6a70ac1.png',
       shareContent: '444555666777888',
       successCallback: function() {
         alert('分享成功！');
