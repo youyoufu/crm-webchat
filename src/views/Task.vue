@@ -23,15 +23,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 // import TopNav from '@/components/TopNav.vue';
-import UploadImg from '@/components/UploadImg.vue';
+// import UploadImg from '@/components/UploadImg.vue';
 import { getTaskList } from '@/api/task';
 import { isWifi } from '@/util/network';
+import { UploadImg } from '@/util/upload';
+
 import { actions, PREFIX } from '@/store/modules/task/CONSTANTS';
 // import Toast from '../plugins/Toast/Toast.vue';
 @Component({
   components: {
     // TopNav,
-    UploadImg
+    // UploadImg
   }
 })
 export default class Task extends Vue {
@@ -69,6 +71,7 @@ export default class Task extends Vue {
     // });
   }
   private created() {
+    UploadImg();
     // alert('init page...');
     // this.products = getTaskList();
     let dd = this.$store.dispatch(actions.getAllProducts);

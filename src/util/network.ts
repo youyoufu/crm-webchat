@@ -14,25 +14,19 @@ export function isWifi() {
         signature: data.signature
       };
 
-      if (window.wx && window.wx.config) {
-        window.wx.config({
-          ...shareConfig,
-          jsApiList: ['getNetworkType'],
-          fail(err: string) {
-            console.log('config error:' + err);
-          },
-          success(res: {}) {
-            console.log('config success:' + res);
-            window.wx.ready(() => {
-              window.wx.getNetworkType({
-                success: function(res: any) {
-                  return res.networkType !== 'wifi' ? false : true; // 返回网络类型2g，3g，4g，wifi
-                }
-              });
-            });
+      // if (window.wx && window.wx.config) {
+      window.wx.config({
+        ...shareConfig,
+        jsApiList: ['getNetworkType']
+      });
+      window.wx.ready(() => {
+        window.wx.getNetworkType({
+          success: function(res: any) {
+            return res.networkType === 'wifi' ? true : false; // 返回网络类型2g，3g，4g，wifi
           }
         });
-      }
+      });
+      // }
     })
     .catch(e => {
       console.error('get config error:', e);
