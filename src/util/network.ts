@@ -19,7 +19,6 @@ export function isWifi() {
       window.wx.ready(() => {
         window.wx.getNetworkType({
           success: function(res: any) {
-            alert(1)
           return res.networkType === 'wifi' ? true : false; // 返回网络类型2g，3g，4g，wifi
           }
         });
@@ -27,7 +26,6 @@ export function isWifi() {
       }
     })
     .catch(e => {
-      alert(2)
       console.error('get config error:', e);
       return true;
     });
