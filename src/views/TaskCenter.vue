@@ -20,13 +20,13 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getTasksList, getCreateTask, CenterTaskData } from '@/api/task';
-import { getQuery } from '@/util/cookie';
-import { login } from '@/api/login';
-import { hasLogin, accountToken } from '@/util/session';
-import { isWifi } from '@/util/network';
-import { setCookie } from '@/util/cookie';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getTasksList, getCreateTask, CenterTaskData } from "@/api/task";
+import { getQuery } from "@/util/cookie";
+import { login } from "@/api/login";
+import { hasLogin, accountToken } from "@/util/session";
+import { isWifi } from "@/util/network";
+import { setCookie } from "@/util/cookie";
 
 @Component({
   components: {}
@@ -36,12 +36,12 @@ export default class TaskList extends Vue {
     free_task: [],
     refund_task: []
   };
-  private account: string = getQuery('account') || '';
+  private account: string = getQuery("account") || "";
   private created() {
     if (!hasLogin()) {
-      login(this.account, 'taskcenter');
+      login(this.account, "taskcenter");
     } else {
-      getTasksList('all')
+      getTasksList("all")
         .then((res: any) => {
           this.taskData = res;
         })
@@ -51,35 +51,37 @@ export default class TaskList extends Vue {
     }
   }
   private goToDeatil(tid: string, type: string) {
-    if (isWifi()) {
-      this.$toast('任务期间禁止使用WIFI网络，请先切至3G或4G网络');
-      return;
+    let wifi = isWifi() || true;
+    if (!wifi) {
+      getCreateTask(type, tid)
+        .then((res: any) => {
+          let info = "taskbuy";
+          let url = "/taskbuy?tid=" + tid;
+          if (type === "refund") {
+            url = "/taskrefund?tid=" + tid;
+            info = "taskrefund";
+          }
+          console.log(res.is_exists_account);
+          if (res.is_exists_account === "no") {
+            window.location.href =
+              "/addAcount?task_id=" + tid + "&url=" + info + "&type=" + type;
+          } else {
+            window.location.href = url;
+          }
+        })
+        .catch((err: { message: string }) => {
+          this.$toast(err.message);
+        });
     } else {
-    getCreateTask(type, tid)
-      .then((res: any) => {
-        let info = 'taskbuy';
-        let url = '/taskbuy?tid=' + tid;
-        if (type === 'refund') {
-          url = '/taskrefund?tid=' + tid;
-          info = 'taskrefund';
-        }
-        console.log(res.is_exists_account);
-        if (res.is_exists_account === 'no') {
-          window.location.href = '/addAcount?task_id=' + tid + '&url=' + info + '&type=' + type;
-        } else {
-          window.location.href = url;
-        }
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
+      this.$toast("任务期间禁止使用WIFI网络，请先切至3G或4G网络");
+      return;
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .tasklist {
   font-size: 28px;
   padding: 20px 20px;
