@@ -51,7 +51,8 @@ export default class TaskList extends Vue {
     }
   }
   private getNetwork(tid: string, type: string, wifi: boolean) {
-    if (!wifi) {
+   console.log(111)
+   if (!wifi) {
       getCreateTask(type, tid)
         .then((res: any) => {
           let info = "taskbuy";
@@ -77,6 +78,7 @@ export default class TaskList extends Vue {
     }
   }
   private goToDeatil(tid: string, type: string) {
+   console.log(333)
     isWifi(tid, type, this.getNetwork);
   }
 }

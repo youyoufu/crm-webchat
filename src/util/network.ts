@@ -1,6 +1,7 @@
 import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
 
 export function isWifi(tid: string, type: string, callback: Function) {
+  console.log(222)
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
       let shareConfig = {
@@ -19,7 +20,7 @@ export function isWifi(tid: string, type: string, callback: Function) {
         window.wx.ready(() => {
           window.wx.getNetworkType({
             success: function (res: any) {
-              callback(type, tid, res.networkType);
+              callback(type, tid, res.networkType=== 'wifi' ? true : false);
               // return res.networkType === 'wifi' ? true : false; // 返回网络类型2g，3g，4g，wifi
             }
           });
