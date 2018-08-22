@@ -52,7 +52,7 @@ export default class TaskList extends Vue {
   }
   private goToDeatil(tid: string, type: string) {
     let wifi=isWifi()||true;
-    alert(wifi)
+    alert(isWifi())
     if (!wifi) {
       getCreateTask(type, tid)
         .then((res: any) => {
