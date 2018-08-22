@@ -50,9 +50,7 @@ export default class TaskList extends Vue {
         });
     }
   }
-  private goToDeatil(tid: string, type: string) {
-    let wifi=isWifi()||true;
-    alert(isWifi())
+  private getNetwork(tid: string, type: string, wifi: boolean) {
     if (!wifi) {
       getCreateTask(type, tid)
         .then((res: any) => {
@@ -77,6 +75,9 @@ export default class TaskList extends Vue {
       this.$toast("任务期间禁止使用WIFI网络，请先切至3G或4G网络");
       return;
     }
+  }
+  private goToDeatil(tid: string, type: string) {
+    isWifi(tid, type, this.getNetwork);
   }
 }
 </script>
