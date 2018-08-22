@@ -1,9 +1,6 @@
 import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
 
 export function UploadImg() {
-  let wifi: boolean = true;
-  // let client = getClient();
-  // if (client === 'wx') {
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
       let shareConfig = {
@@ -44,8 +41,6 @@ export function UploadImg() {
       console.error('get config error:', e);
       return true;
     });
-  // }
-  return wifi;
 }
 function ulLoadToWechat(localId: string) {
   window.wx.uploadImage({

@@ -1,9 +1,7 @@
 import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
 
 export function isWifi() {
-  let wifi: boolean = true;
-  // let client = getClient();
-  // if (client === 'wx') {
+  let is_wifi:boolean=true;
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {
       let shareConfig = {
@@ -14,7 +12,7 @@ export function isWifi() {
         signature: data.signature
       };
 
-      // if (window.wx && window.wx.config) {
+      if (window.wx && window.wx.config) {
       window.wx.config({
         ...shareConfig,
         jsApiList: ['getNetworkType']
@@ -22,18 +20,17 @@ export function isWifi() {
       window.wx.ready(() => {
         window.wx.getNetworkType({
           success: function(res: any) {
-            return res.networkType === 'wifi' ? true : false; // 返回网络类型2g，3g，4g，wifi
+            is_wifi= res.networkType === 'wifi' ? true : false; // 返回网络类型2g，3g，4g，wifi
           }
         });
       });
-      // }
+      }
     })
     .catch(e => {
       console.error('get config error:', e);
       return true;
     });
-  // }
-  return wifi;
+    return is_wifi;
 }
 
 // wx.ready(function () {

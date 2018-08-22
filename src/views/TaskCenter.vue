@@ -51,10 +51,10 @@ export default class TaskList extends Vue {
     }
   }
   private goToDeatil(tid: string, type: string) {
-    // if (isWifi()) {
-    //   this.$toast('任务期间禁止使用WIFI网络，请先切至3G或4G网络');
-    //   return;
-    // } else {
+    if (isWifi()) {
+      this.$toast('任务期间禁止使用WIFI网络，请先切至3G或4G网络');
+      return;
+    } else {
     getCreateTask(type, tid)
       .then((res: any) => {
         let info = 'taskbuy';
@@ -73,7 +73,7 @@ export default class TaskList extends Vue {
       .catch((err: { message: string }) => {
         this.$toast(err.message);
       });
-    // }
+    }
   }
 }
 </script>

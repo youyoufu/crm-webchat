@@ -60,7 +60,8 @@ export default class Task extends Vue {
     console.log('复制成功');
   }
   private send() {
-    this.$toast(isWifi().toString());
+    UploadImg();
+    // this.$toast(isWifi().toString());
     // this.products = getTaskList();
     // console.log(123,this.products);
     // .then(() => {
@@ -71,7 +72,6 @@ export default class Task extends Vue {
     // });
   }
   private created() {
-    UploadImg();
     // alert('init page...');
     // this.products = getTaskList();
     let dd = this.$store.dispatch(actions.getAllProducts);
