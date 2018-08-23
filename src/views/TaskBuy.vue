@@ -200,7 +200,7 @@ export default class TaskLoad extends Vue {
       .then((res: freeInfo) => {
         this.$loading(false);
         this.initData = res;
-        this.initData.taobao_key = '€RORXbceOGYJ€';
+        // this.initData.taobao_key = '€RORXbceOGYJ€';
         this.checkStatus();
       })
       .catch((err: { message: string }) => {
