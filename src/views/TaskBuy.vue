@@ -137,7 +137,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/taskfree';
 import { getCreateTask, setCloseTask } from '@/api/task';
 import UploadImg from '@/components/UploadImg.vue';
-import { getQuery } from '@/util/cookie';
+import { getQuery ,getCookie} from '@/util/cookie';
 
 @Component({
   components: {

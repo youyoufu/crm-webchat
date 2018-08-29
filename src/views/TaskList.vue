@@ -12,21 +12,25 @@
         <span v-else class="btn-gray">挖这个宝</span>
       </li>
     </ul>
-    <div class="btn-block"><a  class="btn-hollow" href="/">前往个人中心</a> </div>
+    <div class="btn-block">
+      <a class="btn-hollow" :href="user">前往个人中心</a>
+    </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { getTasksList, TasksListData, getCreateTask } from "@/api/task";
-import { getQuery } from "@/util/cookie";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { getTasksList, TasksListData, getCreateTask } from '@/api/task';
+import { getQuery, getCookie } from '@/util/cookie';
+import { accountToken } from '@/util/session';
 
 @Component({
   components: {}
 })
 export default class TaskList extends Vue {
   private taskData: Array<TasksListData> = [];
-  private listType: string = getQuery("type") || "free";
-  private isFree: boolean = getQuery("type") === "free";
+  private listType: string = getQuery('type') || 'free';
+  private isFree: boolean = getQuery('type') === 'free';
+  private user: string = '/' + getCookie('accountToken');
   private created() {
     getTasksList(this.listType)
       .then((res: any) => {
@@ -39,9 +43,9 @@ export default class TaskList extends Vue {
   private goToDeatil(tid: string) {
     getCreateTask(this.listType, tid)
       .then((res: any) => {
-        let url = "/taskbuy?tid=" + res.task_id;
+        let url = '/taskbuy?tid=' + res.task_id;
         if (!this.isFree) {
-          url = "/taskrefund?tid=" + res.task_id;
+          url = '/taskrefund?tid=' + res.task_id;
         }
         window.location.href = url;
       })
@@ -52,8 +56,8 @@ export default class TaskList extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-@import "../scss/theme.scss";
-@import "../scss/_px2px.scss";
+@import '../scss/theme.scss';
+@import '../scss/_px2px.scss';
 .tasklist {
   font-size: 28px;
   padding: 20px 20px;
@@ -87,7 +91,6 @@ export default class TaskList extends Vue {
     .btn-hollow {
       text-decoration: none;
     }
-
   }
 }
 </style>
