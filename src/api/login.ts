@@ -1,5 +1,5 @@
 import { internalFetch } from '@/util/fetch';
-import { setCookie } from '@/util/cookie';
+import { setCookie,getCookie } from '@/util/cookie';
 import { accountToken } from '@/util/session';
 import { stringifPath } from './index';
 let { devServer } = require('../../.config.js');

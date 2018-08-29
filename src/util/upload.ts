@@ -1,4 +1,4 @@
-import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
+import { importWxJS, ShareConfig, getWXconfig } from '@/util/importwx';
 
 export function UploadImg() {
   Promise.all([getWXconfig(window.location.href), importWxJS()])
@@ -12,29 +12,52 @@ export function UploadImg() {
       };
 
       if (window.wx && window.wx.config) {
-      window.wx.config({
-        ...shareConfig,
-        jsApiList: ['chooseImage', 'uploadImage']
-      });
-      window.wx.ready(() => {
-        window.wx.chooseImage({
-          count: 1, //设置一次能选择的图片的数量
-          sizeType: ['compressed'], //'original',  指定是原图还是压缩,默认二者都有
-          sourceType: ['album'], //, 'camera'可以指定来源是相册还是相机,默认二者都有
-          success: function(res: any) {
-            console.log(res);
-            //微信返回了一个资源对象
-            //res.localIds 是一个数组　保存了用户一次性选择的所有图片的信息
-            // images.localId = res.localIds; //把图片的路径保存在images[localId]中--图片本地的id信息，用于上传图片到微信浏览器时使用
-            //  her.upNum+=res.localIds.length;
-            console.log(222, res);
-            ulLoadToWechat(res.localIds[0]); //把这些图片上传到微信服务器  一张一张的上传
-          },
-          fail: function(err: string) {
-            console.log('UploadIng error:', err);
-          }
+        window.wx.config({
+          ...shareConfig,
+          jsApiList: ['chooseImage', 'uploadImage', 'downloadImage', 'getLocalImgData']
         });
-      });
+        window.wx.ready(() => {
+          window.wx.chooseImage({
+            count: 1, //设置一次能选择的图片的数量
+            sizeType: ['compressed'], //'original',  指定是原图还是压缩,默认二者都有
+            sourceType: ['album'], //, 'camera'可以指定来源是相册还是相机,默认二者都有
+            success: function(res: any) {
+              console.log(res);
+              //微信返回了一个资源对象
+              //res.localIds 是一个数组　保存了用户一次性选择的所有图片的信息
+              // images.localId = res.localIds; //把图片的路径保存在images[localId]中--图片本地的id信息，用于上传图片到微信浏览器时使用
+              //  her.upNum+=res.localIds.length;
+              window.wx.uploadImage({
+                localId: res.localIds, //图片在本地的id
+                success: function(res1: any) {
+                  //上传图片到微信成功的回调函数   会返回一个媒体对象  存储了图片在微信的id
+                  // images.serverId.push(res.serverId);
+                  window.wx.downloadImage({
+                    serverId: res1.serverId, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function(res2: any) {
+                      var localId = res2.localId; // 返回图片下载后的本地ID
+                      //通过下载的本地的ID获取的图片的base64数据，通过对数据的转换进行图片的保存
+                      window.wx.getLocalImgData({
+                        localId: localId, // 图片的localID
+                        success: function(res3: any) {
+                          var localData = res3.localData; // localData是图片的base64数据，可以用img标签显示
+                          console.log(localData);
+                        }
+                      });
+                    }
+                  });
+                },
+                fail: function(res: {}) {
+                  alert(JSON.stringify(res));
+                }
+              });
+            },
+            fail: function(err: string) {
+              console.log('UploadIng error:', err);
+            }
+          });
+        });
       }
     })
     .catch(e => {
@@ -42,20 +65,7 @@ export function UploadImg() {
       return true;
     });
 }
-function ulLoadToWechat(localId: string) {
-  window.wx.uploadImage({
-    localId, //图片在本地的id
-    success: function(res: {}) {
-      console.log(1111, res);
-      return res;
-      //上传图片到微信成功的回调函数   会返回一个媒体对象  存储了图片在微信的id
-      // images.serverId.push(res.serverId);
-    },
-    fail: function(res: {}) {
-      alert(JSON.stringify(res));
-    }
-  });
-}
+// function ulLoadToWechat(localId: string) {}
 // function UploadIng() {
 //   //拍照或从手机相册中选图接口
 //   window.wx.chooseImage({

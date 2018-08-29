@@ -38,7 +38,7 @@ export default class TaskList extends Vue {
   };
   private account: string = getQuery("account") || "";
   private created() {
-    if (!hasLogin()) {
+    if (!hasLogin(this.account)) {
       login(this.account, "taskcenter");
     } else {
       getTasksList("all")

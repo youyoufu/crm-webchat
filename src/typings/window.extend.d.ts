@@ -68,6 +68,8 @@ declare global {
       uploadImage: (data: {}) => void;
       chooseImage: (data: {}) => void;
       getNetworkType: (data: {}) => void;
+      downloadImage: (data: {}) => void;
+      getLocalImgData: (data: {}) => void;
       hideMenuItems: (opt: { menuList: Array<string> }) => void;
       onMenuShareAppMessage: (data: WxShareData) => void;
       onMenuShareTimeline: (data: WxShareData) => void;

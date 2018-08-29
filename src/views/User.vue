@@ -68,7 +68,7 @@ export default class User extends Vue {
     refund_list: []
   };
   private created() {
-    if (!hasLogin()) {
+    if (!hasLogin(this.account)) {
       login(this.account, "");
     } else {
       getUserCenter()

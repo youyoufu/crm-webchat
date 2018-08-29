@@ -93,7 +93,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiredAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to autologin.
-    if (!hasLogin()) {
+    if (!hasLogin('')) {
       console.log(1111);
       login(getCookie(accountToken) || '','');
     } else {

@@ -60,7 +60,7 @@ export default class TaskFree extends Vue {
   private key = '';
   private account: string = getQuery('account') || '';
   private created() {
-    if (!hasLogin()) {
+    if (!hasLogin(this.account)) {
       login(this.account, 'invite');
     } else {
       let that=this;

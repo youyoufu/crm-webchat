@@ -12,7 +12,7 @@ import { login } from "@/api/login";
 @Component
 export default class App extends Vue {
   private created() {
-    if (!hasLogin()) {
+    if (!hasLogin('')) {
       // login();
         // .then(res => {
         //   saveLogin("youyoufu");

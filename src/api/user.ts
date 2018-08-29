@@ -13,7 +13,7 @@ const _user = {};
 
 /* 获取用户信息 */
 export function getUserInfo() {
-  return hasLogin() ? get(stringifPath(PATH)) : Promise.resolve({});
+  return hasLogin('') ? get(stringifPath(PATH)) : Promise.resolve({});
 }
 export interface userCenterInfo {
   name: string;
