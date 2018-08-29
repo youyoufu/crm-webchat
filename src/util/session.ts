@@ -4,9 +4,10 @@ export const accountToken = 'my-store-token-account';
 /* 检查是否登陆 */
 export function hasLogin(account: string) {
   if (account !== getCookie(accountToken)) {
-    return !!getCookie(TOKEN);
-  } else {
     return false;
+  } else {
+    return !!getCookie(TOKEN);
+
   }
 }
 
