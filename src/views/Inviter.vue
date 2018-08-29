@@ -65,10 +65,10 @@ export default class TaskFree extends Vue {
     } else {
       let that=this;
       let config = {
-        shareTitle: '111sssssss',
+        shareTitle: '快来参加我们的免费领赠品活动',
         shareUrl: 'http://wx.niurouzhou.com/share?mobile=13844442222',
         shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
-        shareContent: '444555666777888',
+        shareContent: '特别说明：所有活动免费，有赠品，还有红包哦！',
         successCallback: function() {
           that.$toast('分享成功～');
         }
