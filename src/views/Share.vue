@@ -2,17 +2,17 @@
   <div class="share">
     <div class="center">
       <p class="tips1">您的邀请人为：
-        <span class="red">{{mobile}}</span>
+        <span class="red">{{invitor_phone}}</span>
       </p>
       <p class="tips1">长按二维码，先关注公众号，然后再进行注册。</p>
-      <!-- <img  :src=""> -->
+      <img  :src="codeimg" class="ewmcode">
     </div>
     <div class="bgcolor tips big">请绑定手机号和淘宝账户</div>
 
     <div class="share-cont">
       <input v-model="phone" placeholder="输入手机号" />
       <div class="psw">
-        <input v-model="user" placeholder="输入淘宝账户" />
+        <input v-model="account" placeholder="输入淘宝账户" />
         <div class="upload">
           <span class="hollow">上传账户截图</span>
         </div>
@@ -32,28 +32,31 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { actions } from '@/store/modules/user/CONSTANTS';
-import { BindAccount, LoginInfo } from '@/api/login';
-import { getQuery } from '@/util/cookie';
+import { getShareInfoCode, saveAccountInfo } from '@/api/invite';
+import { getCookie,getQuery } from '@/util/cookie';
+import { accountToken } from '@/util/session';
 
 @Component({
   components: {}
 })
 export default class Login extends Vue {
-  private user: string = '';
+  private seller_account: string = getCookie(accountToken)||'';
+  private invitor_phone: string = getQuery('mobile');
   private phone: string = '';
-  private mobile: string = getQuery('mobile') || '';
-  private info: string = getQuery('url') || '';
+  private account: string = '';
+  private codeimg:string='';
+  private creater(){
+    getShareInfoCode(this.seller_account) .then((res: any) => {
+      this.codeimg=res.qcode;
+    }).catch((e: Error) => {
+        this.$toast('新增账号失败');
+    });
+  }
   private login() {
-    if (this.user && this.phone) {
-      console.log(1111);
-      //   let cancelLoading = this.$loading();
-      BindAccount(this.user, this.phone, 'taobao')
+    if (this.account && this.phone) {
+      saveAccountInfo(this.phone,this.account, this.seller_account,this.invitor_phone)
         .then((res: any) => {
-          // cancelLoading();
-          // console.log('BindAccount',res);
-
-          // let url = '/' + this.info + '?tid=' + this.taskid;
-          // window.location.href = url;
+          window.location.href = '/taskcenter?account='+this.seller_account;
         })
         .catch((e: Error) => {
           this.$toast('新增账号失败');
@@ -84,6 +87,10 @@ export default class Login extends Vue {
     line-height: 44px;
     padding-bottom: 20px;
     text-align: center;
+  }
+  .ewmcode{
+    width:130px;
+    height:130px;
   }
   .center {
     text-align: center;

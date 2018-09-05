@@ -1,11 +1,10 @@
 <template>
   <div class="inviter">
-    <!-- <img class="banner" :src="initData.url" /> -->
     <div class="tips1">点击右上角，可直接分享到朋友圈和微信群进行邀请。</div>
     <div class="tips1 mtop50">或者复制邀请链接，发给被邀请人，您的邀请链接为：</div>
     <div class="copy-block">
-      <input v-model="initData.key_word" readonly />
-      <div class="btn-hollow copy" v-clipboard:copy="initData.key_word" v-clipboard:success="onCopy">
+      <input v-model="shareurl" readonly />
+      <div class="btn-hollow copy" v-clipboard:copy="shareurl" v-clipboard:success="onCopy">
         <span class="hollow">点击复制</span>
       </div>
     </div>
@@ -26,36 +25,32 @@
         <span class="order">是否邀请成功</span>
         <span class="money">积分收入</span>
       </div>
-      <div class="record body">
-        <span class="time">item.execute_time</span>
-        <span class="order">item.id</span>
-        <span class="money">item.refund</span>
+      <div class="record body" v-for="item in initData.invite_list">
+        <span class="time">{{item.name}}</span>
+        <span class="order">{{item.success=='1'?'成功':'失败'}}</span>
+        <span class="money">{{item.bonus_point}}</span>
       </div>
     </div>
-    v-for="item in userCenter.refund_list"
+    
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { getQuery } from '@/util/cookie';
 import { sharePage } from '@/util/share';
-import { setRefundTaobaoKey, RefundInfo } from '@/api/taskrefund';
-import { getCreateTask } from '@/api/task';
+import { getInviteInfo, shareInfo } from '@/api/invite';
 import { login } from '@/api/login';
 import { hasLogin, accountToken } from '@/util/session';
 @Component({
   components: {}
 })
 export default class TaskFree extends Vue {
-  private tid = '';
-  private initData: RefundInfo = {
-    key_word: '',
-    task_order_id: '',
-    status: '',
-    task_no: '',
-    gift: '',
-    url: '',
-    square_url: ''
+  private shareurl = '';
+  private initData: shareInfo = {
+    name:'',
+    phone: '',
+    status:'',
+    invite_list: []
   };
   private key = '';
   private account: string = getQuery('account') || '';
@@ -64,20 +59,20 @@ export default class TaskFree extends Vue {
       login(this.account, 'invite');
     } else {
       let that=this;
-      let config = {
-        shareTitle: '快来参加我们的免费领赠品活动',
-        shareUrl: 'http://wx.niurouzhou.com/share?mobile=13844442222',
-        shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
-        shareContent: '特别说明：所有活动免费，有赠品，还有红包哦！',
-        successCallback: function() {
-          that.$toast('分享成功～');
-        }
-      };
-      sharePage(config);
-      getCreateTask('refund', getQuery('tid'))
-        .then((res: any) => {
-          //数据逻辑处理
-          this.initData = res;
+      getInviteInfo().then((res: any) => {
+        this.shareurl='http://wx.niurouzhou.com/share?mobile='+this.initData.phone;
+            //数据逻辑处理
+            this.initData = res;
+                  let config = {
+                  shareTitle: '快来参加我们的免费领赠品活动',
+          shareUrl: this.shareurl,
+          shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
+          shareContent: '特别说明：所有活动免费，有赠品，还有红包哦！',
+          successCallback: function() {
+            that.$toast('分享成功～');
+          }
+        };
+        sharePage(config);
         })
         .catch((err: { message: string }) => {
           this.$toast(err.message);
@@ -86,19 +81,6 @@ export default class TaskFree extends Vue {
   }
   private onCopy() {
     this.$toast('复制成功');
-  }
-  private commitTaoBaoKey() {
-    setRefundTaobaoKey(this.initData.task_order_id, this.key)
-      .then((res: any) => {
-        this.$toast('淘口令提交成功');
-        //数据逻辑处理
-        setTimeout(() => {
-          window.location.href = '/tasklist?type=refund';
-        }, 3000);
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
   }
 }
 </script>

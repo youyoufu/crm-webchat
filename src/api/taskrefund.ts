@@ -17,9 +17,4 @@ export function setRefundTaobaoKey(taskOrderId: string, taobaoKey: string) {
     body: { taskOrderId, taobaoKey }
   });
 }
-// export function getRefundInfo(taskOrderId: string) {
-//   return internalFetch('POST')(true)(stringifPath(getRefundInfoPATH), {
-//     body: { taskOrderId}
-//   });
-// }
 
