@@ -78,7 +78,6 @@ export default class TaskList extends Vue {
     }
   }
   private goToDeatil(tid: string, type: string) {
-   console.log(333)
     isWifi(tid, type, this.getNetwork);
   }
 }

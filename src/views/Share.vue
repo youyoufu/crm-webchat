@@ -45,7 +45,7 @@ export default class Login extends Vue {
   private phone: string = '';
   private account: string = '';
   private codeimg:string='';
-  private creater(){
+  private created(){
     getShareInfoCode(this.seller_account) .then((res: any) => {
       this.codeimg=res.qcode;
     }).catch((e: Error) => {

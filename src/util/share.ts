@@ -1,7 +1,6 @@
 import { importWxJS, ShareConfig, getWXconfig, getClient } from '@/util/importwx';
 
 export function sharePage(config: any) {
-  console.log(333);
   let { shareUrl, shareTitle, shareContent, shareImg, successCallback } = config;
   Promise.all([getWXconfig(window.location.href), importWxJS()])
     .then(([data]: [ShareConfig, {}]) => {

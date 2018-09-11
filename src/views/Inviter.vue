@@ -25,13 +25,13 @@
         <span class="order">是否邀请成功</span>
         <span class="money">积分收入</span>
       </div>
-      <div class="record body" v-for="item in initData.invite_list">
+      <div class="record body" v-for="item in initData.invite_list" :key="item.phone">
         <span class="time">{{item.name}}</span>
         <span class="order">{{item.success=='1'?'成功':'失败'}}</span>
         <span class="money">{{item.bonus_point}}</span>
       </div>
     </div>
-    
+
   </div>
 </template>
 <script lang="ts">
@@ -47,9 +47,9 @@ import { hasLogin, accountToken } from '@/util/session';
 export default class TaskFree extends Vue {
   private shareurl = '';
   private initData: shareInfo = {
-    name:'',
+    name: '',
     phone: '',
-    status:'',
+    status: '',
     invite_list: []
   };
   private key = '';
@@ -58,25 +58,28 @@ export default class TaskFree extends Vue {
     if (!hasLogin(this.account)) {
       login(this.account, 'invite');
     } else {
-      let that=this;
-      getInviteInfo().then((res: any) => {
-        this.shareurl='http://wx.niurouzhou.com/share?mobile='+this.initData.phone;
-            //数据逻辑处理
-            this.initData = res;
-                  let config = {
-                  shareTitle: '快来参加我们的免费领赠品活动',
+    let that = this;
+    getInviteInfo()
+      .then((res: any) => {
+        this.initData = res;
+        this.shareurl = 'http://wx.niurouzhou.com/share?mobile=' + this.initData.phone;
+        //数据逻辑处理
+        console.log(222,this.initData)
+        let config = {
+          shareTitle: '快来参加我们的免费领赠品活动',
           shareUrl: this.shareurl,
-          shareImg: 'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
+          shareImg:
+            'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
           shareContent: '特别说明：所有活动免费，有赠品，还有红包哦！',
           successCallback: function() {
             that.$toast('分享成功～');
           }
         };
         sharePage(config);
-        })
-        .catch((err: { message: string }) => {
-          this.$toast(err.message);
-        });
+      })
+      .catch((err: { message: string }) => {
+        this.$toast(err.message);
+      });
     }
   }
   private onCopy() {
