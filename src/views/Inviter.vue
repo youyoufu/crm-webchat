@@ -62,7 +62,7 @@ export default class TaskFree extends Vue {
     getInviteInfo()
       .then((res: any) => {
         this.initData = res;
-        this.shareurl = 'http://wx.niurouzhou.com/share?mobile=' + this.initData.phone;
+        this.shareurl = 'http://wx.niurouzhou.com/share?mobile=' + this.initData.phone+'&account='+this.account;
         //数据逻辑处理
         console.log(222,this.initData)
         let config = {

@@ -40,7 +40,7 @@ import { accountToken,invitorPhone,taobaoAccount,myPhone } from '@/util/session'
   components: {}
 })
 export default class Share extends Vue {
-  private seller_account: string = getCookie(accountToken)||'';
+  private seller_account: string = getQuery('account')||'';
   private invitor_phone: string = getQuery('mobile');
   private phone: string = '';
   private account: string = '';
