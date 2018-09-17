@@ -30,33 +30,44 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { actions } from '@/store/modules/user/CONSTANTS';
-import { getShareInfoCode, saveAccountInfo } from '@/api/invite';
-import { getCookie,getQuery,setCookie } from '@/util/cookie';
-import { accountToken,invitorPhone,taobaoAccount,myPhone } from '@/util/session';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { actions } from "@/store/modules/user/CONSTANTS";
+import { getShareInfoCode, saveAccountInfo } from "@/api/invite";
+import { getCookie, getQuery, setCookie } from "@/util/cookie";
+import {
+  accountToken,
+  invitorPhone,
+  taobaoAccount,
+  myPhone
+} from "@/util/session";
 
 @Component({
   components: {}
 })
 export default class Share extends Vue {
-  private seller_account: string = getQuery('account')||'';
-  private invitor_phone: string = getQuery('mobile');
-  private phone: string = '';
-  private account: string = '';
-  private codeimg:string='';
-  private created(){
-    getShareInfoCode(this.seller_account) .then((res: any) => {
-      this.codeimg=res.qcode;
-    }).catch((e: Error) => {
+  private seller_account: string = getQuery("account") || "";
+  private invitor_phone: string = getQuery("mobile");
+  private phone: string = "";
+  private account: string = "";
+  private codeimg: string = "";
+  private created() {
+    getShareInfoCode(this.seller_account)
+      .then((res: any) => {
+        this.codeimg = res.qcode;
+      })
+      .catch((e: Error) => {
         this.$toast(e.message);
-    });
+      });
   }
   private login() {
     if (this.account && this.phone) {
-      setCookie(myPhone,this.phone);
-      setCookie(taobaoAccount,this.account);
-      setCookie(invitorPhone,this.invitor_phone);
+      setCookie(myPhone, this.phone);
+      setCookie(taobaoAccount, this.account);
+      setCookie(invitorPhone, this.invitor_phone);
+      setTimeout(() => {
+        window.location.href = "/taskcenter?account=" + this.seller_account;
+      }, 3000);
+
       // saveAccountInfo(this.phone,this.account, this.seller_account,this.invitor_phone)
       //   .then((res: any) => {
       //     window.location.href = '/taskcenter?account='+this.seller_account;
@@ -69,14 +80,14 @@ export default class Share extends Vue {
       //     // this.$router.push(redirect ? { path: redirect } : '/');
       //   });
     } else {
-      this.$toast('账号及电话号码不允许为空');
+      this.$toast("账号及电话号码不允许为空");
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .share {
   .tips1 {
     margin: 10px auto;
@@ -91,9 +102,9 @@ export default class Share extends Vue {
     padding-bottom: 20px;
     text-align: center;
   }
-  .ewmcode{
-    width:220px;
-    height:220px;
+  .ewmcode {
+    width: 220px;
+    height: 220px;
   }
   .center {
     text-align: center;

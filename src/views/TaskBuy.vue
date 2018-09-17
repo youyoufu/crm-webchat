@@ -138,6 +138,7 @@ import { getFreeOrderDetail, freeInfo, setOrderNo, setCheckTBkey } from '@/api/t
 import { getCreateTask, setCloseTask } from '@/api/task';
 import UploadImg from '@/components/UploadImg.vue';
 import { getQuery ,getCookie} from '@/util/cookie';
+import {  accountToken } from "@/util/session";
 
 @Component({
   components: {
@@ -187,7 +188,7 @@ export default class TaskLoad extends Vue {
       .then((res: freeInfo) => {
         this.$toast('订单已关闭');
         setTimeout(() => {
-          window.location.href = '/taskcenter';
+          window.location.href = '/taskcenter?account='+getCookie(accountToken);
         }, 3000);
       })
       .catch((err: { message: string }) => {
