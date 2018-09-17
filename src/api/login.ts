@@ -17,7 +17,13 @@ export interface LoginInfo {
 export function login(account: string, url: string) {
   if (account) {
     setCookie(accountToken, account);
-    let localurl = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account) + '&account=' + account+'&invitor_phone=' + getCookie(invitorPhone) + '&phone=' + getCookie(myPhone)  + '&taobao_account=' + getCookie(taobaoAccount);
+    let invitor_phone = getCookie(invitorPhone);
+    let phone = getCookie(myPhone);
+    let taobao_account = getCookie(taobaoAccount);
+    let localurl = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account) + '&account=' + account + '&invitor_phone=' + invitor_phone + '&phone=' + phone + '&taobao_account=' + taobao_account;
+    setCookie(invitorPhone, '');
+    setCookie(myPhone, '');
+    setCookie(taobaoAccount, '');
     location.href = localurl;
   }
   else {

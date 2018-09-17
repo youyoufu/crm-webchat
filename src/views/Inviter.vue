@@ -55,7 +55,7 @@ export default class TaskFree extends Vue {
   private account: string = getQuery("account") || "";
   private userurl: string = "";
   private created() {
-    this.userurl = "http://wx.niurouzhou.com/taskcenrer?account=" + this.account;
+    this.userurl = "http://wx.niurouzhou.com/taskcenter?account=" + this.account;
     if (!hasLogin(this.account)) {
       login(this.account, "invite");
     } else {
