@@ -33,13 +33,13 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { actions } from '@/store/modules/user/CONSTANTS';
 import { getShareInfoCode, saveAccountInfo } from '@/api/invite';
-import { getCookie,getQuery } from '@/util/cookie';
-import { accountToken } from '@/util/session';
+import { getCookie,getQuery,setCookie } from '@/util/cookie';
+import { accountToken,invitorPhone,taobaoAccount,myPhone } from '@/util/session';
 
 @Component({
   components: {}
 })
-export default class Login extends Vue {
+export default class Share extends Vue {
   private seller_account: string = getCookie(accountToken)||'';
   private invitor_phone: string = getQuery('mobile');
   private phone: string = '';
@@ -54,17 +54,20 @@ export default class Login extends Vue {
   }
   private login() {
     if (this.account && this.phone) {
-      saveAccountInfo(this.phone,this.account, this.seller_account,this.invitor_phone)
-        .then((res: any) => {
-          window.location.href = '/taskcenter?account='+this.seller_account;
-        })
-        .catch((e: Error) => {
-          this.$toast(e.message);
-          // cancelLoading();
-          // this.$toast(e.message);
-          // let redirect = this.$route.query.redirect;
-          // this.$router.push(redirect ? { path: redirect } : '/');
-        });
+      setCookie(myPhone,this.phone);
+      setCookie(taobaoAccount,this.account);
+      setCookie(invitorPhone,this.invitor_phone);
+      // saveAccountInfo(this.phone,this.account, this.seller_account,this.invitor_phone)
+      //   .then((res: any) => {
+      //     window.location.href = '/taskcenter?account='+this.seller_account;
+      //   })
+      //   .catch((e: Error) => {
+      //     this.$toast('新增账号失败');
+      //     // cancelLoading();
+      //     // this.$toast(e.message);
+      //     // let redirect = this.$route.query.redirect;
+      //     // this.$router.push(redirect ? { path: redirect } : '/');
+      //   });
     } else {
       this.$toast('账号及电话号码不允许为空');
     }

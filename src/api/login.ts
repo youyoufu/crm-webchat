@@ -1,6 +1,6 @@
 import { internalFetch } from '@/util/fetch';
-import { setCookie,getCookie } from '@/util/cookie';
-import { accountToken } from '@/util/session';
+import { setCookie, getCookie } from '@/util/cookie';
+import { accountToken, taobaoAccount, myPhone, invitorPhone } from '@/util/session';
 import { stringifPath } from './index';
 let { devServer } = require('../../.config.js');
 
@@ -17,7 +17,7 @@ export interface LoginInfo {
 export function login(account: string, url: string) {
   if (account) {
     setCookie(accountToken, account);
-    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account)+ '&account=' + account;
+    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account) + '&invitor_phone=' + getCookie(invitorPhone) || '' + '&phone=' + getCookie(myPhone) || '' + '&taobao_account=' + getCookie(taobaoAccount) || '' + '&account=' + account;
   }
   else {
     return;
