@@ -14,8 +14,7 @@
       <p>1.A邀请B，得20积分</p>
       <p>2.B邀请C，B得20积分，A得10积分</p>
       <p>3.C邀请D，C得20积分，B得10积分，A得5积分</p>
-      <p class="mtop50">1积分1元，20积分就是2元，去人中心可兑换积分为现金红包，进行领取红包。（30积分起兑，见
-        <font color="#009688">积分说明</font>）</p>
+      <p class="mtop50">1积分0.1元，20积分就是2元，去人中心可兑换积分为现金红包，进行领取红包。（30积分起兑，去<a :href="userurl" color="#009688">个人中心</a>兑换）</p>
     </div>
     <div class="tips big bgcolor">直接邀请人</div>
     <div class="tips1 ">下面是你邀请的朋友，如果他不太会做活动，记得帮忙给他帮助哦</div>
@@ -35,61 +34,67 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { getQuery } from '@/util/cookie';
-import { sharePage } from '@/util/share';
-import { getInviteInfo, shareInfo } from '@/api/invite';
-import { login } from '@/api/login';
-import { hasLogin, accountToken } from '@/util/session';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { getQuery } from "@/util/cookie";
+import { sharePage } from "@/util/share";
+import { getInviteInfo, shareInfo } from "@/api/invite";
+import { login } from "@/api/login";
+import { hasLogin, accountToken } from "@/util/session";
 @Component({
   components: {}
 })
 export default class TaskFree extends Vue {
-  private shareurl = '';
+  private shareurl = "";
   private initData: shareInfo = {
-    name: '',
-    phone: '',
-    status: '',
+    name: "",
+    phone: "",
+    status: "",
     invite_list: []
   };
-  private key = '';
-  private account: string = getQuery('account') || '';
+  private key = "";
+  private account: string = getQuery("account") || "";
+  private userurl: string = "";
   private created() {
+    this.userurl = "http://wx.niurouzhou.com/taskcenrer?account=" + this.account;
     if (!hasLogin(this.account)) {
-      login(this.account, 'invite');
+      login(this.account, "invite");
     } else {
-    let that = this;
-    getInviteInfo()
-      .then((res: any) => {
-        this.initData = res;
-        this.shareurl = 'http://wx.niurouzhou.com/share?mobile=' + this.initData.phone+'&account='+this.account;
-        //数据逻辑处理
-        console.log(222,this.initData)
-        let config = {
-          shareTitle: '快来参加我们的免费领赠品活动',
-          shareUrl: this.shareurl,
-          shareImg:
-            'http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg',
-          shareContent: '特别说明：所有活动免费，有赠品，还有红包哦！',
-          successCallback: function() {
-            that.$toast('分享成功～');
-          }
-        };
-        sharePage(config);
-      })
-      .catch((err: { message: string }) => {
-        this.$toast(err.message);
-      });
+      let that = this;
+      getInviteInfo()
+        .then((res: any) => {
+          this.initData = res;
+          this.shareurl =
+            "http://wx.niurouzhou.com/share?mobile=" +
+            this.initData.phone +
+            "&account=" +
+            this.account;
+          //数据逻辑处理
+          console.log(222, this.initData);
+          let config = {
+            shareTitle: "快来参加我们的免费领赠品活动",
+            shareUrl: this.shareurl,
+            shareImg:
+              "http://niurouzhou-0709-gz-1251198067.cos.ap-guangzhou.myqcloud.com/17ecfa6c-6ec2-110b-d948-b1ef42344b22.jpeg",
+            shareContent: "特别说明：所有活动免费，有赠品，还有红包哦！",
+            successCallback: function() {
+              that.$toast("分享成功～");
+            }
+          };
+          sharePage(config);
+        })
+        .catch((err: { message: string }) => {
+          this.$toast(err.message);
+        });
     }
   }
   private onCopy() {
-    this.$toast('复制成功');
+    this.$toast("复制成功");
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../scss/theme.scss';
-@import '../scss/_px2px.scss';
+@import "../scss/theme.scss";
+@import "../scss/_px2px.scss";
 .inviter {
   font-size: 28px;
   padding: 0 20px;
