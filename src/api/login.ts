@@ -17,7 +17,9 @@ export interface LoginInfo {
 export function login(account: string, url: string) {
   if (account) {
     setCookie(accountToken, account);
-    location.href = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account) + '&invitor_phone=' + getCookie(invitorPhone) || '' + '&phone=' + getCookie(myPhone) || '' + '&taobao_account=' + getCookie(taobaoAccount) || '' + '&account=' + account;
+    let localurl = stringifPath(PATH) + '?return_url=' + encodeURIComponent(devServer + url + '?account=' + account) + '&account=' + account+'&invitor_phone=' + getCookie(invitorPhone) + '&phone=' + getCookie(myPhone)  + '&taobao_account=' + getCookie(taobaoAccount);
+    console.log(111, localurl)
+    // location.href = localurl;
   }
   else {
     return;
