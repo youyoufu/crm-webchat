@@ -49,7 +49,7 @@ export default class Login extends Vue {
     getShareInfoCode(this.seller_account) .then((res: any) => {
       this.codeimg=res.qcode;
     }).catch((e: Error) => {
-        this.$toast('新增账号失败');
+        this.$toast(e.message);
     });
   }
   private login() {
@@ -59,7 +59,7 @@ export default class Login extends Vue {
           window.location.href = '/taskcenter?account='+this.seller_account;
         })
         .catch((e: Error) => {
-          this.$toast('新增账号失败');
+          this.$toast(e.message);
           // cancelLoading();
           // this.$toast(e.message);
           // let redirect = this.$route.query.redirect;
@@ -89,8 +89,8 @@ export default class Login extends Vue {
     text-align: center;
   }
   .ewmcode{
-    width:130px;
-    height:130px;
+    width:220px;
+    height:220px;
   }
   .center {
     text-align: center;
